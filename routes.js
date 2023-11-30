@@ -104,9 +104,11 @@ console.log("________________________")
     })
 })
 
-app.get('/home',(req,res)=>{
+app.get('/',(req,res)=>{
     res.render("home")
     })
+
+
 app.get('/test',async(req,res)=>{
     console.log(req.session.user._id)
     // let result =await eventData.find();
@@ -172,7 +174,7 @@ else{
 // https://careclub.onrender.com/auth/google?scope=email
 app.get('/click',(req,res)=>{
     console.log("testtt on 102")
-    res.send('<a href="https://careclub.onrender.com/auth/google?scope=email"> Sign up with google</a> ')
+    res.send('<a href="https://careclub-yfue.onrender.com/auth/google?scope=email"> Sign up with google</a> ')
 }) 
 // 
 app.get('/login',(req,res)=>{
@@ -237,7 +239,7 @@ app.get('/logout', function(req, res, next) {
     delete req.user;
     
   
-      res.redirect('/home');
+      res.redirect('/');
     });
   });
 app.post('/register',upload.single("Image_URL"),async(req,res)=>{

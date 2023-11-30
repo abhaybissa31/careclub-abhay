@@ -35,7 +35,7 @@ passport.use(new LocalStrategy( {usernameField:'email'},async(email,password,don
 passport.use(new GoogleStrategy({
     clientID:     "984387427947-kisrs3h1urgmhbb3ekmg5o69tua4cnos.apps.googleusercontent.com",
     clientSecret: "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",
-    callbackURL: "http://localhost:3000/auth/google/callback",
+    callbackURL: "https://careclub-yfue.onrender.com/auth/google/callback",
     passReqToCallback : true,
     scope:[ 'email', 'profile' ]
   },
