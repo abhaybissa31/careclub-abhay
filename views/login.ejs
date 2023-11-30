@@ -1,0 +1,424 @@
+
+
+<html>
+    <head>
+        <!-- Bootstrap links below -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" type="text/css" href="/styles/login.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/solid.js" integrity="sha384-/BxOvRagtVDn9dJ+JGCtcofNXgQO/CCCVKdMfL115s3gOgQxWaX/tSq5V8dRgsbc" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/fontawesome.js" integrity="sha384-dPBGbj4Uoy1OOpM4+aRGfAOc0W37JkROT+3uynUgTHZCHZNMHfGXsmmvYTffZjYO" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    </head>
+<body>
+  <script src="/scripts/login.js"></script>
+
+
+  
+<!-- Navbar -->
+<nav class="navbar lpnav navbar-expand-lg bg-dark navbar-dark mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home"><b>CareClub</b></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/home">Home</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link active" href="/events">Events</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/trending">Trending</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle active"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Profile
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/profile">My Profile</a></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+           
+            
+          </ul>
+  
+      </ul>
+
+    </div>
+  </div>
+</nav>
+<!-- navvvv for mobileeee -->
+<div class="mobnav">
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><b>CareClub</b></a>
+        <a class="nav-link active text-white" aria-current="page" href="/trending">Trending</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- ---------------------------Navbar ends ----------------------->   
+
+      
+
+
+
+ <!-- details modal start here -->
+
+
+
+<!-- Modal -->
+<%if(msg.UserDetails){%>
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Just Few More Steps...</b></h1>
+      </div>
+      <div class="modal-body  mx-auto ">
+        <form action="/details"> 
+          
+          <div class="input-group mb-3 my-5">
+            <span class="input-group-text mx-auto"><b>&nbsp;&nbsp;City Name</b> &nbsp; &nbsp; </span>
+            <div class="form-floating">
+              <input type="text" class="form-control" placeholder="Username" name="u_city" style="padding: 20px;width:20em;" onclick="hide(this)">
+              <label>Please Enter The Name OF City</label>
+            </div>
+          </div>
+          <div class="input-group mb-3 my-5">
+            <span class="input-group-text"><b>Mobile Number </b></span>
+            <div class="form-floating">
+              <input type="tel" class="form-control" placeholder="Username" name="u_phone" style="padding: 20px" onclick="hide(this)">
+              <label>Please Enter The Mobile Number</label>
+            </div>
+          </div>
+          <div class="input-group mb-3 my-5">
+            <span class="input-group-text">Darhpan ID</span>
+            <div class="form-floating">
+              <input type="text" class="form-control" placeholder="Username" name="LIC_NO" style="padding: 20px" onclick="hide(this)">
+              <label>Please Enter The Darhpan ID</label>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right fa-fade"></i>
+          <button type="submit" class="btn btn-primary d-flex mx-auto my-5">Understood</button>
+          
+    </form>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var userdetails_form_modal = new bootstrap.Modal(document.getElementById("staticBackdrop"));
+    var userdetails_button = document.getElementById('staticBackdropLabel');
+    userdetails_button.style.color ="white";
+    userdetails_form_modal.show();
+  });
+</script>
+   <!-- details modal end here -->
+<%}%> 
+
+
+
+
+
+
+
+<!-- Conditionally include the modal structure -->
+<% if (msg.error || msg.success) { %>
+
+
+  <!-- Modal structure -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog" id = "modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalTitle">Error</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id = "modal-body">
+          <!-- Display the error message received from the server -->
+          <span id="errorMessage"></span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript to automatically open the modal when the page loads -->
+  <script>
+    // Function to open the modal
+    function openModal(errorMessage, modalTitle) {
+      var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+
+      document.getElementById('errorMessage').textContent = errorMessage;
+      document.getElementById('modalTitle').textContent = modalTitle;
+      
+      myModal.show();
+    }
+    // Automatically open the modal when the page loads if there's an error message
+    var modalContent = document.querySelector('.modal-header');
+    if ("<%= msg.error %>") {
+  openModal("<%= msg.error %>", "Error");
+  
+  
+  modalContent.style.backgroundColor = "FD5D2A";
+  modalContent.style.color="white";
+ 
+  
+}
+       
+    
+      
+      else if ("<%= msg.success %>"){
+        openModal("<%= msg.success %>","Success");
+        modalContent.style.backgroundColor = "14BB28";
+  modalContent.style.color="white";
+ 
+      }
+      if ("<%= msg.success %>") {
+        console.log("<%= msg.success %>");
+        console.log("<%= msg.success %>");
+  }
+
+
+  </script>
+<% } %>
+
+
+<!-- laptop code begins -->
+<div class="laptop_begin">
+
+
+                     <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                      <path fill="none" d="M0 0h48v48H0z"></path>
+                    </svg>
+   
+
+
+
+    <div class="container" id="container">
+        
+        <div class="form-container sign-up-container">
+          <form class="siform" action="/register" method="post" enctype="multipart/form-data">
+            
+
+            <div class="social-container">
+              <!-- upload photo -->
+              <div class="row">
+                <div class="small-12 medium-2 large-2 columns">
+                  <div class="circle">
+                    <img class="profile-pic" src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" height="150px">
+             
+                  </div>
+                  <div class="p-image">
+                    <i class="fa fa-camera upload-button"></i>
+                     <input class="file-upload" type="file" accept="image/*" name="Image_URL"/>
+                  </div>
+               </div>
+             </div>
+            
+          </div>
+            
+            <!-- <i class="fas fa-user" style="color: #042895;"> -->
+                <input type="text" placeholder="Name" name="name" />
+            </i>
+                <input type="email" placeholder="Email" name="email"/>
+            <input type="password" placeholder="Password" name="password"/>
+            <!-- <input type="text" placeholder="Darpan ID(Only if you have a NGO)"/> -->
+            <!-- <input type="file" name="Image_URL"> -->
+            <input type="submit" class="btn-22" value="Submit">
+            <h5>OR</h5>
+            <button class="gsi-material-button" onclick="location.href='http://localhost:3000/auth/google?scope=email'" type="button">
+                <div class="gsi-material-button-state"></div>
+                <div class="gsi-material-button-content-wrapper">
+                  <div class="gsi-material-button-icon">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                  </div>
+                  <span class="gsi-material-button-contents">Sign up with Google</span>
+                  <span style="display: none;">Sign up with Google</span>
+                </div>
+              </button>
+          </form>
+        </div>
+
+
+        <div class="form-container sign-in-container">
+          <form class="siform" action="/login" method="post">
+            <h1>Sign in</h1>
+            <div class="social-container">
+             <!-- google button -->
+                <button class="gsi-material-button" onclick="location.href='http://localhost:3000/auth/google?scope=email'" type="button">
+                    <div class="gsi-material-button-state"></div>
+                    <div class="gsi-material-button-content-wrapper">
+                      <div class="gsi-material-button-icon">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                          <path fill="none" d="M0 0h48v48H0z"></path>
+                        </svg>
+                      </div>
+                      <span class="gsi-material-button-contents">Sign in with Google</span>
+                      <span style="display: none;">Sign in with Google</span>
+                    </div>
+                  </button>
+              
+            </div>
+            <span>or use your account</span>
+            <input type="email" placeholder="Email" name = "email"/>
+            <input type="password" placeholder="Password" name = "password"/>
+            <a href="#">Forgot your password?</a>
+            <input type="submit" value="login">
+          </form>
+        </div>
+      
+      
+        <div class="overlay-container">
+          <div class="overlay">
+            <div class="overlay-panel overlay-left">
+              <h1>Let's get started</h1>
+              <img src="/images/login/3w.gif">
+              <button class="ghost" id="signIn">Already have an account?</button>
+            </div>
+           
+           
+            <div class="overlay-panel overlay-right">
+              <h1>Get going</h1>
+              <p>Enter details to continue</p>
+              <img src="/images/login/2w.png">
+              <button class="ghost" id="signUp">New User?</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+</div>
+
+
+
+
+<!-- -----------------------------------------mobile design---------------------------------------------- -->
+<div class="mobile_begin">
+  
+
+
+
+  <section class="wrapper">
+    <div class="form signup">
+      <header>Signup</header>
+      <form action="/register" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Full name"  style="border-radius: 30px;width:18em;" />
+        <input type="text" name="email" placeholder="Email address" style="border-radius: 30px;width:18em;"/>
+        
+        <input type="password" name="password" placeholder="Password"  style="border-radius: 30px;width:18em;"/>
+        <input type="file" name="Image_URL" id="upload" hidden/>
+        <label for="upload">Upload Picture</label>
+        <input type="submit" value="Signup" style="border-radius: 30px;"/>
+        <center><b style="font-size:20px;color: aliceblue;">OR</b></center>
+        
+        <button class="gsi-material-button" onclick="location.href='http://localhost:3000/google?scope=email'" type="button">
+          <div class="gsi-material-button-state"></div>
+          <div class="gsi-material-button-content-wrapper">
+            <div class="gsi-material-button-icon">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                <path fill="none" d="M0 0h48v48H0z"></path>
+              </svg>
+            </div>
+            <span class="gsi-material-button-contents">Sign in with Google</span>
+            <span style="display: none;">Sign up with Google</span>
+          </div>
+        </button>
+      </form>
+      <br>
+      
+    </div>
+    <div class="form login">
+      <header>Login</header>
+      <form action="/login" method="post">
+        <center>
+        <input type="text" name="email" placeholder="Email address" required style="border-radius: 30px;width:20em; display: flex; justify-content: center;align-items: center;" />
+        <br><input type="password" name="password" placeholder="Password" required style="border-radius: 30px;width:20em;"/>
+        <br><br><a href="#" style="color: white">Forgot password?</a><br><br>
+        <input type="submit" value="Login" style="border-radius: 30px;width:18em;" />
+        <p style="font-size:30px;color: aliceblue;"><b>OR</b></p>
+        <button class="gsi-material-button" onclick="location.href='http://localhost:3000/auth/google?scope=email'" type="button">
+          <div class="gsi-material-button-state"></div>
+          <div class="gsi-material-button-content-wrapper">
+            <div class="gsi-material-button-icon">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                <path fill="none" d="M0 0h48v48H0z"></path>
+              </svg>
+            </div>
+            <span class="gsi-material-button-contents">Sign in with Google</span>
+            <span style="display: none;">Sign up with Google</span>
+          </div>
+        </button>
+      </center>
+      </form>
+    </div>
+    <script>
+      const wrapper = document.querySelector(".wrapper"),
+        signupHeader = document.querySelector(".signup header"),
+        loginHeader = document.querySelector(".login header");
+      loginHeader.addEventListener("click", () => {
+        wrapper.classList.add("active");
+      });
+      signupHeader.addEventListener("click", () => {
+        wrapper.classList.remove("active");
+      });
+    </script>
+  </section>
+
+  <script>
+    function hide(inputElement) {
+      var label = inputElement.nextElementSibling;
+      label.style.display = "none";
+    }
+  </script>
+
+
+
+</div>
+</body>
+
+</html>
