@@ -1,7 +1,7 @@
 /* Body Styles */
 body {
 /*     background: linear-gradient(to left, #b80a9e, #aa2be6); */
-    background:black;
+    background-color:black;
   }
 .mobile, .mobnav, .sp, .mobcomment{
     display: none;
