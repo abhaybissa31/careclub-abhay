@@ -23,9 +23,9 @@
 
   
 <!-- Navbar -->
-<nav class="navbar lpnav navbar-expand-lg bg-dark navbar-dark mb-4">
+<nav class="navbar lpnav navbar-expand-lg  navbar-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><b>CareClub</b></a>
+    <a class="navbar-brand" href="/"><b>Care Club</b></a>
     <button
       class="navbar-toggler"
       type="button"
@@ -72,7 +72,7 @@
   </div>
 </nav>
 <!-- navvvv for mobileeee -->
-<div class="mobnav">
+<!-- <div class="mobnav">
   <nav class="navbar navbar-expand-lg bg-dark navbar-dark ">
     <div class="container-fluid">
       <a class="navbar-brand" href="#"><b>CareClub</b></a>
@@ -80,7 +80,7 @@
       </div>
     </div>
   </nav>
-</div>
+</div> -->
 
 <!-- ---------------------------Navbar ends ----------------------->   
 
@@ -223,7 +223,9 @@
    
 
 
-
+                    <div class="imgm">
+                      <img src="images/login/model1.png" height="200px" width="200px" style="position: relative;top:1em;z-index:9999;">
+                    </div>
     <div class="container" id="container">
         
         <div class="form-container sign-up-container">
@@ -263,7 +265,8 @@
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
                       <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
                       <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
-                  </div>
+                  </svg>
+                    </div>
                   <span class="gsi-material-button-contents">Sign up with Google</span>
                   <span style="display: none;">Sign up with Google</span>
                 </div>
@@ -273,6 +276,7 @@
 
 
         <div class="form-container sign-in-container">
+      
           <form class="siform" action="/login" method="post">
             <h1>Sign in</h1>
             <div class="social-container">
@@ -372,7 +376,7 @@
       <header>Login</header>
       <form action="/login" method="post">
         <center>
-        <input type="text" name="email" placeholder="Email address" required style="border-radius: 30px;width:20em; display: flex; justify-content: center;align-items: center;" />
+        <input type="text" name="email" placeholder="Email address" required style="border-radius: 30px;width:20em; " />
         <br><input type="password" name="password" placeholder="Password" required style="border-radius: 30px;width:20em;"/>
         <br><br><a href="#" style="color: white">Forgot password?</a><br><br>
         <input type="submit" value="Login" style="border-radius: 30px;width:18em;" />

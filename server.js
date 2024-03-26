@@ -18,7 +18,7 @@ app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.set('views',path.join(__dirname,'/views'));
 mongoose
-  .connect('mongodb+srv://theharshrooprai:Mathurharsh18@cluster0.klmhr5d.mongodb.net/', {
+  .connect('mongodb://127.0.0.1:27017', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

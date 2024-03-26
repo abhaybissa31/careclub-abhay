@@ -1,7 +1,163 @@
 /* Body Styles */
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@400..700&family=Gabriela&family=Labrada:ital,wght@0,100..900;1,100..900&family=Montez&family=Paprika&family=Rubik+Gemstones&display=swap');
+
+
+
+
+:root {
+  --background-size: unquote(min(100vw, 40em));
+}
+.left{
+  /* display: inline-block !important;  */
+  /* height:80%; */
+height:100vh;
+border-right: 1px solid rgb(122, 122, 122);
+  /* border-bottom-left-radius:20px;
+  border-bottom-right-radius:20px; */
+  position: sticky;
+  top: 0;
+ 
+}
+/* text fields for left side bar */
+/* * {
+  box-sizing: border-box;
+}
+
+
+
+html {
+  font-size: calc(100% + 0.5vw);
+} */
+
+/* #left .container {
+  background: linear-gradient(100deg, #402, #006);
+  padding: 2em;
+  display: none;
+  box-sizing: border-box;
+  font-size: calc(100% + 0.5vw);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  background-position: 50% 50%;
+  animation: background-move 10s linear infinite;
+  background-size: 80vw auto, 100% 100%;
+  background-size: unquote('max(100vw, 30em)') auto, 100% 100%;
+} */
+
+@keyframes background-move {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 100vw 0, 0 0;
+    background-position: unquote('max(100vw, 40em)') 0, 0 0;
+  }
+}
+
+#textleft .input-group {
+  box-sizing: border-box;
+  
+  width: 100%;
+  /* max-width:15em; */
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+/* 
+#textleft .input-group__label {
+  padding: 0 0.5em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  font-size: 0.875em;
+  letter-spacing: 0.1em;
+  color: #ccd;
+  color: rgba(255, 220, 255, 0.6);
+  cursor: pointer;
+} */
+
+#textleft .input-group__input {
+  color: #fff;
+
+  font-size: 1rem;
+  line-height: 1;
+  border-style: none;
+  outline: none;
+  height: calc(1em + 1.6em + 0.5em);
+  width: 100%;
+  /* padding: 0.8em 1em; */
+  border: 0.20em solid transparent;
+  background-image: linear-gradient(#000, #000), linear-gradient(120deg, #f09 0%, #0ff 50%, #9f0 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  /* border-radius: 1.4em; */
+  background-size: 200% 100%;
+  transition: background-position 0.8s ease-out;
+}
+
+#textleft .input-group__input:hover{
+  background-position: 100% 0;
+}
+
+#textleft .input-group__input:focus {
+  outline: 2px dashed #ad2b89;
+  outline-offset: 0.5em;
+}
+
+@supports (mix-blend-mode: darken) {
+  #textleft .input-group {
+    position: relative;
+    mix-blend-mode: lighten;
+  }
+
+  #textleft .input-group__label  {
+    position: absolute;
+    /* left: 3em;
+    top: -0.28em; */
+    background: #000;
+  }
+}
+
+
+/* .left #leftform{
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+ 
+} */
+
+
+
+#formdata input[type], #formdata textarea, #formdata select, #formdata button{
+  /* display: none; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 body {
 /*     background: linear-gradient(to left, #b80a9e, #aa2be6); */
-    background-color:black;
+      background-color:red;
+      font-family: "Montez",cursive;
   }
 .mobile, .mobnav, .sp, .mobcomment{
     display: none;
@@ -11,15 +167,7 @@ body {
     /* border-top-right-radius:20px; */
     border-top-left-radius:20px;
 }
-.left{
-     /* display: inline-block !important;  */
-     /* height:80%; */
-     border-bottom-left-radius:20px;
-     border-bottom-right-radius:20px;
-     position: sticky;
-     top: 0;
-    
-}
+
 
 .postcmnt input{
   
@@ -28,10 +176,32 @@ body {
 #input1::placeholder{
   color: white;
 }
+.row2 button{
+  background-color: #1DA1F2;
+  width:200px;
+  color: white;
+  border-radius:20px;
+  /* border: none; */
+}
 
-.row2 input, .row2 label ,.row select, .row textarea, .row2 button{
+.row2 button:hover{
+  /* border: 5px solid ;  */
+  width:200px;
+  border-color:rgb(1, 57, 177);
+  background-color: #1DA1F2;
+}
+.row2 input, .row2 label ,.row select, .row textarea{
+  border-radius: 20px;
+    background-color: black;
+    color: white;
+    border:1px solid rgb(104, 104, 104);
     text-align: center;
-    width:70%;
+    width:80%;
+}
+.row2 input:focus, .row2 textarea:focus, .row2 select:focus, .row2 option:focus, .row2 input:hover, .row2 textarea:hover, .row2 select:hover, .row2 option:hover{
+  background-color: #000;
+  color: white;
+  border-color:blue;
 }
 .lbl1{
     text-align: center;
@@ -43,7 +213,7 @@ body {
 
 .profile-pic{
     /* border-top-right-radius:20px; */
-    border-top-left-radius:20px;
+    /* border-top-left-radius:20px; */
 }
 .cen{
     border-top-right-radius:20px;
@@ -273,6 +443,7 @@ body {
   color: #e74c3c;
   cursor: pointer;
 }
+
 .mobile{
     background-color: black;
     position:fixed;

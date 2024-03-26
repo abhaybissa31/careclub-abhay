@@ -8,6 +8,7 @@ res.render("event",{msg:req.flash()});
 
 
 const getAllEvent=async(req,res,eventData)=>{
+    
     let result1=await userData.findOne({_id:req.session.user._id}) 
     
     if(result1.u_phone == null && result1.u_city == null){
@@ -29,8 +30,10 @@ const getAllEvent=async(req,res,eventData)=>{
     let joinedEvents = result2.filter(event => event.e_joinies.includes(result1._id));
     let no_joined_event = joinedEvents.length;
     //joined event end here
-   console.log();
+   
 
+    // console.log("result1----------",result2)
+    console.log(result1)
     res.render("event", {
         msg: req.flash(),
         events: result2,
@@ -39,7 +42,7 @@ const getAllEvent=async(req,res,eventData)=>{
         cmtpp: result2[0]?.e_comments[0]?.event_profile_image || null, // Use optional chaining to handle potential undefined value
         no_event:no_event,
         no_join_event:no_joined_event,
-        event_joines_info:[]
+        event_joines_info:[],
     });
     }
 }
@@ -83,13 +86,14 @@ else{
       toString(tmp);
       let hastags=[]
        hastags=tmp.split(',');
-       
+       let loc = req.body.e_city.toLowerCase();
+       let lolocation = req.body.e_location.toLowerCase();
        let newEvent= new eventData({
            e_name:req.body.e_name,
            e_date:req.body.e_date,
            e_desc:req.body.e_desc,
-           e_location:req.body.e_location,
-           e_city:req.body.e_city,
+           e_location:lolocation,
+           e_city:loc,
            e_image:downloadurl,
            e_time:req.body.e_time,
            e_timezone:req.body.e_timezone,
@@ -101,8 +105,6 @@ else{
         });
        
         newEvent.save().then((result)=>{
-            console.log("_______________________");
-            console.log(result)
             return res.redirect('/profile');
             
         }).catch((err)=>{
@@ -171,8 +173,8 @@ if(result.length >0){
 //written by abhishek start//
 
 const likeEvent = async (req, res,eventData) => {
-    const eventId = "654fb29d358138ac96e75e75";
-    const userId = "654fae7f088ad3633a700f17";
+    const eventId = req.params.id;
+    const userId = req.params.usrid;
     
     try {
         let result = await eventData.findById({_id:eventId});
@@ -268,11 +270,9 @@ const getComment = async (req, res, eventData) => {
           // eventcreated end here 
         
           //joined event start here 
-          console.log(user.id)
         let joinedEvents = events.filter(event => event.e_joinies.includes(user._id));
         let no_joined_event = joinedEvents.length;
           //joined event end here
-        
         // Send the event data as a JSON response
         res.render("event", { 
         msg: req.flash(), 
@@ -312,7 +312,7 @@ const getComment = async (req, res, eventData) => {
         
        let event=await eventData.findOne({_id:req.params.id})
        let users =await userData.find({_id:{ $in : event.e_joinies }})
-       console.log(users)
+    //    console.log()
        if(users){
        
         req.flash("eventinfofound", "Invalid request");

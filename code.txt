@@ -1,0 +1,5 @@
+                        <!-- <input type="text" name="e_name" placeholder="Event Name" class=" form-control mx-auto txt1"> -->
+                        <input type="text" name="e_hashtags" placeholder="keywords for event.e.g:blood donation camp"
+                          class=" form-control mx-auto txt1"> 
+<textarea name="e_desc" class="form-control mx-auto"></textarea>
+<input type="text" name="e_location" class="form-control mx-auto" placeholder="location📍">

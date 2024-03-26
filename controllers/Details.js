@@ -11,8 +11,9 @@ const addDetails=(userData)=>async(req,res)=>{
         res.render("event",{msg:req.flash()})//abhishek
     }else{
         console.log("your phone number and city is updated from addDetails end point")
-       
-        let result= await userData.updateOne({ _id: req.session.user._id }, { $set: { u_city:req.body.u_city,u_phone:req.body.u_phone,LIC_NO:req.body.LIC_NO} })
+        const city = u_city.toLowerCase();
+
+        let result= await userData.updateOne({ _id: req.session.user._id }, { $set: { u_city:city,u_phone:req.body.u_phone,LIC_NO:req.body.LIC_NO} })
        
         if(result.modifiedCount == 1){
             req.flash("success","profile is updated")

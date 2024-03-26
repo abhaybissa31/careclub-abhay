@@ -46,6 +46,13 @@ app.get('/organised-events',(req,res)=>eventDetails.organisedEvents(req,res,even
 
 //written by abishek start here 
 app.get('/like',(req,res)=> eventDetails.likeEvent(req,res,eventData));
+app.post('/events/like',(req,res)=>{
+    const uid = req.body.uid;
+    // console.log(eventData.findById(uid))
+    eventData.findOneAndUpdate({_id:uid},{$push: { e_likes: uid }})
+    
+
+})
 app.post('/comment/:id/:usrid',(req,res)=> eventDetails.commentEvent(req,res,eventData));
 app.get('/getcomment/:eventId', (req, res) => eventDetails.getComment(req, res, eventData));
 
