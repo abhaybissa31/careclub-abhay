@@ -33,6 +33,6 @@ const Sc=mongoose.Schema({
     
     e_hashtags:{type:Object,required:true},
     e_joinies:[{type:mongoose.Schema.ObjectId,default:null,ref:'userData'}]
-})
+},{timestamps: true})
 const Model=mongoose.model('event',Sc)
 module.exports=Model

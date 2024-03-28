@@ -45,14 +45,18 @@ app.get('/organised-events',(req,res)=>eventDetails.organisedEvents(req,res,even
 
 
 //written by abishek start here 
-app.get('/like',(req,res)=> eventDetails.likeEvent(req,res,eventData));
-app.post('/events/like',(req,res)=>{
-    const uid = req.body.uid;
-    // console.log(eventData.findById(uid))
-    eventData.findOneAndUpdate({_id:uid},{$push: { e_likes: uid }})
+app.get('/like/:id/:pid',(req,res)=> eventDetails.likeEvent(req,res,eventData));
+app.get('/events/seelikes/:id/:pid',(req,res)=>{
+    console.log(req.params.id,req.params.pid)
+})
+// app.post('/events/like',(req,res)=>{
+//     // const {userid, profileid} = req.params;
+//     console.log("--------------------------------------------------------------------------------",userid,profileid);
+//     console.log(eventData.findById(uid))
+//     eventData.findOneAndUpdate({_id:uid},{$push: { e_likes: uid }})
     
 
-})
+// })
 app.post('/comment/:id/:usrid',(req,res)=> eventDetails.commentEvent(req,res,eventData));
 app.get('/getcomment/:eventId', (req, res) => eventDetails.getComment(req, res, eventData));
 
@@ -60,6 +64,35 @@ app.get('/getcomment/:eventId', (req, res) => eventDetails.getComment(req, res, 
 app.get('/trending',islogin,showTrendingHashtag,(req,res)=>trendingDetails.getTrendFile(req,res))
 app.get('/test-tred',(req,res)=>trendingDetails.testadd(req,res))
 app.get('/get-trend',(req,res)=>trendingDetails.getTrendFile(req,res))
+
+
+
+
+
+// --------------------------------------------- Abhay defined routes starts ---------------------- ----------------------------------------
+
+
+app.get('/events/filter/:filter',(req,res)=> eventDetails.filterevents(req,res,eventData));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------- Abhay defined routes ends here --------------------------------------------------------------------------
 //written by abishek end  here 
 
 app.get('/profile',islogin,async(req,res)=>{

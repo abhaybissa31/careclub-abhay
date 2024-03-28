@@ -1,6 +1,8 @@
 const userData = require('../models/userData');
 const { getStorage, ref, uploadBytesResumable,getDownloadURL } = require("firebase/storage");
 const { default: mongoose } = require("mongoose");
+var fs = require('fs');
+
 
 const getEventFile=(req,res)=>{
 res.render("event",{msg:req.flash()});
@@ -8,7 +10,9 @@ res.render("event",{msg:req.flash()});
 
 
 const getAllEvent=async(req,res,eventData)=>{
-    
+    const loggeduser = req.params.id;
+    const postid = req.params.pid;
+    // console.log("Hellooooooooooooooooooo",loggeduser,postid)
     let result1=await userData.findOne({_id:req.session.user._id}) 
     
     if(result1.u_phone == null && result1.u_city == null){
@@ -16,11 +20,13 @@ const getAllEvent=async(req,res,eventData)=>{
         return res.render("event",{msg:req.flash(),events:null})// abhishek 
     }
     else{
-       
+    
     let result2=await eventData.find({e_city:result1.u_city});
     req.flash("check","success ")
+    // console.log(result2);
     
-
+    const liked = false;
+    
     // eventcreated start here 
     let Number_of_event_created = await eventData.find({e_org_id:result1._id});
     let no_event = Number_of_event_created.length;
@@ -32,8 +38,10 @@ const getAllEvent=async(req,res,eventData)=>{
     //joined event end here
    
 
-    // console.log("result1----------",result2)
-    console.log(result1)
+    // console.log(result2.length);
+
+    
+   
     res.render("event", {
         msg: req.flash(),
         events: result2,
@@ -46,6 +54,254 @@ const getAllEvent=async(req,res,eventData)=>{
     });
     }
 }
+
+
+
+
+
+//-------------------------------------------- Abhay defined functions starts here ---------------------------------------------------------
+
+
+
+
+
+
+
+
+const filterevents = async (req, res, eventData) => {
+    const filter = req.params.filter
+    // const query = await eventData.find({});
+    // res.send(`<h1>hello ${query} from functions hehehe</h1>`);
+    let result1 = await userData.findOne({ _id: req.session.user._id })
+
+    // ---------------------------------------ALL OVER IFFING -----------------------------------------------
+    if (filter == "allover") {
+
+
+
+
+        if (result1.u_phone == null && result1.u_city == null) {
+            req.flash("UserDetails", "number and city not found!  ")//abhishek
+            return res.render("event", { msg: req.flash(), events: null })// abhishek 
+        }
+        else {
+
+            let result2 = await eventData.find({});
+            req.flash("check", "success ")
+            // console.log(result2);
+
+            const liked = false;
+
+            // eventcreated start here 
+            let Number_of_event_created = await eventData.find({ e_org_id: result1._id });
+            let no_event = Number_of_event_created.length;
+            // eventcreated end here 
+
+            //joined event start here 
+            let joinedEvents = result2.filter(event => event.e_joinies.includes(result1._id));
+            let no_joined_event = joinedEvents.length;
+            //joined event end here
+
+
+            // console.log(result2.length);
+
+
+
+            res.render("filter", {
+                msg: req.flash(),
+                events: result2,
+                profile: result1,
+                cmt: result2[0]?.e_comments || [], // Use optional chaining to handle potential undefined value
+                cmtpp: result2[0]?.e_comments[0]?.event_profile_image || null, // Use optional chaining to handle potential undefined value
+                no_event: no_event,
+                no_join_event: no_joined_event,
+                event_joines_info: [],
+            });
+
+        }
+        //---------------------if all over ends-----------------------------------
+
+    } else if (filter == "trending") {
+        // res.send(`<h1>hello ${filter} from functions hehehe</h1>`);
+        //-------------------------------------------------------------trending filter Starts ---------------------------------------------
+
+
+
+        if (result1.u_phone == null && result1.u_city == null) {
+            req.flash("UserDetails", "number and city not found!  ")//abhishek
+            return res.render("event", { msg: req.flash(), events: null })// abhishek 
+        }
+        else {
+
+            let result2 = await eventData.find({}).sort({ "e_likes_count": -1 });
+            req.flash("check", "success ")
+            // console.log(result2);
+
+            const liked = false;
+
+            // eventcreated start here 
+            let Number_of_event_created = await eventData.find({ e_org_id: result1._id });
+            let no_event = Number_of_event_created.length;
+            // eventcreated end here 
+
+            //joined event start here 
+            let joinedEvents = result2.filter(event => event.e_joinies.includes(result1._id));
+            let no_joined_event = joinedEvents.length;
+            //joined event end here
+
+
+            // console.log(result2.length);
+
+
+
+            res.render("filter", {
+                msg: req.flash(),
+                events: result2,
+                profile: result1,
+                cmt: result2[0]?.e_comments || [], // Use optional chaining to handle potential undefined value
+                cmtpp: result2[0]?.e_comments[0]?.event_profile_image || null, // Use optional chaining to handle potential undefined value
+                no_event: no_event,
+                no_join_event: no_joined_event,
+                event_joines_info: [],
+            });
+
+        }
+
+
+
+
+        // -------------------------------------------------------------trending filter ends ---------------------------------------------
+    } else if (filter == "recent") {
+        // res.send(`<h1>hello ${filter} from functions hehehe</h1>`);
+//------Recent filter Starts ------------------------------------------------------------ ---------------------------------------------
+
+
+
+
+
+        if (result1.u_phone == null && result1.u_city == null) {
+            req.flash("UserDetails", "number and city not found!  ")//abhishek
+            return res.render("event", { msg: req.flash(), events: null })// abhishek 
+        }
+        else {
+
+            let result2 = await eventData.find({}).sort({ "createdAt": -1 });
+            req.flash("check", "success ")
+            // console.log(result2);
+
+            const liked = false;
+
+            // eventcreated start here 
+            let Number_of_event_created = await eventData.find({ e_org_id: result1._id });
+            let no_event = Number_of_event_created.length;
+            // eventcreated end here 
+
+            //joined event start here 
+            let joinedEvents = result2.filter(event => event.e_joinies.includes(result1._id));
+            let no_joined_event = joinedEvents.length;
+            //joined event end here
+
+
+            // console.log(result2.length);
+
+
+
+            res.render("filter", {
+                msg: req.flash(),
+                events: result2,
+                profile: result1,
+                cmt: result2[0]?.e_comments || [], // Use optional chaining to handle potential undefined value
+                cmtpp: result2[0]?.e_comments[0]?.event_profile_image || null, // Use optional chaining to handle potential undefined value
+                no_event: no_event,
+                no_join_event: no_joined_event,
+                event_joines_info: [],
+            });
+
+        }
+
+
+
+
+
+
+//-------Recent filter Ends ----------------------------------------------------------------------------------------------------------
+
+    }else if (filter == "upcomingevents") {//-------upcomingevents filter Starts--------------------------------------------------------
+
+
+
+
+
+        if (result1.u_phone == null && result1.u_city == null) {
+            req.flash("UserDetails", "number and city not found!  ")//abhishek
+            return res.render("event", { msg: req.flash(), events: null })// abhishek 
+        }
+        else {
+
+            let result2 = await eventData.find({}).sort({ "e_date": +1 });
+            req.flash("check", "success ")
+            // console.log(result2);
+
+            const liked = false;
+
+            // eventcreated start here 
+            let Number_of_event_created = await eventData.find({ e_org_id: result1._id });
+            let no_event = Number_of_event_created.length;
+            // eventcreated end here 
+
+            //joined event start here 
+            let joinedEvents = result2.filter(event => event.e_joinies.includes(result1._id));
+            let no_joined_event = joinedEvents.length;
+            //joined event end here
+
+
+            // console.log(result2.length);
+
+
+
+            res.render("filter", {
+                msg: req.flash(),
+                events: result2,
+                profile: result1,
+                cmt: result2[0]?.e_comments || [], // Use optional chaining to handle potential undefined value
+                cmtpp: result2[0]?.e_comments[0]?.event_profile_image || null, // Use optional chaining to handle potential undefined value
+                no_event: no_event,
+                no_join_event: no_joined_event,
+                event_joines_info: [],
+            });
+
+        }
+
+
+
+//-------upcomingeventsfilter Ends ----------------------------------------------------------------------------------------------------------
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -------------------------------------------- Abhay defined functions ends here ---------------------------------------------------------
+
+
+
+
+
+
+
+
+
 
 
 const createEvent=(eventData,storage)=>async(req,res)=>{
@@ -174,7 +430,8 @@ if(result.length >0){
 
 const likeEvent = async (req, res,eventData) => {
     const eventId = req.params.id;
-    const userId = req.params.usrid;
+    const userId = req.params.pid;
+    
     
     try {
         let result = await eventData.findById({_id:eventId});
@@ -201,7 +458,7 @@ const likeEvent = async (req, res,eventData) => {
         }
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: 'Internal server error' ,"error":error.message});
     }
 }
 
@@ -349,5 +606,6 @@ module.exports={
     likeEvent,//add by abhishek
     commentEvent, // add by abhishek
     getComment, // add by abhishek
-    joinedUsers
+    joinedUsers,
+    filterevents
 }
