@@ -1,4 +1,7 @@
-/* Body Styles */
+@import url('https://fonts.googleapis.com/css2?family=Tac+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+  
+/* @import url('https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@400..700&family=Labrada:ital,wght@0,100..900;1,100..900&family=Montez&family=Paprika&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@400..700&family=Gabriela&family=Labrada:ital,wght@0,100..900;1,100..900&family=Montez&family=Paprika&family=Rubik+Gemstones&display=swap');
 
 
@@ -10,8 +13,8 @@
   'GRAD' 0,
   'opsz' 24
 }
-.halfhr { display: flex;flex-direction: row;} 
-.halfhr:after { content: ""; flex: 1 1; border-bottom: 2px solid #fff7f7;margin: auto;} 
+.halfhr { display: flex;flex-direction: row; color:#e84d74;} 
+.halfhr:after { content: ""; flex: 1 1; border-bottom: 1px solid #e84d74;margin: auto;} 
 
 /* Filter icon end */
 :root {
@@ -20,14 +23,14 @@
 .left{
   /* display: inline-block !important;  */
   /* height:80%; */
-height:95vh;
+height:100vh;
 
 /* border-right: 0.5px solid rgb(122, 122, 122); */
 /* border-right-style: inherit; */
   /* border-bottom-left-radius:20px;
   border-bottom-right-radius:20px; */
   position: sticky;
-  top: 3em;
+  top: 1em;
  
 }
 /* text fields for left side bar */
@@ -116,14 +119,33 @@ html {
 
 
 
-
-
-
-body {
-/*     background: linear-gradient(to left, #b80a9e, #aa2be6); */
-      background-color:red;
-      font-family: "Montez",cursive;
-  }
+.navbar{
+  font-family: "Labrada", system-ui;
+  /* font-weight: 400; */
+  font-size: larger;
+  font-style: normal;
+  background-color: hsla(0, 0%, 100%, .72);
+  backdrop-filter: saturate(180%) blur(20px);
+  position: sticky;
+  z-index:999;
+  
+  top:0;
+  box-shadow:0 1px 0 hsla(240,2%,54%,.4);
+}
+.navbar-brand{
+  font-weight:600;
+  font-size: 40px;
+  font-family: "Tac One", sans-serif;
+}
+body{
+  /* background-color:black; */
+  /* background-color: white; */
+  /* background:linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.5)) ,url("../images/webimg/loginbg.jpg") no-repeat; */
+  background-size: contain;
+    background-color: white;
+    font-family: "Gabriela", system-ui;
+    /* display: none; */
+}
 .mobile, .mobnav, .sp, .mobcomment{
     display: none;
 }
@@ -131,6 +153,7 @@ body {
 .row1{
     /* border-top-right-radius:20px; */
     border-top-left-radius:20px;
+    position: sticky;
 }
 
 
@@ -145,7 +168,7 @@ body {
   background-color: #1DA1F2;
   width:200px;
   color: white;
-  border-radius:20px;
+  /* border-radius:20px; */
   /* border: none; */
 }
 
@@ -156,10 +179,11 @@ body {
   background-color: #1DA1F2;
 }
 .row2 input, .row2 label ,.row select, .row textarea{
-  border-radius: 20px;
-    background-color: black;
-    color: white;
-    border:1px solid rgb(104, 104, 104);
+  /* border-radius: 20px; */
+
+  color: black;
+   background-color: white;
+    /* border:1px solid rgb(104, 104, 104); */
     text-align: center;
     width:80%;
 }
@@ -445,7 +469,7 @@ body {
 }
 
 .mobile{
-    background-color: black;
+    background-color: white;
     position:fixed;
     bottom: 0;
     opacity: 1;

@@ -23,9 +23,9 @@
 
   
 <!-- Navbar -->
-<nav class="navbar lpnav navbar-expand-lg  navbar-dark mb-4">
+<nav class="navbar lpnav navbar-expand-lg mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><b>Care Club</b></a>
+    <a class="navbar-brand" href="/" style="color:#e84d74"><b>Care Club</b></a>
     <button
       class="navbar-toggler"
       type="button"
@@ -40,14 +40,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" href="/" style="color:black;">Home</a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link active" href="/events">Events</a>
+          <a class="nav-link active" href="/events" style="color:black;">Events</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/trending">Trending</a>
+          <a class="nav-link active" aria-current="page" href="/trending" style="color:black;">Trending</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -56,12 +56,13 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
+            style="color:black;"
           >
             Profile
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/profile">My Profile</a></li>
-            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            <li><a class="dropdown-item" href="/profile" style="color:black;">My Profile</a></li>
+            <li><a class="dropdown-item" href="/logout" style="color:black;">Logout</a></li>
            
             
           </ul>
@@ -223,9 +224,6 @@
    
 
 
-                    <div class="imgm">
-                      <img src="images/login/model1.png" height="200px" width="200px" style="position: relative;top:1em;z-index:9999;">
-                    </div>
     <div class="container" id="container">
         
         <div class="form-container sign-up-container">
@@ -278,7 +276,7 @@
         <div class="form-container sign-in-container">
       
           <form class="siform" action="/login" method="post">
-            <h1>Sign in</h1>
+            <h1 style="color:#e84d74">Sign in</h1>
             <div class="social-container">
              <!-- google button -->
                 <button class="gsi-material-button" onclick="location.href='https://careclub-yfue.onrender.com/auth/google?scope=email'" type="button">
@@ -311,14 +309,14 @@
         <div class="overlay-container">
           <div class="overlay">
             <div class="overlay-panel overlay-left">
-              <h1>Let's get started</h1>
+              <h1 style="color:#e84d74">Let's get started</h1>
               <img src="/images/login/3w.gif">
               <button class="ghost" id="signIn">Already have an account?</button>
             </div>
            
            
             <div class="overlay-panel overlay-right">
-              <h1>Get going</h1>
+              <h1 style="color:#e84d74">Get going</h1>
               <p>Enter details to continue</p>
               <img src="/images/login/2w.png">
               <button class="ghost" id="signUp">New User?</button>

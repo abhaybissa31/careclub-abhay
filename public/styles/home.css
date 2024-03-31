@@ -1,16 +1,30 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Tac+One&display=swap');
 /* @import url('https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@400..700&family=Labrada:ital,wght@0,100..900;1,100..900&family=Montez&family=Paprika&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@400..700&family=Gabriela&family=Labrada:ital,wght@0,100..900;1,100..900&family=Montez&family=Paprika&family=Rubik+Gemstones&display=swap');
 .navbar{
-  font-family: "Paprika", system-ui;
-  font-weight: 400;
+  font-family: "Labrada", system-ui;
+  /* font-weight: 400; */
+  font-size: larger;
   font-style: normal;
+  background-color: hsla(0, 0%, 100%, .72);
+  backdrop-filter: saturate(180%) blur(20px);
+  position: sticky;
+  z-index:999;
+  top:0;
+  box-shadow:0 1px 0 hsla(240,2%,54%,.4);
+}
+.navbar-brand{
+  font-weight:600;
+  font-size: 40px;
+  font-family: "Tac One", sans-serif;
 }
 
+.headcare{
+  color:#e84d74;
+  font-family: "Tac One", sans-serif;
+  font-size:45px;
+}
 
-/* font styles */
-
-/* font styles end */
 #desk-topimg{
   background:linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.5)) ,url("/images/webimg/3home.jpg") no-repeat;
   background-size: cover;
@@ -24,9 +38,10 @@
 
 }
 body{
-  background-color:black;
-  color: white;
+  /* background-color:black; */
+  background-color: white;
     font-family: "Gabriela", system-ui;
+    /* display: none; */
 }
 #desk-topimg>h1{
   color: yellow;
@@ -37,7 +52,7 @@ body{
 .a2>h2 {
    width: 100%; 
    text-align: center; 
-   border-bottom: 5px solid purple; 
+   border-bottom: 5px solid #e84d74; 
    line-height: 0.1em;
    font-family: "Labrada",cursive;
    margin: 10px 0 20px; 
@@ -45,7 +60,7 @@ body{
 } 
 
 .a2>h2 span { 
-    background:black; 
+    background:white; 
     padding:0 10px;
 
 }
@@ -110,11 +125,11 @@ body{
     overflow: hidden;
     /* padding: 1em ; */
     /* background-color: rgb(34, 38, 43); */
-    background-color: black;
-    color:rgb(245, 248, 250);
+    background-color: white;
+    color:black;
     border: none;
     border-radius: .28571429rem;
-    box-shadow: 1px 1px 4px 1px blue;
+    box-shadow: 1px 1px 4px 1px #e84d74;
     margin-top:20px;
 }
 
@@ -135,37 +150,17 @@ body{
   /*justify-content: center;*/
   justify-content:center;
 }
-#i1{
-  border-radius:6.3em;
-  border:8px solid whitesmoke;
-}
-.icon{
-  object-fit: cover;
-}
-#i2{
-  border-radius:6.3em;
-  border:8px solid cadetblue;
-}
-#i3{
-  border-radius:6.3em;
-  border:8px solid hotpink;
-}
-#i5{
-  border-radius:6.3em;
-  border:8px solid brown;
-}
-
 .greatcamps>h2 {
    width: 100%; 
    text-align: center; 
-   border-bottom: 5px solid purple; 
+   border-bottom: 5px solid #e84d74; 
    line-height: 0.1em;
    margin: 10px 0 20px; 
    font-size:2.7em;
 } 
 
 .greatcamps>h2 span { 
-    background:black; 
+    background:white; 
     padding:0 10px;
 
 }
@@ -194,7 +189,7 @@ body{
 @media screen and (max-width: 480px) {
  #desk-topimg
  {
-    background:linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.5)) ,url("/image/webimg/2home.jpg") no-repeat;
+    background:linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.5)) ,url("../images/webimg/2home.jpg") no-repeat;
   background-size:100% 100%;
 
   /*width:auto;*/
@@ -215,7 +210,7 @@ body{
 .a2>h2 {
    width: 100%; 
    text-align: center; 
-   border-bottom: 5px solid purple; 
+   border-bottom: 5px solid #e84d74; 
    line-height: 0.1em;
    margin: 10px 0 20px; 
    font-size:1.8em;
@@ -277,7 +272,7 @@ width: 100%;
 .greatcamps>h2 {
    width: 100%; 
    text-align: center; 
-   border-bottom: 5px solid purple; 
+   border-bottom: 5px solid #e84d74; 
    line-height: 0.1em;
    margin: 10px 0 20px; 
    font-size:1.3em;

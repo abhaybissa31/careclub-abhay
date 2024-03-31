@@ -37,7 +37,7 @@
 
 
 
-<body style="background-color: black;" >
+<body style="background-color: #f5f2ef;" >
 
 
 
@@ -45,9 +45,9 @@
 
 
   <!-- Navbar -->
-  <nav class="navbar lpnav navbar-expand-lg bg-dark navbar-dark mb-4">
+  <nav class="navbar lpnav navbar-expand-lg mb-4">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/"><b>CareClub</b></a>
+      <a class="navbar-brand" href="/" style=" font-size: 40px; font-family: Tac One, sans-serif;color:#e84d74;"><b>CareClub</b></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -250,10 +250,10 @@
 
                   <div class="row" >
                     <!-- ---------------------------------Left Sidebar------------------- -->
-                    <div class="left col-lg-3 col-md-3 col-sm-3 me-4 m-2" ><h2  style="color:#1DA1F2;text-align: center;">What's happening?</h2>
-                      <div class="row me-2 row1">
+                    <div class="left col-lg-3 col-md-3 col-sm-3 me-4 " style="background-color: white;border-radius:10px;height:min-content ;" ><h2  style="color:#e84d74;text-align: center;position: relative;;top:0.2em;">What's happening?</h2>
+                      <div class="row row1">
                         <img class="profile-pic " src="/images/event/rmposter.png"
-                          style="padding: 0; max-width: 100%; max-height: 100%; object-fit: contain; margin: 0;" ;
+                          style="padding: 0; max-width: 100%; max-height: 100%; object-fit: contain; margin: 0;cursor: pointer;" ;
                           height="150" />
                         <div class="p-image" style="display: none">
                           <form action="/create-event" method="post" enctype="multipart/form-data" style="color: aliceblue;">
@@ -313,13 +313,13 @@
                     <!-------------------------- Left Sidebar ends------------------ -->
 
                     <!-- ------------------------Center Content--------------------- -->
-                    <div class="cen col-lg-5 col-md-5 col-xs-5 col-sm-7 me-4 text-light">
-                      <div class="row">
+                    <div class="cen col-lg-5 col-md-5 col-xs-5 col-sm-7 me-4 text-light" >
+                      <div class="row" style="background-color: white;border-radius:25px;">
                           <div class="filter col-12 halfhr">
                            
                         <div class="btn-group" style="cursor: pointer;">                                  
                                   
-                                    <span class="material-symbols-outlined  btn-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="material-symbols-outlined" data-bs-toggle="dropdown" aria-expanded="false" style="color:#e84d74;">
                                       filter_alt
                                       </span> 
 
@@ -345,13 +345,13 @@
 
 
                           <!--  harsh   -->
-                          <div class="card mb-3" id="cardmob" style="background-color: black;border: 1px solid rgb(141, 141, 141);">
-                            <h5 class="card-title" style="color:#1DA1F2" onclick="fnseelikes('<%= userdetail._id %>','<%=  profile._id %>')">
+                          <div class="card mb-3" id="cardmob" style="background-color:white;border: 1px solid rgb(141, 141, 141);color: black;">
+                            <h5 class="card-title" style="color:#e84d74" onclick="fnseelikes('<%= userdetail._id %>','<%=  profile._id %>')">
                               <br><img src=<%=userdetail.e_org_image==null?"/images/event/7309681.jpg":userdetail.e_org_image %>
                               style="height:40px;width:40px;object-fit: cover; border-radius:100% ;">
                               <%= userdetail.e_org_name %>
                             </h5><hr> 
-                            <div class="text-container mx-auto" style="color: #1DA1F2;">
+                            <div class="text-container mx-auto" style="color: #e84d74;">
                               <h3>
                                 <%= userdetail.e_name.toUpperCase(); %>
                               </u></h3> <!-- showing event Name -->
@@ -377,7 +377,7 @@
                                 }
                               </script>
 
-                              <div class="text-container">
+                              <div class="text-container text-dark">
                                
 
 
@@ -514,7 +514,7 @@
                     </div>
                     <div class="mobile">
 
-                      <div class="navb text-white d-flex ">
+                      <div class="navb text-white d-flex " >
 
                         <div class="col-4 home">
                           <center>HOME</center>
@@ -539,7 +539,7 @@
                     <!-- <div class="right d-flex col-lg-3 col-md-3 bg-dark text-light"> -->
 
 
-                    <div class="team-boxed right border border-light col-lg-3 col-md-3" style="height: min-content;">
+                    <div class="team-boxed right border border-light col-lg-3 col-md-3"  style="background-color: white;border-radius:30px;height:min-content;" >
                       <!-- <div class="container"> -->
 
                       <div class="row people" onclick="redirectToProfile()">
@@ -549,17 +549,17 @@
                           <div class="box ">
                             <img class="rounded-circle" src=<%=profile.Image_URL==null
                               ?"/images/event/7309681.jpg":profile.Image_URL%> height="150px" width="150px">
-                            <h3 class="name" style="color:#1DA1F2">
+                            <h3 class="name" style="color:#e84d74">
                               <%= profile.u_name%>
                             </h3>
                           </div><br>
                         </div>
-                        <hr style="color:white">
+                        <hr style="color:black">
                       </div>
                       <div class="row mb-4 ms-2">
-                        <h5 class="name text-light">Events Created: <%= no_event %>
+                        <h5 class="name text-dark">Events Created: <%= no_event %>
                         </h5><br>
-                        <h5 class="name text-light">Events Joined: <%= no_join_event %>
+                        <h5 class="name text-dark">Events Joined: <%= no_join_event %>
                         </h5>
                       </div>
                       <!-- </div> -->

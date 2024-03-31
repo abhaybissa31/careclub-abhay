@@ -36,9 +36,11 @@ const getTrendFile=async(req,res)=>{
 }
 
 const showTrendingHashtag=async(req,res,next)=>{
+    console.log("function------------runing")
     let events=await eventData.find();
     let result=await trendData.find();
-    var hashtag=result
+    var hashtag=result;
+    // console.log(events,result)
     
     console.log("___________")
     events.forEach(async (element) => {
