@@ -1,3 +1,4 @@
+require("dotenv").config;
 const express=require('express');
 const expressSession=require('express-session');
 const MongoDbSession = require("connect-mongodb-session")(expressSession);
@@ -18,7 +19,7 @@ app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.set('views',path.join(__dirname,'/views'));
 mongoose
-  .connect('mongodb://127.0.0.1:27017', {
+  .connect(process.env.MongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
