@@ -1,6 +1,4 @@
-body{
-    background: linear-gradient(to left, #b80a9e, #aa2be6);
-}
+
 .tabs {
     /* border-bottom: 1px solid grey; */
     /* background-color: rgb(16, 153, 9); */
@@ -10,6 +8,25 @@ body{
   
     
     margin: 0;
+}
+
+.navbar{
+  font-family: "Labrada", system-ui;
+  /* font-weight: 400; */
+  font-size: larger;
+  font-style: normal;
+  background-color: hsla(0, 0%, 100%, .72);
+  backdrop-filter: saturate(180%) blur(20px);
+  position: sticky;
+  z-index:999;
+  
+  top:0;
+  box-shadow:0 1px 0 hsla(240,2%,54%,.4);
+}
+.navbar-brand{
+  font-weight:600;
+  font-size: 40px;
+  font-family: "Tac One", sans-serif;
 }
 .mobnav{
   display: none;

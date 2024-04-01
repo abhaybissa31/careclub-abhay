@@ -60,7 +60,7 @@ app.get('/events/seelikes/:id/:pid',(req,res)=>{
 app.post('/comment/:id/:usrid',(req,res)=> eventDetails.commentEvent(req,res,eventData));
 app.get('/getcomment/:eventId', (req, res) => eventDetails.getComment(req, res, eventData));
 
-
+ 
 app.get('/trending',islogin,showTrendingHashtag,(req,res)=>trendingDetails.getTrendFile(req,res))
 app.get('/test-tred',(req,res)=>trendingDetails.testadd(req,res))
 app.get('/get-trend',(req,res)=>trendingDetails.getTrendFile(req,res))

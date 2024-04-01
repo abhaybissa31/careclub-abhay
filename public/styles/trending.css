@@ -1,7 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Tac+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+  
+/* @import url('https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@400..700&family=Labrada:ital,wght@0,100..900;1,100..900&family=Montez&family=Paprika&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@400..700&family=Gabriela&family=Labrada:ital,wght@0,100..900;1,100..900&family=Montez&family=Paprika&family=Rubik+Gemstones&display=swap');
+
 /* Body Styles */
+.left{
+  /* display: inline-block !important;  */
+  /* height:80%; */
+height:100vh;
+
+/* border-right: 0.5px solid rgb(122, 122, 122); */
+/* border-right-style: inherit; */
+  /* border-bottom-left-radius:20px;
+  border-bottom-right-radius:20px; */
+  position: sticky;
+  top: 1em;
+ 
+}
 body {
-    background: linear-gradient(to left, #b80a9e, #aa2be6);
+  background-color: #f5f2ef;
   }
+
+
+  @keyframes background-move {
+    0% {
+      background-position: 0 0, 0 0;
+    }
+    100% {
+      background-position: 100vw 0, 0 0;
+      background-position: unquote('max(100vw, 40em)') 0, 0 0;
+    }
+  }
+  
+
+
+  .navbar{
+    font-family: "Labrada", system-ui;
+    /* font-weight: 400; */
+    font-size: larger;
+    font-style: normal;
+    background-color: hsla(0, 0%, 100%, .72);
+    backdrop-filter: saturate(180%) blur(20px);
+    position: sticky;
+    z-index:999;
+    
+    top:0;
+    box-shadow:0 1px 0 hsla(240,2%,54%,.4);
+  }
+  .navbar-brand{
+    font-weight:600;
+    font-size: 40px;
+    font-family: "Tac One", sans-serif;
+  }  
 .mobile, .mobnav, .sp, .mobcomment{
     display: none;
 }

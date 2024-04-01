@@ -2,7 +2,7 @@ const userData = require('../models/userData');
 const { getStorage, ref, uploadBytesResumable,getDownloadURL } = require("firebase/storage");
 const { default: mongoose } = require("mongoose");
 var fs = require('fs');
-
+const hashtags = require("../models/hashtag")
 
 const getEventFile=(req,res)=>{
 res.render("event",{msg:req.flash()});
@@ -368,6 +368,9 @@ else{
             console.log(err);
             req.flash("error","Error in creating event")
                 return res.render("event",{msg:req.flash()});  
+            });
+            const inserhashtags = new hashtags({
+                
             });
         }
     }

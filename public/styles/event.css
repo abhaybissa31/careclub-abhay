@@ -108,7 +108,10 @@ html {
   fill: #e74c3c; /* Change this to the color you want when the post is liked */
 }
 
-
+.laptopcmntimg{
+  min-height:450px;
+  min-width:500px
+}
 
 
 
@@ -142,7 +145,7 @@ body{
   /* background-color: white; */
   /* background:linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.5)) ,url("../images/webimg/loginbg.jpg") no-repeat; */
   background-size: contain;
-    background-color: white;
+    /* background-color: white; */
     font-family: "Gabriela", system-ui;
     /* display: none; */
 }
@@ -480,12 +483,15 @@ body{
 .card-img-top{
     height:300px;
 }
-#laptopcmnt{
-  display: none;
+.laptopcmntimg{
+  min-height:200px;
+  min-width:200px;
+  margin-bottom: 10px;
 }
+/*
 .mobcomment{
   display: block;
-}
+} */
 .cen {
     border-top-right-radius:0px;
     border-top-left-radius:0px;
@@ -506,16 +512,16 @@ body{
     padding:10px;
     z-index: 1;
 }
-.lpnav{
+/* .lpnav{
     display: none;
     visibility: hidden;
-}
-.mobnav{
+} */
+/* .mobnav{
     display: block;
     top: 0;
     position: absolute;
     width: 100%;
-}
+} */
 .sp{
     display: inline;
 }

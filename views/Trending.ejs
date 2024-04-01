@@ -24,20 +24,13 @@
     crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body style="background-color: #f5f2ef;">
  <!-- Navbar -->
- <nav class="navbar lpnav navbar-expand-lg bg-dark navbar-dark mb-4">
+ <nav class="navbar lpnav navbar-expand-lg mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><b>CareClub</b></a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <a class="navbar-brand" href="/" style=" font-size: 40px; font-family: Tac One, sans-serif;color:#e84d74;"><b>CareClub</b></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -45,7 +38,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
-        
+
         <li class="nav-item">
           <a class="nav-link active" href="/events">Events</a>
         </li>
@@ -53,119 +46,96 @@
           <a class="nav-link active" aria-current="page" href="/trending">Trending</a>
         </li>
         <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle active"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
             Profile
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/profile">My Profile</a></li>
             <li><a class="dropdown-item" href="/logout">Logout</a></li>
-           
-            
+
+
           </ul>
-  
+
       </ul>
 
     </div>
   </div>
 </nav>
-<!-- navvvv for mobileeee -->
-<div class="mobnav">
-  <nav class="navbar navbar-expand-lg bg-dark navbar-dark ">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#"><b>CareClub</b></a>
-        <a class="nav-link active text-white" aria-current="page" href="/trending">Trending</a>
-      </div>
-    </div>
-  </nav>
-</div>
-
 <!-- ---------------------------Navbar ends ----------------------->
   <div class="container">
     <section class="content d-flex flex-column">
       <div class="row" style="position: sticky;">
         <!-- ---------------------------------Left Sidebar------------------- -->
-        <div class="left bg-dark col-lg-3 col-md-3 col-sm-3 me-4"
-        style="border-top-right-radius:20px;
-              border-top-left-radius:20px;
-              height: min-content;
-              overflow-y: scroll; height:550px;"
-          >
-          <div class="row border text-white row1">
-            <img
-              class="profile-pic "
-              src="/images/trending/poster.jpg"
-              style="padding: 0; max-width: 100%; max-height: 100%; object-fit: contain; margin: 0;"; height="150"
-              
-            />
+        <div class="left col-lg-3 col-md-3 col-sm-3 me-4 " style="background-color: white;border-radius:10px;height:min-content ;" ><h2  style="color:#e84d74;text-align: center;position: relative;;top:0.2em;">What's happening?</h2>
+          <div class="row row1">
+            <img class="profile-pic " src="/images/event/rmposter.png"
+              style="padding: 0; max-width: 100%; max-height: 100%; object-fit: contain; margin: 0;cursor: pointer;" ;
+              height="150" />
             <div class="p-image" style="display: none">
-              <form action="/create-event" method="post" enctype="multipart/form-data">
-              <input
-                type="file"
-                class="file-upload"
-                accept="image/*"
-                name="e_image"
-                required
-              />
+              <form action="/create-event" method="post" enctype="multipart/form-data" style="color: aliceblue;">
+                <input type="file" class="file-upload" accept="image/*" name="e_image" required />
             </div>
           </div>
-       
-          <div class="row container mx-auto text-white row2" style="display: inline;"><br>
-          <!-- <label class="bg-dark text-light lbl1 form-control mx-auto">Event name & Keywords</label> -->
-          <input type="text" name="e_name" placeholder="Event Name" class=" form-control mx-auto txt1">
-          <input type="text" name="e_hashtags" placeholder="keywords for event.e.g:blood donation camp" class=" form-control mx-auto txt1"><br>
-          <!-- <label class="bg-dark text-light lbl1 mx-auto form-control">Description & location</label> -->
-          <textarea name="e_desc" class="form-control mx-auto"></textarea>
-          <input type="text" name="e_location" class="form-control mx-auto" placeholder="location📍">
-          <input type="text" name="e_city" placeholder="City" class=" form-control mx-auto txt1"><br>
-          <!-- <input type="text" placeholder="Date📅" class="form-control" onfocus="(this.type='date')"> -->
-          <!-- <label class="bg-dark text-light lbl1 mx-auto form-control">Date & Time</label> -->
-          <input type="number" name="e_time" id="timeInput" placeholder="Enter time" class="form-control mx-auto" max="12" min="0" required>
-          <select id="ampmSelect" name="e_timezone" class="form-control mx-auto" style="text-align: center;">
-             <option value="" disabled selected >Select AM or PM</option>
-             <option value="AM">AM</option>
-             <option value="PM">PM</option>
-          </select>
-          <input type="text" name="e_date" placeholder="Date📅" class="form-control mx-auto" onfocus="setupDateInput()">
 
-          <script>
-          function setupDateInput() {
-            const input = event.target;
-            input.type = 'date';
-          
-            // Set the minimum date to the current date
-            const today = new Date();
-            const minDate = today.toISOString().split('T')[0];
-            input.min = minDate;
-          
-            // Set the maximum date to one year from the current date
-            const maxDate = new Date(today);
-            maxDate.setFullYear(maxDate.getFullYear() + 1);
-            input.max = maxDate.toISOString().split('T')[0];
-          }
-          </script><br>
-          
-          <center><button type="submit" class="btn btn-light ">Create your Event</button></center>
-       
-               <br>     
+          <div class="row container mx-auto text-white row2" style="display: inline;" id="formdata"><br>
+            <!-- <label class="bg-dark text-light lbl1 form-control mx-auto">Event name & Keywords</label> -->
+            <input type="text" name="e_name" placeholder="Event Name" class=" form-control mx-auto txt1">
+            <br>
+            <input type="text" name="e_hashtags" placeholder="keywords for event.e.g:blood donation camp"
+              class=" form-control mx-auto txt1"><br>
+            <!-- <label class="bg-dark text-light lbl1 mx-auto form-control">Description & location</label> -->
+            <textarea name="e_desc" class="form-control mx-auto"></textarea>
+            <br>
+            <input type="text" name="e_location" class="form-control mx-auto" placeholder="location📍">
+            <br><input type="text" name="e_city" placeholder="City" class=" form-control mx-auto txt1"><br>
+            <!-- <input type="text" placeholder="Date📅" class="form-control" onfocus="(this.type='date')"> -->
+            <!-- <label class="bg-dark text-light lbl1 mx-auto form-control">Date & Time</label> -->
+     
+            <input type="number" name="e_time" id="timeInput" placeholder="Enter time"
+              class="form-control mx-auto" max="12" min="0" required>
+              <br><select id="ampmSelect" name="e_timezone" class="form-control mx-auto"
+              style="text-align: center;">
+              <option value="" disabled selected style="color: white;">Select AM or PM</option>
+              <option value="AM" style="color: white;">AM</option>
+              <option value="PM" style="color: white;">PM</option>
+            </select>
+            <br><input type="text" name="e_date" placeholder="Date📅" class="form-control mx-auto"
+              onfocus="setupDateInput()">
+
+            <script>
+              function setupDateInput() {
+                const input = event.target;
+                input.type = 'date';
+
+                // Set the minimum date to the current date
+                const today = new Date();
+                const minDate = today.toISOString().split('T')[0];
+                input.min = minDate;
+
+                // Set the maximum date to one year from the current date
+                const maxDate = new Date(today);
+                maxDate.setFullYear(maxDate.getFullYear() + 1);
+                input.max = maxDate.toISOString().split('T')[0];
+              }
+            </script><br>
+
+            <center><button type="submit" class="btn bg-primary">Post</button></center>
+
+            <br>
+          </div>
+          </form>
         </div>
-        </form>
-        </div>
-      
+
         <!-------------------------- Left Sidebar ends------------------ -->
 
         <!-- ------------------------Center Content--------------------- -->
-        <div class="cen  bg-gradient col-lg-5 col-md-4 col-xs-12 me-4 text-light">
+        <div class="cen  col-lg-5 col-md-4 col-xs-12 me-4 text-light">
           <div class="row row1">
 
-            <table class="table bg-dark text-white">
+            <table class="table table-striped bg-white text-dark">
               <thead>
-                <tr>
+                <tr style="color:#e84d74">
                   <th scope="col">#</th>
                   <th scope="col">Trending</th>
                   <th scope="col ">No.of post</th>
@@ -173,17 +143,17 @@
               </thead>
               <tbody>
    
-            <%
-            let count = 0; // Initialize a counter variable
+            <% let count = 0; // Initialize a counter variable
             trending_element.forEach(element => {
               count++;
             %>
                 <tr>
                   <th scope="row"><%= count %></th>
-                  <td><a href="#" class ="link1" style="text-decoration: none;"><%= element.tag %></a> </td>
-                  <td><%= element.count %></td>
+                  <td><a href="#" class ="link1 text-dark" style="text-decoration: none;"><%= element.tag%></a> </td>
+                  <td><%= element.count%></td>
 
                 </tr>
+              
                 <%});%>
               </tbody>
             </table>
@@ -211,29 +181,33 @@
         <!-- ------------------------Center Content ends----------------- -->
 
              <!-- ---------------Right Sidebar------------------ -->
-          <!-- <div class="right d-flex col-lg-3 col-md-3 bg-dark text-light"> -->
+       
+            <div class="team-boxed right border border-light col-lg-3 col-md-3"  style="background-color: white;border-radius:30px;height:min-content;" >
+                      <!-- <div class="container"> -->
 
-            
-  <div class="team-boxed right bg-dark col-lg-3 col-md-3" style="height: min-content;">
-    <!-- <div class="container"> -->
-    
-        <div class="row people">
-           
-     
-            <div class="item ">
-                <div class="box ">
-                  <img class="rounded-circle" src=<%= profile.Image_URL ==null ?"/images/event/7309681.jpg":profile.Image_URL%> height="150px" width="150px">
-                    <h3 class="name text-light"><%= profile.u_name%></h3>
-                </div><br>
-            </div>
-            <hr style="color:white">
-        </div>
-        <div class="row mb-4 ms-2">
-          <h5 class="name text-light">Events Created: <%= no_event %></h5><br>
-            <h5 class="name text-light">Events Joined: <%= no_join_event %></h5>  
-        </div>
-    <!-- </div> -->
-</div>
+                      <div class="row people" onclick="redirectToProfile()">
+
+
+                        <div class="item ">
+                          <div class="box ">
+                            <img class="rounded-circle" src=<%=profile.Image_URL==null
+                              ?"/images/event/7309681.jpg":profile.Image_URL%> height="150px" width="150px">
+                            <h3 class="name" style="color:#e84d74">
+                              <%= profile.u_name%>
+                            </h3>
+                          </div><br>
+                        </div>
+                        <hr style="color:black">
+                      </div>
+                      <div class="row mb-4 ms-2">
+                        <h5 class="name text-dark">Events Created: <%= no_event %>
+                        </h5><br>
+                        <h5 class="name text-dark">Events Joined: <%= no_join_event %>
+                        </h5>
+                      </div>
+                      <!-- </div> -->
+                    </div>
+
 
 
 

@@ -82,14 +82,14 @@
     </div>
   </nav>
   <!-- navvvv for mobileeee -->
-  <div class="mobnav">
+  <!-- <div class="mobnav">
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark ">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"><b>CareClub</b></a>
         <a class="nav-link active text-white" aria-current="page" href="/trending">Trending</a>
       </div>
   </div>
-  </nav>
+  </nav> -->
   </div>
 
   <!-- ---------------------------Navbar ends ----------------------->
@@ -588,30 +588,30 @@
     <!-- Modal -->
     <%if(msg.Comment){%>
       <div class="modal fade" id="comment-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content bg-dark">
+        <div class="modal-dialog modal-xl" style="background-color: #f5f2ef;border-radius: 10px;">
+          <div class="modal-content text-dark" style="background-color: #f5f2ef;">
             <div class="modal-header">
-              <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">comments</h1>
+              <h1 class="modal-title fs-5 text-dark" id="exampleModalLabel">Comments:</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                 style="background-color: white;"></button>
             </div>
-            <div class="card bg-dark text-white">
+            <div class="card text-dark" style="background-color: #f5f2ef;">
               <div class="modal-body">
 
 
 
                 <div class="row g-0" id="laptopcmnt">
-                  <div class="col-6">
-                    <img class="img-fluid rounded-start" alt="..." style="height:400px;width:450px"
+                  <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12">
+                    <img class="img-fluid rounded-start laptopcmntimg" alt="..." style=""
                       src=<%=commentdata.e_image %> >
                   </div>
 
 
-                  <div class="col-6">
+                  <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12">
 
 
                     <div class="card-body ">
-                      <div class="card bg-primary text-white " style="margin-top:-1em;">
+                      <div class="card bg-light text-dark " style="margin-top:-1em;">
 
 
 
@@ -638,7 +638,7 @@
                                 </b>
                               </div>
                               <div class="show-more" id="abcdef">
-                                <a href="#" class="linkshow">Show more</a>
+                                <a href="#" class="linkshow text-dark">Show more</a>
                               </div>
 
 
@@ -660,7 +660,7 @@
 
                       <div class="postcmnt">
                         <form action="/comment/<%= commentdata._id %>/<%= profile._id %>" method="post">
-                          <br><input type="text" class="form-control bg-primary text-white"
+                          <br><input type="text" class="form-control bg-white text-dark"
                             placeholder="Post your comment" id="input1" name="commenttext">
                           <hr>
                           <button type="submit" class="bg-primary text-white form-control"
