@@ -6,6 +6,7 @@
 
 body{
   overflow-y: hidden;
+  
 }
 .navbar{
     font-family: "Labrada", system-ui;
@@ -57,9 +58,13 @@ body{
   }
   .left{
     /* overflow-y: hidden; */
-    max-height:750px;
+    max-height:720px;
     overflow-y: scroll;
     overflow-x: hidden;
+  }
+
+  .left::-webkit-scrollbar {
+    display: none;
   }
 
 .leftrow>.container:hover{
@@ -185,7 +190,11 @@ input[type=submit] {
 }
 /* Styling the inbox */
 .chat-page {
-  padding: 0 0 50px 0;
+  /* padding: 50px 0 0  0; */
+  /* height:max-content; */
+  /* height:100px; */
+  border-bottom-left-radius:20px;
+  border-bottom-right-radius:20px;
   background-color: white;
 }
 
@@ -202,7 +211,8 @@ input[type=submit] {
 }
 
 .msg-page {
-  max-height: 500px;
+  max-height: 575px;
+
   overflow-y: auto;
 }
 
@@ -324,12 +334,13 @@ received-chats-img {
 }
 
 .outgoing-chats-msg p {
-  background-color: #3a12ff;
-  background-image: linear-gradient(45deg, #ee087f 0%, #DD2A7B 25%, #9858ac 50%, #8134AF 75%, #515BD4 100%);
-  color: #fff;
+  background-color: white;
+
+  /* background-image: linear-gradient(45deg, #ee087f 0%, #DD2A7B 25%, #9858ac 50%, #8134AF 75%, #515BD4 100%); */
+  color: black;
   border-radius: 10px;
   font-size: 14px;
-  color: #fff;
+  /* color: #fff; */
   padding: 5px 10px 5px 12px;
   width: 100%;
   padding: 1rem;
@@ -342,10 +353,11 @@ received-chats-img {
 
 /* Styling the avatar */
 .outgoing-chats-img {
-  display: inline-block;
+  /* display: inline-block; */
   width: 50px;
   float: right;
   margin-right: 1rem;
+  padding-left:5px;
 }
 @media only screen and (max-device-width: 850px) {
   *,
