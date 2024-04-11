@@ -74,7 +74,9 @@ app.get('/get-trend',(req,res)=>trendingDetails.getTrendFile(req,res))
 
 app.get('/events/filter/:filter',(req,res)=> eventDetails.filterevents(req,res,eventData));
 
-
+app.get('/chat',(req,res)=>{
+    res.render('chat',(req,res))
+})
 
 
 
