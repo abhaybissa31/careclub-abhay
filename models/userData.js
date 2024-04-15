@@ -10,5 +10,5 @@ const Sc=mongoose.Schema({
     G_user:{type:Boolean,required:true,default:false},
     u_events_joined:[{type:mongoose.Schema.ObjectId,default:null,ref:'event'}]
 })    
-const Model=mongoose.model('userData',Sc)
+const Model=mongoose.model('userDatas',Sc)
 module.exports=Model

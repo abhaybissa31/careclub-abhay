@@ -3,8 +3,7 @@ const userData=require('./models/userData');
 const eventData=require('./models/event');
 const firebase=require('firebase/app')
 const multer=require('multer');
-const path=require('path')
-
+const path=require('path');
 const { getStorage, ref, uploadBytesResumable,getDownloadURL } = require("firebase/storage");
 const {islogin}=require('./passportConfig')
 const validator=require('validator')
@@ -21,11 +20,12 @@ const firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   const storage = getStorage();
   
-  const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({ storage: multer.memoryStorage() });
   
   
 const updateDetails=require('./controllers/Details');
 const eventDetails=require('./controllers/event');
+const chatFn=require('./controllers/chatfn');
 const trendingDetails = require('./controllers/Trending');
 const {showTrendingHashtag} = require('./controllers/Trending');
 
@@ -74,10 +74,9 @@ app.get('/get-trend',(req,res)=>trendingDetails.getTrendFile(req,res))
 
 app.get('/events/filter/:filter',(req,res)=> eventDetails.filterevents(req,res,eventData));
 
-app.get('/chat',(req,res)=>{
-    res.render('chat',(req,res))
-})
-
+app.get('/chat',(req,res,eventData)=>chatFn.getChat(req,res));
+app.post('/chat',(req,res)=>chatFn.postMessages(req,res));
+app.post('/chat/:chatName', (req, res) => chatFn.getChats2(req, res, req.params.chatName));
 
 
 

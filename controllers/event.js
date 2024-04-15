@@ -65,9 +65,6 @@ const getAllEvent=async(req,res,eventData)=>{
 
 
 
-
-
-
 const filterevents = async (req, res, eventData) => {
     const filter = req.params.filter
     // const query = await eventData.find({});

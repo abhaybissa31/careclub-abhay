@@ -9,9 +9,9 @@ const chatSchema = new mongoose.Schema({
     },
     msg:{
         type:String,
-        required:True
+        required:true
     }
-},{timestamps:true})
+},{timestamps: true})
 
 const chatSchemaModel=mongoose.model('chatSchemaModel',chatSchema)
 module.exports=chatSchemaModel;

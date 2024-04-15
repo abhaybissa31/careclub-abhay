@@ -1,7 +1,13 @@
 require("dotenv").config();
 const express=require('express');
+const app=express();
 const expressSession=require('express-session');
 const MongoDbSession = require("connect-mongodb-session")(expressSession);
+
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server)
 
 const passport=require('passport');
 const bodyparser = require('body-parser')
@@ -9,10 +15,11 @@ const mongoose=require('mongoose')
 const path=require('path')
 const flash=require('express-flash')
 const {initializingPassport} =require("./passportConfig")
-const app=express();
+
 initializingPassport(passport);
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
+
 
 
 app.set("view engine", "ejs");
@@ -30,6 +37,15 @@ mongoose
     collection: "authSession",
   });
 
+//-------------------------------------- Socket.io code starts   ---------------------------------------------------
+    io.on('connection', (socket)=>{
+      socket.on("user-message",(message)=>{
+          io.emit("message",message)
+      })
+    })
+
+//-------------------------------------- Socket.io code Ends  ---------------------------------------------------
+
 
   app.use(passport.initialize());
 app.use(expressSession({
@@ -46,4 +62,4 @@ app.use(passport.session())
 
 app.use(flash())
 require('./routes')(app);
-app.listen(process.env.PORT ||  3000,()=>console.log("app is running"));
+server.listen(process.env.PORT ||  3000,()=>console.log("app is running"));
