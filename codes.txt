@@ -1,2 +1,172 @@
 pinkish color code - style="color:#e84d74"
 whitish color code - #f5f2ef
+
+
+
+
+
+          <!-- -----------------------------2nd user just for populating---------------------- -->
+          <div class="container peep-msg">
+            <div class="row" style="padding:2px;">
+              <div class="leftimg col-2"><img src="/images/event/60111.jpg" alt=""></div>
+
+              <div class="leftname col-10">Abhishek<br>
+                <p class="msg-text text-secondary">Ofcourse I'll be there, This goes without saying</p>
+              </div>
+
+            </div>
+            <!-- <div class="wrap">
+    <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
+    <hr>
+  </div> -->
+          </div>
+          <hr>
+          <hr>
+          <!-- -----------------------------2nd user just for populating---------------------- -->
+          <div class="container peep-msg">
+            <div class="row" style="padding:2px;">
+              <div class="leftimg col-2"><img src="/images/event/user.png" alt=""></div>
+
+              <div class="leftname col-10">Bhuvneshwar<br>
+                <p class="msg-text text-secondary">Nevermind, I'll be there by 7.40AM</p>
+              </div>
+
+            </div>
+            <!-- <div class="wrap">
+    <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
+    <hr>
+  </div> -->
+          </div>
+          <hr>
+          <hr>
+          <!-- -----------------------------3rd user just for populating---------------------- -->
+          <div class="container peep-msg">
+            <div class="row" style="padding:2px;">
+              <div class="leftimg col-2"><img src="/images/event/60111.jpg" alt=""></div>
+
+              <div class="leftname col-10">Harsh<br>
+                <p class="msg-text text-secondary">Yesterday's Event was great, Hope we can help more people</p>
+              </div>
+
+            </div>
+            <!-- <div class="wrap">
+    <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
+    <hr>
+  </div> -->
+          </div>
+          <hr>
+          <hr>
+          <!-- -----------------------------2nd user just for populating---------------------- -->
+          <div class="container peep-msg">
+            <div class="row" style="padding:2px;">
+              <div class="leftimg col-2"><img src="/images/event/user.png" alt=""></div>
+
+              <div class="leftname col-10">Pooja<br>
+                <p class="msg-text text-secondary">I am in for the event, catch you up there?</p>
+              </div>
+
+            </div>
+            <!-- <div class="wrap">
+    <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
+    <hr>
+  </div> -->
+          </div>
+          <hr>
+          <hr>
+          <!-- -----------------------------2nd user just for populating---------------------- -->
+          <div class="container peep-msg">
+            <div class="row" style="padding:2px;">
+              <div class="leftimg col-2"><img src="/images/event/60111.jpg" alt=""></div>
+
+              <div class="leftname col-10">Travis<br>
+                <p class="msg-text text-secondary">So this is gonna be the latest message to be rendered</p>
+              </div>
+
+            </div>
+            <!-- <div class="wrap">
+    <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
+    <hr>
+  </div> -->
+          </div>
+          <hr>
+
+          <!-- -----------------------------ending of the left column------------------------------------------------ -->
+        </div>
+      </div>
+
+ user_id: '65ff1a60d236538490dca1eb',
+    user_name: 'Abhay new',
+    user_Image_URL: 'https://firebasestorage.googleapis.com/v0/b/care-club-4b0b6.appspot.com/o/files%2F658-wp9248219-thomas-shelby-pc-wallpapers.jpg?alt=media&token=1ee5fb21-6974-43da-89b0-198278043008',
+    last_message: 'asasa'
+
+
+
+
+
+
+
+
+
+
+
+
+
+const getChat = async (req, res) => {
+    if (req.session && req.session.user && req.session.user._id) {
+        try {
+            const chatDetails = await chatModel.find({
+                $or: [
+                    { sender_id: req.session.user._id },
+                    { receiver_id: req.session.user._id }
+                ]
+            });
+
+            const uniqueUserIds = new Set();
+
+            for (const chatDetail of chatDetails) {
+                uniqueUserIds.add(chatDetail.sender_id);
+                uniqueUserIds.add(chatDetail.receiver_id);
+            }
+
+            const uniqueUserIdsArray = Array.from(uniqueUserIds);
+
+            const messagesWithSenderReceiver = [];
+
+            for (const userId of uniqueUserIdsArray) {
+                // Check if userId is a valid ObjectId
+                if (mongoose.Types.ObjectId.isValid(userId)) {
+                    const userData1 = await userData.findById(userId);
+                    if (userData1) {
+                        const lastMessage = await chatModel.findOne({
+                            $or: [
+                                { sender_id: req.session.user._id, receiver_id: userId },
+                                { sender_id: userId, receiver_id: req.session.user._id }
+                            ]
+                        }).sort({ createdAt: -1 });
+
+                        const messageObj = {
+                            user_id: userId,
+                            user_name: userData1.u_name,
+                            user_Image_URL: userData1.Image_URL,
+                            last_message: lastMessage ? lastMessage.msg : null
+                        };
+                        messagesWithSenderReceiver.push(messageObj);
+                    } else {
+                        console.error(`User data not found for user ID: ${userId}`);
+                    }
+                } else {
+                    console.error(`Invalid ObjectId: ${userId}`);
+                }
+            }
+
+            const createdUser = await userData.find({}, { u_name: 1, u_email: 1, _id: 1 });
+            const temp = createdUser.map((item) => item.u_name);
+            res.render('chat', { createdUser: createdUser, createdUname: temp, user: req.session.user._id, chatDetails: messagesWithSenderReceiver });
+        } catch (error) {
+            console.error("Error fetching chat details:", error);
+            res.status(500).send("Internal Server Error");
+        }
+    } else {
+        res.write(`<html><script>alert('Please login in order to continue'); location.href='/login'</script></html>`);
+    }
+}

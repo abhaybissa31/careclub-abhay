@@ -108,23 +108,34 @@
             </form>
           </div>
           <br>
-          <div class="container peep-msg" style="">
-            <div class="row" style="padding:2px;">
-              <div class="leftimg col-2"><img src="/images/event/user.png" alt=""></div>
-              <div class="leftname col-10">Abhay<br>
-                <p class="msg-text text-secondary">So have you given any thoughts about joining the recent event created
-                  for food donation? </p>
-              </div>
 
+      <% chatDetails.forEach(element => { %>
+        <div class="container peep-msg" style="">
+          <div class="row" style="padding:2px;">
+            <div class="leftimg col-2">
+            <% if (element.user_Image_URL) { %>
+              <img src="<%= element.user_Image_URL %>" alt=""></div>
+            <% }else{ %> 
+              <img src="/images/event/60111.jpg" alt=""></div>
+              
+              <%} %>
+              
+            
+              <div class="leftname col-10"><%= element.user_name %><br>
+              <p class="msg-text text-secondary"><%= element.last_message %> </p>
             </div>
-            <!-- <div class="wrap">
-                  <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
-                  <hr>
-                </div> -->
+
           </div>
-          <hr>
+          <!-- <div class="wrap">
+                <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
+                <hr>
+              </div> -->
+        </div>
+        <hr>
 
 
+      <% }) %>
+          
 
 
           <!-- -------------------------------------script for suggestions ------------------------------------------- -->
@@ -175,7 +186,7 @@
                     b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                     b.innerHTML += arr[i].substr(val.length);
                     /*insert a input field that will hold the current array item's value:*/
-                    b.innerHTML += "<input type='hidden' id='suggestedUserName' value='" + arr[i] + "'  />";
+                    b.innerHTML += "<input type='hidden' id='suggestedUserName' value='" + arr[i] + "'  id='justtry'/>";
                     
                     /*execute a function when someone clicks on the item value (DIV element):*/
                     b.addEventListener("click", function (e) {
@@ -281,90 +292,7 @@
 
 
 
-          <!-- -----------------------------2nd user just for populating---------------------- -->
-          <div class="container peep-msg">
-            <div class="row" style="padding:2px;">
-              <div class="leftimg col-2"><img src="/images/event/60111.jpg" alt=""></div>
-
-              <div class="leftname col-10">Abhishek<br>
-                <p class="msg-text text-secondary">Ofcourse I'll be there, This goes without saying</p>
-              </div>
-
-            </div>
-            <!-- <div class="wrap">
-    <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
-    <hr>
-  </div> -->
-          </div>
-          <hr>
-          <hr>
-          <!-- -----------------------------2nd user just for populating---------------------- -->
-          <div class="container peep-msg">
-            <div class="row" style="padding:2px;">
-              <div class="leftimg col-2"><img src="/images/event/user.png" alt=""></div>
-
-              <div class="leftname col-10">Bhuvneshwar<br>
-                <p class="msg-text text-secondary">Nevermind, I'll be there by 7.40AM</p>
-              </div>
-
-            </div>
-            <!-- <div class="wrap">
-    <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
-    <hr>
-  </div> -->
-          </div>
-          <hr>
-          <hr>
-          <!-- -----------------------------3rd user just for populating---------------------- -->
-          <div class="container peep-msg">
-            <div class="row" style="padding:2px;">
-              <div class="leftimg col-2"><img src="/images/event/60111.jpg" alt=""></div>
-
-              <div class="leftname col-10">Harsh<br>
-                <p class="msg-text text-secondary">Yesterday's Event was great, Hope we can help more people</p>
-              </div>
-
-            </div>
-            <!-- <div class="wrap">
-    <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
-    <hr>
-  </div> -->
-          </div>
-          <hr>
-          <hr>
-          <!-- -----------------------------2nd user just for populating---------------------- -->
-          <div class="container peep-msg">
-            <div class="row" style="padding:2px;">
-              <div class="leftimg col-2"><img src="/images/event/user.png" alt=""></div>
-
-              <div class="leftname col-10">Pooja<br>
-                <p class="msg-text text-secondary">I am in for the event, catch you up there?</p>
-              </div>
-
-            </div>
-            <!-- <div class="wrap">
-    <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
-    <hr>
-  </div> -->
-          </div>
-          <hr>
-          <hr>
-          <!-- -----------------------------2nd user just for populating---------------------- -->
-          <div class="container peep-msg">
-            <div class="row" style="padding:2px;">
-              <div class="leftimg col-2"><img src="/images/event/60111.jpg" alt=""></div>
-
-              <div class="leftname col-10">Travis<br>
-                <p class="msg-text text-secondary">So this is gonna be the latest message to be rendered</p>
-              </div>
-
-            </div>
-            <!-- <div class="wrap">
-    <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
-    <hr>
-  </div> -->
-          </div>
-          <hr>
+         
 
           <!-- -----------------------------ending of the left column------------------------------------------------ -->
         </div>
@@ -383,7 +311,7 @@
                 <img src="/images/event/user.png" class="msgimg" width="45px" height="45px"
                   style="border-radius:100%; position: relative;top:0.3em;padding-left:2px;" />
                 <div class="active active1">
-                  <h3 style="position: relative;top:0.4em;color: white;width: max-content;" id="chatName" onchange="changed()">Abhay Bissa</h3>
+                  <h3 style="position: relative;top:0.4em;color: white;width: max-content;" id="chatName">Abhay Bissa</h3>
                 </div>
               </div>
             </div>
@@ -474,46 +402,68 @@
                       </button>
 
                       <script>
-
-                        let recid = document.getElementById('chatName').innerText;
-                       
+                        // Assuming the 'io' variable is defined elsewhere
+ 
                         const socker = io();
-                        const sendBtn = document.getElementById('send-button');
-                        const msgInput = document.getElementById('message');
-                        const recMessage = document.getElementById('message-container');
-                        
-                        socker.on("message", (message) => {
-                          recMessage.innerText = message;
-                        })
-                        
-                        
-                        sendBtn.addEventListener("click", e => {
-                          recid=document.getElementById('chatName').innerText;
-                          const message = msgInput.value;
-                          console.log(message);
-                          socker.emit("user-message", message)
-                          
-                          try {
-                            const response = fetch("http://localhost:3000/chat/", {
-                              method: "POST",
-                              headers: {
-                                "Content-Type": "application/json"
-                              },
-                              body: JSON.stringify({ message,recid }) // Send the message in the request body
+                            const sendBtn = document.getElementById('send-button');
+                            const msgInput = document.getElementById('message');
+                            const recMessage = document.getElementById('message-container');
+                            let socket; // Define a variable to hold the socket reference
+                    
+                            socker.on("connect", () => {
+                                socket = socker; // Assign the socket reference when connection is established
                             });
-                            if (response.ok) {
-                              console.log("Message sent successfully.");
-                            } else {
-                              console.error("Failed to send message. Server responded with status:", response.status);
-                            }
-                            msgInput.value = "";
-                          } catch (error) {
-                            console.error("Error sending message:", error);
-                          }
+                    
+                            socker.on("message", (message) => {
+                                recMessage.innerText = message;
+                            });
+                    
+                            // Handling server shutdown
+                            socker.on("disconnect", () => {
+                                console.log("Server down");
+                                if (socket) {
+                                    socket.disconnect();
+                                    // alert('server closed or broken');
+                                    // location.href='/' // Disconnect all sockets
+                                }
+                            });
 
-                        })
 
-                      </script>
+                        function postMessage() {
+ 
+                    
+                            sendBtn.addEventListener("click", async (e) => {
+                                e.preventDefault(); // Prevent default form submission behavior
+                    
+                                let recid = document.getElementById('chatName').innerText;
+                    
+                                const message = msgInput.value;
+                                console.log('recid----------------', recid);
+                                socker.emit("user-message", message);
+                    
+                                try {
+                                    const response = await fetch("http://localhost:3000/chat/", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify({ message, recid }) // Send the message in the request body
+                                    });
+                    
+                                    if (response.ok) {
+                                        console.log("Message sent successfully.");
+                                    } else {
+                                        console.error("Failed to send message. Server responded with status:", response.status);
+                                    }
+                                    msgInput.value = "";
+                                } catch (error) {
+                                    console.error("Error sending message:", error);
+                                }
+                            });
+                        }
+                    </script>
+                    
+                     
                       <!-- <script>
                                     const socket = io()
                                     const messageContainer = document.getElementById('message-container')
