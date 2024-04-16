@@ -109,24 +109,29 @@
           </div>
           <br>
 
-      <% chatDetails.forEach(element => { %>
-        <div class="container peep-msg" style="">
-          <div class="row" style="padding:2px;">
-            <div class="leftimg col-2">
-            <% if (element.user_Image_URL) { %>
-              <img src="<%= element.user_Image_URL %>" alt=""></div>
-            <% }else{ %> 
-              <img src="/images/event/60111.jpg" alt=""></div>
-              
-              <%} %>
-              
-            
-              <div class="leftname col-10"><%= element.user_name %><br>
-              <p class="msg-text text-secondary"><%= element.last_message %> </p>
-            </div>
+          <% chatDetails.forEach(element=> { %>
+            <div class="container peep-msg" style="">
+              <div class="row" style="padding:2px;">
+                <div class="leftimg col-2">
+                  <% if (element.user_Image_URL) { %>
+                    <img src="<%= element.user_Image_URL %>" alt="">
+                </div>
+                <% }else{ %>
+                  <img src="/images/event/60111.jpg" alt="">
+              </div>
 
-          </div>
-          <!-- <div class="wrap">
+              <%} %>
+
+
+                <div class="leftname col-10">
+                  <%= element.user_name %><br>
+                    <p class="msg-text text-secondary">
+                      <%= element.last_message %>
+                    </p>
+                </div>
+
+            </div>
+            <!-- <div class="wrap">
                 <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
                 <hr>
               </div> -->
@@ -134,28 +139,29 @@
         <hr>
 
 
-      <% }) %>
-          
+        <% }) %>
+
 
 
           <!-- -------------------------------------script for suggestions ------------------------------------------- -->
 
           <script>
-                function fnName(recid){
-                  let chatName = document.getElementById('chatName');
-                  chatName.innerText=recid; 
-                  try {
-                    const response = fetch(`http://localhost:3000/chat`, {
-                              method: "post",
-                              headers: {
-                                "Content-Type": "application/json"
-                              },
-                              body: JSON.stringify({ recid }) // Send the message in the request body
-                            });
-                            
-                }catch(e){
-                    console.log('some kinda error shiiittttt',e)
-                }}
+            function fnName(recid) {
+              let chatName = document.getElementById('chatName');
+              chatName.innerText = recid;
+              try {
+                const response = fetch(`http://localhost:3000/chat`, {
+                  method: "post",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({ recid }) // Send the message in the request body
+                });
+
+              } catch (e) {
+                console.log('some kinda error shiiittttt', e)
+              }
+            }
             function autocomplete(inp, arr) {
               /*the autocomplete function takes two arguments,
               the text field element and an array of possible autocompleted values:*/
@@ -187,7 +193,7 @@
                     b.innerHTML += arr[i].substr(val.length);
                     /*insert a input field that will hold the current array item's value:*/
                     b.innerHTML += "<input type='hidden' id='suggestedUserName' value='" + arr[i] + "'  id='justtry'/>";
-                    
+
                     /*execute a function when someone clicks on the item value (DIV element):*/
                     b.addEventListener("click", function (e) {
                       /*insert the value for the autocomplete text field:*/
@@ -195,6 +201,7 @@
 
                       // Value which we need in order to find name
                       fnName(inp.value);
+                      sockercon(inp.value);
                       /*close the list of autocompleted values,
                       (or any other open lists of autocompleted values:*/
                       closeAllLists();
@@ -204,7 +211,7 @@
                 }
 
               });
-              
+
               /*execute a function presses a key on the keyboard:*/
               inp.addEventListener("keydown", function (e) {
                 var x = document.getElementById(this.id + "autocomplete-list");
@@ -263,9 +270,9 @@
             }
 
             /*An array containing all the country names in the world:*/
-            let countries = [],temp =[];
-             countries = `<%= createdUname%>`.split(',');
-             console.log(countries);
+            let countries = [], temp = [];
+            countries = `<%= createdUname%>`.split(',');
+            console.log(countries);
 
             /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
             autocomplete(document.getElementById("myInput"), countries);
@@ -280,7 +287,7 @@
 
 
 
- 
+
 
 
 
@@ -292,180 +299,183 @@
 
 
 
-         
+
 
           <!-- -----------------------------ending of the left column------------------------------------------------ -->
-        </div>
       </div>
+    </div>
 
 
-      <!-- ---------------------------------------------starting of the right column --------------------------------------------- -->
+    <!-- ---------------------------------------------starting of the right column --------------------------------------------- -->
 
-      <div class="right col-8">
-        <!-- <div class="righttop"> -->
-        <div class="row ms-2">
-          <div class="container" id="Rcontainer">
-            <!-- msg-header section starts -->
-            <div class="msg-header d-flex ">
-              <div class="container1">
-                <img src="/images/event/user.png" class="msgimg" width="45px" height="45px"
-                  style="border-radius:100%; position: relative;top:0.3em;padding-left:2px;" />
-                <div class="active active1">
-                  <h3 style="position: relative;top:0.4em;color: white;width: max-content;" id="chatName">Abhay Bissa</h3>
-                </div>
+    <div class="right col-8">
+      <!-- <div class="righttop"> -->
+      <div class="row ms-2">
+        <div class="container" id="Rcontainer">
+          <!-- msg-header section starts -->
+          <div class="msg-header d-flex ">
+            <div class="container1">
+              <img src="/images/event/user.png" class="msgimg" width="45px" height="45px"
+                style="border-radius:100%; position: relative;top:0.3em;padding-left:2px;" />
+              <div class="active active1">
+                <h3 style="position: relative;top:0.4em;color: white;width: max-content;" id="chatName">Abhay Bissa</h3>
               </div>
             </div>
-            <!-- msg-header section ends -->
+          </div>
+          <!-- msg-header section ends -->
 
-            <!-- Chat inbox  -->
-            <div class="chat-page">
-              <div class="msg-inbox">
-                <div class="chats">
-                  <!-- Message container -->
-                  <div class="msg-page">
-                    <!-- Incoming messages -->
+          <!-- Chat inbox  -->
+          <div class="chat-page">
+            <div class="msg-inbox">
+              <div class="chats">
+                <!-- Message container -->
+                <div class="msg-page">
+                  <!-- Incoming messages -->
 
-                    <div class="received-chats">
-                      <div class="received-chats-img">
-                        <img src="/images/event/user.png" />
-                      </div>
-                      <div class="received-msg">
-                        <div class="received-msg-inbox">
-                          <p id="message-container">
-                            So have you given any thoughts about joining the recent event created for food donation?
-                          </p>
-                          <span class="time">18:06 PM | July 24</span>
-                        </div>
+                  <div class="received-chats">
+                    <div class="received-chats-img">
+                      <img src="/images/event/user.png" />
+                    </div>
+                    <div class="received-msg">
+                      <div class="received-msg-inbox">
+                        <p id="message-container">
+                          So have you given any thoughts about joining the recent event created for food donation?
+                        </p>
+                        <span class="time">18:06 PM | July 24</span>
                       </div>
                     </div>
-                    <!-- Outgoing messages -->
-                    <div class="outgoing-chats">
-                      <div class="outgoing-chats-img">
-                        <img src="/images/event/60111.jpg" />
-                      </div>
-                      <div class="outgoing-msg">
-                        <div class="outgoing-chats-msg">
-                          <p class="multi-msg">
-                            Hi Abhay , I have been thinking about it a lot and I think I'll be joining the event,
-                            Nothing better than helping the one in needs right?.
-                          </p>
-                          <p class="multi-msg">
-                            And also, What time is it?
-                          </p>
+                  </div>
+                  <!-- Outgoing messages -->
+                  <div class="outgoing-chats">
+                    <div class="outgoing-chats-img">
+                      <img src="/images/event/60111.jpg" />
+                    </div>
+                    <div class="outgoing-msg">
+                      <div class="outgoing-chats-msg">
+                        <p class="multi-msg">
+                          Hi Abhay , I have been thinking about it a lot and I think I'll be joining the event,
+                          Nothing better than helping the one in needs right?.
+                        </p>
+                        <p class="multi-msg">
+                          And also, What time is it?
+                        </p>
 
-                          <span class="time">18:30 PM | July 24</span>
-                        </div>
+                        <span class="time">18:30 PM | July 24</span>
                       </div>
                     </div>
-                    <div class="received-chats">
-                      <div class="received-chats-img">
-                        <img src="/images/event/user.png" />
-                      </div>
-                      <div class="received-msg">
-                        <div class="received-msg-inbox">
-                          <p class="single-msg">
-                            It is on the morning of 8th of May at 8AM. It's sunday so we all would be free. Catch you up
-                            then?
-                          </p>
-                          <span class="time">18:31 PM | July 24</span>
-                        </div>
+                  </div>
+                  <div class="received-chats">
+                    <div class="received-chats-img">
+                      <img src="/images/event/user.png" />
+                    </div>
+                    <div class="received-msg">
+                      <div class="received-msg-inbox">
+                        <p class="single-msg">
+                          It is on the morning of 8th of May at 8AM. It's sunday so we all would be free. Catch you up
+                          then?
+                        </p>
+                        <span class="time">18:31 PM | July 24</span>
                       </div>
                     </div>
-                    <div class="outgoing-chats">
-                      <div class="outgoing-chats-img">
-                        <img src="user1.png" />
-                      </div>
-                      <div class="outgoing-msg">
-                        <div class="outgoing-chats-msg">
-                          <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Velit, sequi.
-                          </p>
+                  </div>
+                  <div class="outgoing-chats">
+                    <div class="outgoing-chats-img">
+                      <img src="user1.png" />
+                    </div>
+                    <div class="outgoing-msg">
+                      <div class="outgoing-chats-msg">
+                        <p>
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                          Velit, sequi.
+                        </p>
 
-                          <span class="time">18:34 PM | July 24</span>
-                        </div>
+                        <span class="time">18:34 PM | July 24</span>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <!-- msg-bottom section -->
+              <!-- msg-bottom section -->
 
-                <div class="msg-bottom">
-                  <form action="" id="send-container">
-                    <div class="input-group">
+              <div class="msg-bottom">
+                <form action="" id="send-container">
+                  <div class="input-group">
 
-                      <input type="text" class="form-control" placeholder="Write message..." id="message" />
+                    <input type="text" class="form-control" placeholder="Write message..." id="message" />
 
-                      <button id="send-button" class="material-symbols-outlined" type="button" onclick="postMessage()">
-                        send
-                      </button>
+                    <button id="send-button" class="material-symbols-outlined" type="button" onclick="postMessage()">
+                      send
+                    </button>
 
-                      <script>
-                        // Assuming the 'io' variable is defined elsewhere
- 
-                            const socker = io();
-                            const sendBtn = document.getElementById('send-button');
-                            const msgInput = document.getElementById('message');
-                            const recMessage = document.getElementById('message-container');
-                            let socket; // Define a variable to hold the socket reference
-                    
-                            socker.on("connect", () => {
-                                socket = socker; // Assign the socket reference when connection is established
+                    <script>
+                      // Assuming the 'io' variable is defined elsewhere
+
+
+                      const sendBtn = document.getElementById('send-button');
+                      const msgInput = document.getElementById('message');
+                      const recMessage = document.getElementById('message-container');
+                      // Define a variable to hold the socket reference
+                      // Define socket variable in the outer scope
+                      let socket;
+
+                      // Function to establish socket connection
+                      function sockercon() {
+                        socket = io();
+
+                        // Handle connection established event
+                        socket.on("connect", () => {
+                          console.log("Socket connected");
+                        });
+
+                        // Handle receiving messages
+                        socket.on("message", (message) => {
+                          console.log("Received message:", message);
+                          // Handle the received message as needed
+                        });
+
+                        // Handle server shutdown
+                        socket.on("disconnect", () => {
+                          console.log("Server down");
+                        });
+                      }
+
+                      // Function to send a message
+                      function postMessage() {
+                        sendBtn.addEventListener("click", async (e) => {
+                          e.preventDefault();
+
+                          const recid = document.getElementById('chatName').innerText;
+                          const message = msgInput.value;
+
+                          try {
+                            // Emit a private message to the server
+                            socket.emit("private-message", { message, userId: recid });
+
+                            // Send the message to the server via fetch
+                            const response = await fetch("http://localhost:3000/chat/", {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json"
+                              },
+                              body: JSON.stringify({ message, recid })
                             });
-                            // reciving message
-                            
-                            socker.on("message", (message) => {
-                                recMessage.innerText = message;
-                            });
-                    
-                            // Handling server shutdown
-                            socker.on("disconnect", () => {
-                                console.log("Server down");
-                                if (socket) {
-                                    socket.disconnect();
-                                    // alert('server closed or broken');
-                                    // location.href='/' // Disconnect all sockets
-                                }
-                            });
 
-
-                        function postMessage() {
- 
-                    
-                            sendBtn.addEventListener("click", async (e) => {
-                                e.preventDefault(); // Prevent default form submission behavior
-                    
-                                let recid = document.getElementById('chatName').innerText;
-                    
-                                const message = msgInput.value;
-                                console.log('recid----------------', recid);
-                                socker.emit("user-message", message);
-                    
-                                try {
-                                    const response = await fetch("http://localhost:3000/chat/", {
-                                        method: "POST",
-                                        headers: {
-                                            "Content-Type": "application/json"
-                                        },
-                                        body: JSON.stringify({ message, recid }) // Send the message in the request body
-                                    });
-                    
-                                    if (response.ok) {
-                                        console.log("Message sent successfully.");
-                                    } else {
-                                        console.error("Failed to send message. Server responded with status:", response.status);
-                                    }
-                                    msgInput.value = "";
-                                } catch (error) {
-                                    console.error("Error sending message:", error);
-                                }
-                            });
-                        }
+                            if (response.ok) {
+                              console.log("Message sent successfully.");
+                            } else {
+                              console.error("Failed to send message. Server responded with status:", response.status);
+                            }
+                            msgInput.value = "";
+                          } catch (error) {
+                            console.error("Error sending message:", error);
+                          }
+                        });
+                      }
                     </script>
-                    
-                     
-                      <!-- <script>
+
+
+                    <!-- <script>
                                     const socket = io()
                                     const messageContainer = document.getElementById('message-container')
                                     const messageForm = document.getElementById('send-container')
@@ -503,15 +513,15 @@
                             </script>
  -->
 
-                  </form>
-                </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- </div> -->
     </div>
+    <!-- </div> -->
+  </div>
 
 
 
@@ -521,7 +531,7 @@
 
 
 
-    <!-- -----------------------------------------------ending of the right column ----------------------------------------------- -->
+  <!-- -----------------------------------------------ending of the right column ----------------------------------------------- -->
   </div>
   </div>
 

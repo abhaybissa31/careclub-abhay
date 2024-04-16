@@ -4,7 +4,12 @@ const bodyParser = require("body-parser");
 const userData = require('../models/userData');
 const mongoose=require('mongoose');
 const app = express();
+// const io = io('http://localhost:3000');
+
 app.use(bodyParser.json());
+
+
+
 
 
 const getChat = async (req, res) => {

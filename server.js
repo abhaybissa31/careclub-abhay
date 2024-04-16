@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express=require('express');
+const userModel = require('./models/userData');
 const app=express();
 const expressSession=require('express-session');
 const MongoDbSession = require("connect-mongodb-session")(expressSession);
@@ -38,11 +39,25 @@ mongoose
   });
 
 //-------------------------------------- Socket.io code starts   ---------------------------------------------------
-    io.on('connection', (socket)=>{
-      socket.on("user-message",(message)=>{
-          io.emit("message",message)
-      })
-    })
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  // Handle incoming private messages
+  socket.on('private-message', (data) => {
+      const { message, userId } = data;
+      // Emit the message only to the specified user
+      console.log('---------------------------userid is--------------------',userId)
+    
+      io.to(userId).emit('message', message);
+  });
+
+  // Handle disconnection
+  socket.on('disconnect', () => {
+      console.log('user disconnected');
+  });
+});
+
+
 
 //-------------------------------------- Socket.io code Ends  ---------------------------------------------------
 
