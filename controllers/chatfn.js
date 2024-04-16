@@ -25,7 +25,7 @@ const getChat = async (req, res) => {
         }
 
         // Retrieve all chat details where the current user is either sender or receiver
-        const chatDetails = await chatModel.find({
+        let chatDetails = await chatModel.find({
             $or: [
                 { sender_id: userId },
                 { receiver_id: userId }
@@ -40,7 +40,7 @@ const getChat = async (req, res) => {
             uniqueUserIds.add(chat.receiver_id.toString());
         });
 
-        const messagesWithSenderReceiver = [];
+        let messagesWithSenderReceiver = [];
 
         for (const id of uniqueUserIds) {
             if (!mongoose.Types.ObjectId.isValid(id) || id === userId) {
@@ -77,7 +77,17 @@ const getChat = async (req, res) => {
         // Optionally find all users for some user listing feature
         const createdUser = await userData.find({}, { u_name: 1, u_email: 1, _id: 1 });
         const createdUname = createdUser.map(item => item.u_name);
+        const userIdString = userId.toString(); // Convert ObjectId to string
+        
+        function filterChatData(messagesWithSenderReceiver, userId) {
+            return messagesWithSenderReceiver.filter(chat => chat.user_id !== userId);
+        }
+        
+        // Filtering messagesWithSenderReceiver to remove messages sent or received by the logged-in user
 
+        messagesWithSenderReceiver = filterChatData(messagesWithSenderReceiver, userIdString);
+
+        console.log(messagesWithSenderReceiver)
         // Render the chat page with all necessary data
         res.render('chat', {
             createdUser,

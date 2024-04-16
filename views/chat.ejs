@@ -404,7 +404,7 @@
                       <script>
                         // Assuming the 'io' variable is defined elsewhere
  
-                        const socker = io();
+                            const socker = io();
                             const sendBtn = document.getElementById('send-button');
                             const msgInput = document.getElementById('message');
                             const recMessage = document.getElementById('message-container');
@@ -413,7 +413,8 @@
                             socker.on("connect", () => {
                                 socket = socker; // Assign the socket reference when connection is established
                             });
-                    
+                            // reciving message
+                            
                             socker.on("message", (message) => {
                                 recMessage.innerText = message;
                             });
