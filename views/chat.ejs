@@ -110,13 +110,15 @@
           <br>
 
           <% chatDetails.forEach(element=> { %>
-            <div class="container peep-msg" style="">
+            <div class="container peep-msg"
+              onclick="fnRightChats(`<%= element.user_name %>`,`<%= element.user_id %>`,`<%= element.user_Image_URL %>`)"
+              style="">
               <div class="row" style="padding:2px;">
                 <div class="leftimg col-2">
                   <% if (element.user_Image_URL) { %>
                     <img src="<%= element.user_Image_URL %>" alt="">
                 </div>
-                <% }else{ %>
+                <% }else{ console.log(element) %>
                   <img src="/images/event/60111.jpg" alt="">
               </div>
 
@@ -125,6 +127,10 @@
 
                 <div class="leftname col-10">
                   <%= element.user_name %><br>
+
+                    <label for="" style="display: none;" id="recHiddenId">
+                      <%= element.user_id %>
+                    </label>
                     <p class="msg-text text-secondary">
                       <%= element.last_message %>
                     </p>
@@ -137,7 +143,26 @@
               </div> -->
         </div>
         <hr>
+        <script>
+          function fnRightChats(name, uid, img) {
+            a = document.getElementById('chatName');
+            b = document.getElementById('hiddenChatName');
+            c = document.getElementById('rightImage');
+            console.log("image type is ", typeof (img));
+            console.log("image", img);
+            console.log(name, uid, img)
+            a.innerHTML = name;
+            b.value = uid;
+            if (img.length == 0) { c.src = 'images/event/user.png' } else { c.src = img }
 
+
+
+          }
+          // c.src=img;
+          // img = null ?? '/images/event/user.png';
+          // c.src=img;
+
+        </script>
 
         <% }) %>
 
@@ -146,11 +171,19 @@
           <!-- -------------------------------------script for suggestions ------------------------------------------- -->
 
           <script>
-            function fnName(recid) {
+            async function fnName(recid, createdId, imgTop) {
+
               let chatName = document.getElementById('chatName');
+              let hiddenchatName = document.getElementById('hiddenChatName');
+              let c = document.getElementById('rightImage');
+
+              console.log('------------------------------created id-------------', createdId)
               chatName.innerText = recid;
+              if (imgTop.length == 0) { c.src = 'images/event/user.png' } else { c.src = imgTop }
+              hiddenchatName.value = createdId;
+
               try {
-                const response = fetch(`http://localhost:3000/chat`, {
+                const response = await fetch(`http://localhost:3000/chat/${createdId}`, {
                   method: "post",
                   headers: {
                     "Content-Type": "application/json"
@@ -158,11 +191,42 @@
                   body: JSON.stringify({ recid }) // Send the message in the request body
                 });
 
+
+
+
+
+                // console.log(json1)
+                // console.log('heloooooooooooooooooooooo')
+
+                let recMessage1 = document.getElementById('recmessage');
+                let recData = await response.json();
+                console.log(recData);
+                const { temp12 } = recData;
+
+                temp12.forEach(element => {
+                  let pTag = document.createElement("p");
+                  pTag.textContent = element;
+                  recMessage1.appendChild(pTag);
+
+                  // Append a line break after each <p> element
+                  let brTag = document.createElement("br");
+                  recMessage1.appendChild(brTag);
+                });
+
+
+
+
               } catch (e) {
                 console.log('some kinda error shiiittttt', e)
               }
+
             }
-            function autocomplete(inp, arr) {
+
+
+
+
+            function autocomplete(inp, arr, uid1, imgTop) {
+              // console.log(uid1)
               /*the autocomplete function takes two arguments,
               the text field element and an array of possible autocompleted values:*/
               var currentFocus;
@@ -192,16 +256,19 @@
                     b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                     b.innerHTML += arr[i].substr(val.length);
                     /*insert a input field that will hold the current array item's value:*/
-                    b.innerHTML += "<input type='hidden' id='suggestedUserName' value='" + arr[i] + "'  id='justtry'/>";
-
+                    b.innerHTML += "<input type='hidden' id='suggestedUserName' value='" + arr[i] + "' />";
+                    b.innerHTML += "<input type = 'hidden' id='suggestHiddenId' value='" + uid[i] + "' />"
+                    let imgTopTop = imgTop[i]
                     /*execute a function when someone clicks on the item value (DIV element):*/
                     b.addEventListener("click", function (e) {
                       /*insert the value for the autocomplete text field:*/
                       inp.value = this.getElementsByTagName("input")[0].value;
-
+                      let uid = this.getElementsByTagName("input")[1].value;
+                      // let createdId = document.getElementById("suggestHiddenId")[0].value;
                       // Value which we need in order to find name
-                      fnName(inp.value);
-                      sockercon(inp.value);
+                      fnName(inp.value, uid, imgTopTop);
+                      window.value = inp.value;
+
                       /*close the list of autocompleted values,
                       (or any other open lists of autocompleted values:*/
                       closeAllLists();
@@ -209,6 +276,7 @@
                     a.appendChild(b);
                   }
                 }
+                // alert(window.value)
 
               });
 
@@ -273,9 +341,14 @@
             let countries = [], temp = [];
             countries = `<%= createdUname%>`.split(',');
             console.log(countries);
-
+            let uid = [];
+            uid = `<%= createdId %>`.split(',');
+            // console.log(uid)
+            let imgTop = [];
+            imgTop = `<%= createdImg %>`.split(',');
+            // console.log(imgTop)
             /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-            autocomplete(document.getElementById("myInput"), countries);
+            autocomplete(document.getElementById("myInput"), countries, uid, imgTop);
 
           </script>
 
@@ -316,9 +389,10 @@
           <div class="msg-header d-flex ">
             <div class="container1">
               <img src="/images/event/user.png" class="msgimg" width="45px" height="45px"
-                style="border-radius:100%; position: relative;top:0.3em;padding-left:2px;" />
+                style="border-radius:100%; position: relative;top:0.3em;padding-left:2px;" id="rightImage" />
               <div class="active active1">
                 <h3 style="position: relative;top:0.4em;color: white;width: max-content;" id="chatName">Abhay Bissa</h3>
+                <input type="hidden" name="" id="hiddenChatName" value="">
               </div>
             </div>
           </div>
@@ -338,10 +412,16 @@
                     </div>
                     <div class="received-msg">
                       <div class="received-msg-inbox">
-                        <p id="message-container">
-                          So have you given any thoughts about joining the recent event created for food donation?
-                        </p>
-                        <span class="time">18:06 PM | July 24</span>
+                        <%= console.log(temp12,'temp12-----------') %>
+                          <script>
+                            let temp13 = ` <%= temp12 %>`;
+
+                          </script>
+
+                          <p id="recmessage" class="multi-msg"> ss </p>
+
+
+                          <span class="time">18:06 PM | July 24</span>
                       </div>
                     </div>
                   </div>
@@ -352,7 +432,7 @@
                     </div>
                     <div class="outgoing-msg">
                       <div class="outgoing-chats-msg">
-                        <p class="multi-msg">
+                        <p class="multi-msg" id="message-container">
                           Hi Abhay , I have been thinking about it a lot and I think I'll be joining the event,
                           Nothing better than helping the one in needs right?.
                         </p>
@@ -402,7 +482,7 @@
                 <form action="" id="send-container">
                   <div class="input-group">
 
-                    <input type="text" class="form-control" placeholder="Write message..." id="message" />
+                    <input type="text" class="form-control" placeholder="Write message..." id="message" required= />
 
                     <button id="send-button" class="material-symbols-outlined" type="button" onclick="postMessage()">
                       send
@@ -410,55 +490,45 @@
 
                     <script>
                       // Assuming the 'io' variable is defined elsewhere
-
-
+                      const socket = io(); // Connect to the server using Socket.IO
                       const sendBtn = document.getElementById('send-button');
                       const msgInput = document.getElementById('message');
                       const recMessage = document.getElementById('message-container');
-                      // Define a variable to hold the socket reference
-                      // Define socket variable in the outer scope
-                      let socket;
+                      const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
+                      console.log('------------------------------recid', recid)
+                      socket.on('private-message', (data) => {
+                        console.log('Received private message:', data);
+                        // Display the message on the UI with sender name
+                        recMessage.innerHTML += `<p><b>${data.sender}:</b> ${data.message}</p>`;
+                      });
 
-                      // Function to establish socket connection
-                      function sockercon() {
-                        socket = io();
+                      sendBtn.addEventListener('click', () => {
+                        const message = msgInput.value;
+                        msgInput.value = ''; // Clear message input after sending
 
-                        // Handle connection established event
-                        socket.on("connect", () => {
-                          console.log("Socket connected");
+                        socket.emit('send-message', {
+                          recid,
+                          message,
                         });
+                      });
 
-                        // Handle receiving messages
-                        socket.on("message", (message) => {
-                          console.log("Received message:", message);
-                          // Handle the received message as needed
-                        });
-
-                        // Handle server shutdown
-                        socket.on("disconnect", () => {
-                          console.log("Server down");
-                        });
-                      }
-
-                      // Function to send a message
                       function postMessage() {
-                        sendBtn.addEventListener("click", async (e) => {
-                          e.preventDefault();
 
-                          const recid = document.getElementById('chatName').innerText;
+
+                        sendBtn.addEventListener("click", async (e) => {
+                          e.preventDefault(); // Prevent default form submission behavior
+
+                          let recid = document.getElementById('chatName').innerText;
                           const message = msgInput.value;
+                          socket.emit("user-message", message);
 
                           try {
-                            // Emit a private message to the server
-                            socket.emit("private-message", { message, userId: recid });
-
-                            // Send the message to the server via fetch
                             const response = await fetch("http://localhost:3000/chat/", {
                               method: "POST",
                               headers: {
                                 "Content-Type": "application/json"
                               },
-                              body: JSON.stringify({ message, recid })
+                              body: JSON.stringify({ message, recid }) // Send the message in the request body
                             });
 
                             if (response.ok) {

@@ -40,7 +40,12 @@ const getChat = async (req, res) => {
         const uniqueUserIds = new Set();
 
         // Aggregate unique user IDs from the chat details
-        chatDetails.forEach(chat => {
+        chatDetails.forEach((chat, index) => {
+            if (!chat.sender_id || !chat.receiver_id) {
+                console.error(`Invalid chat object at index ${index}:`, chat);
+                return;
+            }
+        
             uniqueUserIds.add(chat.sender_id.toString());
             uniqueUserIds.add(chat.receiver_id.toString());
         });
@@ -80,10 +85,13 @@ const getChat = async (req, res) => {
         }
 
         // Optionally find all users for some user listing feature
-        const createdUser = await userData.find({}, { u_name: 1, u_email: 1, _id: 1 });
+        const createdUser = await userData.find({}, { u_name: 1, u_email: 1, _id: 1, Image_URL: 1 });
         const createdUname = createdUser.map(item => item.u_name);
+        let createdId = createdUser.map(item=>item._id);
         const userIdString = userId.toString(); // Convert ObjectId to string
-        
+        let createdImg = createdUser.map(item=>item.Image_URL);
+        // console.log('-----------------------------img----------------------',createdImg)
+
         function filterChatData(messagesWithSenderReceiver, userId) {
             return messagesWithSenderReceiver.filter(chat => chat.user_id !== userId);
         }
@@ -91,15 +99,20 @@ const getChat = async (req, res) => {
         // Filtering messagesWithSenderReceiver to remove messages sent or received by the logged-in user
 
         messagesWithSenderReceiver = filterChatData(messagesWithSenderReceiver, userIdString);
-
-        console.log(messagesWithSenderReceiver)
+        createdId = filterChatData(createdId, userIdString);
+        
+        // console.log(messagesWithSenderReceiver)
         // Render the chat page with all necessary data
         res.render('chat', {
             createdUser,
             createdUname,
+            createdId,
+            temp12:'bhdwaaaaa',
+            createdImg,
             user: userId,
             chatDetails: messagesWithSenderReceiver
         });
+        // console.log(createdId)
     } catch (error) {
         console.error("Error fetching chat details:", error);
         res.status(500).send("Internal Server Error");
@@ -107,8 +120,23 @@ const getChat = async (req, res) => {
 };
 
 
-const getRecentMessages = async(req,res)=>{
+const getRecentMessages = async(req,res,chatId)=>{
+    // console.log(chatId)
+    
+    
+    let chatDetailsSend = await chatModel.find({sender_id:chatId},{msg:1,_id:0})
+    let chatDetailsRec = await chatModel.find({receiver_id:chatId},{msg:1, _id:0})
+    let temp12 = chatDetailsRec.map(item=>item.msg);
+    console.log('---------------------------------------------------------',temp12)
+    res.status(201).json({temp12})    
 
+    
+    
+    
+    
+
+
+    
 }
 
 const postMessages = async(req,res)=>{
@@ -116,13 +144,16 @@ const postMessages = async(req,res)=>{
     const sender_id = req.session.user._id;
 
     let receiver_name = req.body.recid;
-    console.log(req.body.recid);
+    // console.log(req.body.recid);
     let receiver_id = await userData.findOne({u_name:receiver_name});
     let recid=receiver_id._id;
-    console.log('and id is',recid)
+    // console.log('and id is',recid)
     // console.log('recid------------------------------------',receiver_id)
     // console.log('heheheheheheheheheheheheheh',msg);
   
+
+
+    
     if (typeof(message)=='string') {
         chatModel.create({
             sender_id:sender_id,
@@ -142,5 +173,6 @@ const getChats2 = async(req,res,uname)=>{
 module.exports={
     getChat,
     postMessages,
-    getChats2
+    getChats2,
+    getRecentMessages
 }

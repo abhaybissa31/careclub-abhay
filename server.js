@@ -39,23 +39,42 @@ mongoose
   });
 
 //-------------------------------------- Socket.io code starts   ---------------------------------------------------
-io.on('connection', (socket) => {
-  console.log('a user connected');
+// Keep track of connected users and their corresponding socket IDs
+const connectedUsers = {};
 
-  // Handle incoming private messages
-  socket.on('private-message', (data) => {
-      const { message, userId } = data;
-      // Emit the message only to the specified user
-      console.log('---------------------------userid is--------------------',userId)
-    
-      io.to(userId).emit('message', message);
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+
+  // Handle user authentication and save user ID with socket ID
+  socket.on('authenticate', (userId) => {
+    connectedUsers[userId] = socket.id;
+    console.log('User authenticated:', userId);
   });
 
-  // Handle disconnection
+  socket.on('send-message', (data) => {
+    const { recid, message } = data;
+    console.log(data)
+    // Check if recipient ID is available and connected
+    if (recid && connectedUsers[recid]) {
+      const recipientSocketId = connectedUsers[recid];
+      io.to(recipientSocketId).emit('private-message', { message, sender: socket.id });
+    } else {
+      console.error('Recipient ID not provided or not connected');
+    }
+  });
+
   socket.on('disconnect', () => {
-      console.log('user disconnected');
+    // Remove user from connected users when disconnected
+    for (const userId in connectedUsers) {
+      if (connectedUsers[userId] === socket.id) {
+        delete connectedUsers[userId];
+        console.log('User disconnected:', userId);
+        break;
+      }
+    }
   });
 });
+
 
 
 

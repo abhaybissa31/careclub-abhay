@@ -76,7 +76,7 @@ app.get('/events/filter/:filter',(req,res)=> eventDetails.filterevents(req,res,e
 
 app.get('/chat',(req,res,eventData)=>chatFn.getChat(req,res));
 app.post('/chat',(req,res)=>chatFn.postMessages(req,res));
-app.post('/chat/:chatName', (req, res) => chatFn.getChats2(req, res, req.params.chatName));
+app.post('/chat/:chatName', (req, res) => chatFn.getRecentMessages(req, res, req.params.chatName));
 
 
 
