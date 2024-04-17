@@ -172,10 +172,10 @@
 
           <script>
             async function fnName(recid, createdId, imgTop) {
-
               let chatName = document.getElementById('chatName');
               let hiddenchatName = document.getElementById('hiddenChatName');
               let c = document.getElementById('rightImage');
+
 
               console.log('------------------------------created id-------------', createdId)
               chatName.innerText = recid;
@@ -197,23 +197,95 @@
 
                 // console.log(json1)
                 // console.log('heloooooooooooooooooooooo')
-
                 let recMessage1 = document.getElementById('recmessage');
+                let messagecontainer = document.getElementById('message-container');
+
+                // Clear old data
+                recMessage1.innerHTML = '';
+                messagecontainer.innerHTML = '';
+
                 let recData = await response.json();
-                console.log(recData);
-                const { temp12 } = recData;
-
-                temp12.forEach(element => {
-                  let pTag = document.createElement("p");
-                  pTag.textContent = element;
-                  recMessage1.appendChild(pTag);
-
-                  // Append a line break after each <p> element
-                  let brTag = document.createElement("br");
-                  recMessage1.appendChild(brTag);
-                });
+                const { temp12, chatDetailsSend, allChatData, loggedUser } = recData;
+                // console.log('-------------------chatdetails', allChatData);
+                // Sort allChatData by created time in ascending order
 
 
+
+
+
+
+
+
+
+
+
+
+
+// Clear old data
+// Clear old data
+document.getElementById('recmessage').innerHTML = '';
+document.getElementById('message-container').innerHTML = '';
+
+// Combine sender and receiver messages
+const allMessages = [...allChatData];
+
+// Sort all messages by created time in ascending order
+allMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+// Append messages to respective containers in conversation order
+allMessages.forEach((element, index) => {
+    let messageText = `${element.msg}`; // Message content
+    let pTag = document.createElement("p");
+    let pTagId = `recmessage_${index}`; // Generate unique ID
+    pTag.setAttribute("id", pTagId); // Set ID attribute
+    pTag.textContent = messageText;
+
+    // Create a span element for the time
+    let timeSpan = document.createElement("span");
+    timeSpan.classList.add("time");
+    timeSpan.textContent = formatDate(element.createdAt); // Format date and time
+
+    // Append time just below respective container divs
+    if (loggedUser === element.receiver_id) {
+        if (index > 0 && allMessages[index - 1].receiver_id === loggedUser) {
+            let clearTag = document.createElement("div");
+            clearTag.classList.add("clear");
+            document.getElementById('recmessage').appendChild(clearTag);
+        }
+        document.getElementById('recmessage').appendChild(pTag);
+    } else {
+        if (index > 0 && allMessages[index - 1].receiver_id !== loggedUser) {
+            let clearTag = document.createElement("div");
+            clearTag.classList.add("clear");
+            document.getElementById('message-container').appendChild(clearTag);
+        }
+        document.getElementById('message-container').appendChild(pTag);
+    }
+
+    // Append time just below respective container divs
+    if (loggedUser === element.receiver_id) {
+        document.getElementById('recmessage').appendChild(timeSpan);
+    } else {
+        document.getElementById('message-container').appendChild(timeSpan);
+    }
+});
+
+// Function to format date
+function formatDate(dateString) {
+    const options = { hour: 'numeric', minute: 'numeric', month: 'long', day: 'numeric', hour12: true };
+    const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+    return formattedDate;
+}
+
+
+
+
+
+
+                
+                // <div class="outgoing-msg">
+                //       <div class="outgoing-chats-msg">
+                //         <p class="multi-msg" id="message-container">
 
 
               } catch (e) {
@@ -411,17 +483,9 @@
                       <img src="/images/event/user.png" />
                     </div>
                     <div class="received-msg">
-                      <div class="received-msg-inbox">
-                        <%= console.log(temp12,'temp12-----------') %>
-                          <script>
-                            let temp13 = ` <%= temp12 %>`;
-
-                          </script>
-
-                          <p id="recmessage" class="multi-msg"> ss </p>
-
-
-                          <span class="time">18:06 PM | July 24</span>
+                      <div class="received-msg-inbox" id="recmessage">
+                        <p id="recmessagep" class="multi-msg"> </p>
+                        <span class="time" id="timeStamp">18:06 PM | July 24</span>
                       </div>
                     </div>
                   </div>
@@ -431,48 +495,17 @@
                       <img src="/images/event/60111.jpg" />
                     </div>
                     <div class="outgoing-msg">
-                      <div class="outgoing-chats-msg">
+                      <div class="outgoing-chats-msg" id="message-container">
                         <p class="multi-msg" id="message-container">
-                          Hi Abhay , I have been thinking about it a lot and I think I'll be joining the event,
-                          Nothing better than helping the one in needs right?.
+
                         </p>
-                        <p class="multi-msg">
-                          And also, What time is it?
-                        </p>
+
 
                         <span class="time">18:30 PM | July 24</span>
                       </div>
                     </div>
                   </div>
-                  <div class="received-chats">
-                    <div class="received-chats-img">
-                      <img src="/images/event/user.png" />
-                    </div>
-                    <div class="received-msg">
-                      <div class="received-msg-inbox">
-                        <p class="single-msg">
-                          It is on the morning of 8th of May at 8AM. It's sunday so we all would be free. Catch you up
-                          then?
-                        </p>
-                        <span class="time">18:31 PM | July 24</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="outgoing-chats">
-                    <div class="outgoing-chats-img">
-                      <img src="user1.png" />
-                    </div>
-                    <div class="outgoing-msg">
-                      <div class="outgoing-chats-msg">
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                          Velit, sequi.
-                        </p>
 
-                        <span class="time">18:34 PM | July 24</span>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
 

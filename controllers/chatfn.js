@@ -122,13 +122,22 @@ const getChat = async (req, res) => {
 
 const getRecentMessages = async(req,res,chatId)=>{
     // console.log(chatId)
+    // chota hhu moto sort huwe h
     
-    
-    let chatDetailsSend = await chatModel.find({sender_id:chatId},{msg:1,_id:0})
+    let sendChat = await chatModel.find({sender_id:chatId},{msg:1,_id:0})
     let chatDetailsRec = await chatModel.find({receiver_id:chatId},{msg:1, _id:0})
+    let allChatData = await chatModel.find({
+        $or: [
+            { sender_id: chatId, receiver_id: req.session.user._id },
+            { sender_id: req.session.user._id, receiver_id: chatId }
+        ]
+    },{sender_id:1,receiver_id:1,msg:1,_id:0,createdAt:1});
+    console.log(allChatData)
+    // cureent user saari chat 
     let temp12 = chatDetailsRec.map(item=>item.msg);
-    console.log('---------------------------------------------------------',temp12)
-    res.status(201).json({temp12})    
+    let chatDetailsSend = sendChat.map(item=>item.msg);
+    // console.log('---------------------------------------------------------',chatDetailsSend)
+    res.status(201).json({temp12,chatDetailsSend,allChatData,loggedUser:req.session.user._id})    
 
     
     
