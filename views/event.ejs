@@ -257,7 +257,7 @@
                       <div class="row row1">
                         <img class="profile-pic " src="/images/event/rmposter.png"
                           style="padding: 0; max-width: 100%; max-height: 100%; object-fit: contain; margin: 0;cursor: pointer;" ;
-                          height="150" />
+                          height="150" required />
                         <div class="p-image" style="display: none">
                           <form action="/create-event" method="post" enctype="multipart/form-data" style="color: aliceblue;">
                             <input type="file" class="file-upload" accept="image/*" name="e_image" required />
@@ -266,15 +266,15 @@
 
                       <div class="row container mx-auto text-white row2" style="display: inline;" id="formdata"><br>
                         <!-- <label class="bg-dark text-light lbl1 form-control mx-auto">Event name & Keywords</label> -->
-                        <input type="text" name="e_name" placeholder="Event Name" class=" form-control mx-auto txt1">
+                        <input type="text" name="e_name" placeholder="Event Name" class=" form-control mx-auto txt1" required>
                         <br>
                         <input type="text" name="e_hashtags" placeholder="keywords for event.e.g:blood donation camp"
-                          class=" form-control mx-auto txt1"><br>
+                          class=" form-control mx-auto txt1" required><br>
                         <!-- <label class="bg-dark text-light lbl1 mx-auto form-control">Description & location</label> -->
                         <textarea name="e_desc" class="form-control mx-auto"></textarea>
                         <br>
-                        <input type="text" name="e_location" class="form-control mx-auto" placeholder="location📍">
-                        <br><input type="text" name="e_city" placeholder="City" class=" form-control mx-auto txt1"><br>
+                        <input type="text" name="e_location" class="form-control mx-auto" placeholder="location📍" required>
+                        <br><input type="text" name="e_city" placeholder="City" class=" form-control mx-auto txt1" required><br>
                         <!-- <input type="text" placeholder="Date📅" class="form-control" onfocus="(this.type='date')"> -->
                         <!-- <label class="bg-dark text-light lbl1 mx-auto form-control">Date & Time</label> -->
                  
@@ -287,7 +287,7 @@
                           <option value="PM" style="color: white;">PM</option>
                         </select>
                         <br><input type="text" name="e_date" placeholder="Date📅" class="form-control mx-auto"
-                          onfocus="setupDateInput()">
+                          onfocus="setupDateInput()" required>
 
                         <script>
                           function setupDateInput() {

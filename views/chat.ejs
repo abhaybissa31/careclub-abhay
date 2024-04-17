@@ -218,71 +218,63 @@
 
 
 
+                // Clear old data
+                // Clear old data
+                document.getElementById('recmessage').innerHTML = '';
+                document.getElementById('message-container').innerHTML = '';
 
+                // Combine sender and receiver messages
+                const allMessages = [...allChatData];
 
+                // Sort all messages by created time in ascending order
+                allMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
-// Clear old data
-// Clear old data
-document.getElementById('recmessage').innerHTML = '';
-document.getElementById('message-container').innerHTML = '';
+                // Keep track of the last container used for appending
+                let lastContainer = null;
 
-// Combine sender and receiver messages
-const allMessages = [...allChatData];
+                // Append messages to respective containers in conversation order
+                allMessages.forEach((element, index) => {
+                  let messageText = `${element.msg}`; // Message content
+                  let pTag = document.createElement("p");
+                  let pTagId = `recmessage_${index}`; // Generate unique ID
+                  pTag.setAttribute("id", pTagId); // Set ID attribute
+                  pTag.textContent = messageText;
 
-// Sort all messages by created time in ascending order
-allMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+                  // Create a span element for the time
+                  let timeSpan = document.createElement("span");
+                  timeSpan.classList.add("time");
+                  timeSpan.textContent = formatDate(element.createdAt); // Format date and time
 
-// Append messages to respective containers in conversation order
-allMessages.forEach((element, index) => {
-    let messageText = `${element.msg}`; // Message content
-    let pTag = document.createElement("p");
-    let pTagId = `recmessage_${index}`; // Generate unique ID
-    pTag.setAttribute("id", pTagId); // Set ID attribute
-    pTag.textContent = messageText;
+                  // Determine which container to append to based on the sender
+                  let currentContainer = loggedUser === element.receiver_id ? 'recmessage' : 'message-container';
 
-    // Create a span element for the time
-    let timeSpan = document.createElement("span");
-    timeSpan.classList.add("time");
-    timeSpan.textContent = formatDate(element.createdAt); // Format date and time
+                  // Append a clear tag if switching between sender and receiver containers
+                  if (lastContainer && lastContainer !== currentContainer) {
+                    let clearTag = document.createElement("div");
+                    clearTag.classList.add("clear");
+                    document.getElementById(lastContainer).appendChild(clearTag);
+                  }
 
-    // Append time just below respective container divs
-    if (loggedUser === element.receiver_id) {
-        if (index > 0 && allMessages[index - 1].receiver_id === loggedUser) {
-            let clearTag = document.createElement("div");
-            clearTag.classList.add("clear");
-            document.getElementById('recmessage').appendChild(clearTag);
-        }
-        document.getElementById('recmessage').appendChild(pTag);
-    } else {
-        if (index > 0 && allMessages[index - 1].receiver_id !== loggedUser) {
-            let clearTag = document.createElement("div");
-            clearTag.classList.add("clear");
-            document.getElementById('message-container').appendChild(clearTag);
-        }
-        document.getElementById('message-container').appendChild(pTag);
-    }
+                  // Append message and time to the respective container
+                  document.getElementById(currentContainer).appendChild(pTag);
+                  document.getElementById(currentContainer).appendChild(timeSpan);
 
-    // Append time just below respective container divs
-    if (loggedUser === element.receiver_id) {
-        document.getElementById('recmessage').appendChild(timeSpan);
-    } else {
-        document.getElementById('message-container').appendChild(timeSpan);
-    }
-});
+                  // Update the last container used
+                  lastContainer = currentContainer;
+                });
 
-// Function to format date
-function formatDate(dateString) {
-    const options = { hour: 'numeric', minute: 'numeric', month: 'long', day: 'numeric', hour12: true };
-    const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
-    return formattedDate;
-}
+                // Function to format date
+                function formatDate(dateString) {
+                  const options = { hour: 'numeric', minute: 'numeric', month: 'long', day: 'numeric', hour12: true };
+                  const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+                  return formattedDate;
+                }
 
 
 
 
 
 
-                
                 // <div class="outgoing-msg">
                 //       <div class="outgoing-chats-msg">
                 //         <p class="multi-msg" id="message-container">
