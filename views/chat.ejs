@@ -179,7 +179,7 @@
 
               console.log('------------------------------created id-------------', createdId)
               chatName.innerText = recid;
-              if (imgTop.length == 0) { c.src = 'images/event/user.png' } else { c.src = imgTop }
+              if (imgTop.length == 0) { c.style.display="block"; c.src = 'images/event/user.png';  } else {c.style.display="block"; c.src = imgTop }
               hiddenchatName.value = createdId;
 
               try {
@@ -220,7 +220,7 @@
 
                 // Clear old data
                 // Clear old data
-                document.getElementById('recmessage').innerHTML = '';
+                document.getElementById('msgShow').innerHTML = '';
                 document.getElementById('message-container').innerHTML = '';
 
                 // Combine sender and receiver messages
@@ -229,14 +229,36 @@
                 // Sort all messages by created time in ascending order
              // Sort all messages by created time in ascending order
              allMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-                console.log(allMessages)
+                // console.log(allMessages)
 // Append messages to respective containers in conversation order
 allMessages.forEach((element) => {
     let messageText = `${element.msg}`;
     let time = formatDate(element.createdAt);
 
     let messageContainer = createMessageContainer(messageText, time);
-    document.getElementById('msgShow').append(messageContainer);
+    
+    if (element.sender_id === loggedUser) {
+  messageContainer.id = "messageLeft"; // Assign unique ID for left-positioned message
+  pt = document.getElementById('msgShow'); 
+  pt.append(messageContainer);
+  messageContainer.style.position = "relative";
+  messageContainer.style.left = "19em";
+  // messageContainer.style.backgroundColor="black"
+  // pt.style.backgroundColor="black"
+} else {
+  messageContainer.id = "messageRight"; // Assign unique ID for right-positioned message
+  
+  pt = document.getElementById('msgShow'); 
+  pt.append(messageContainer);
+  messageContainer.style.position = "relative";
+  messageContainer.style.right = "0em";
+  messageContainer.style.backgroundColor = "white"; // Set background color for right-positioned message
+  // pt.style.background="red"
+}
+
+
+  //  d = document.getElementById('imgP')
+
 
 });
 
@@ -324,7 +346,7 @@ function formatDate(dateString) {
                       // let createdId = document.getElementById("suggestHiddenId")[0].value;
                       // Value which we need in order to find name
                       fnName(inp.value, uid, imgTopTop);
-                      window.value = inp.value;
+                      // window.value = inp.value
 
                       /*close the list of autocompleted values,
                       (or any other open lists of autocompleted values:*/
@@ -445,10 +467,10 @@ function formatDate(dateString) {
           <!-- msg-header section starts -->
           <div class="msg-header d-flex ">
             <div class="container1">
-              <img src="/images/event/user.png" class="msgimg" width="45px" height="45px"
-                style="border-radius:100%; position: relative;top:0.3em;padding-left:2px;" id="rightImage" />
+              <img src="/images/event/user" class="msgimg" width="45px" height="45px"
+                style="border-radius:100%; position: relative;top:0.3em;padding-left:2px; display: none;" id="rightImage" style="display: none;"/>
               <div class="active active1">
-                <h3 style="position: relative;top:0.4em;color: white;width: max-content;" id="chatName">Abhay Bissa</h3>
+                <h3 style="position: relative;top:0.4em;color: white;width: max-content;" id="chatName"></h3>
                 <input type="hidden" name="" id="hiddenChatName" value="">
               </div>
             </div>
@@ -458,19 +480,14 @@ function formatDate(dateString) {
           <!-- Chat inbox  -->
           <div class="chat-page">
             <div class="msg-inbox">
-              <div class="chats" style="overflow-y: scroll;height:400px;" >
-<!-- 
-                <div class="">
-                  <p class="rec" id="recmessage">
-                    sss
-                  </p>
-                  <p class="send" id="message-container">
-                    sss
-                  </p>
-                </div> -->
+              <div class="chats" style="overflow-y: scroll;height:600px;">
 
+                
                 <div class="cen">
-                  <p id="msgShow"> </p>
+                  <!-- <img src="/images/event/60111.jpg" alt="" id="imgP"> -->
+                  <p id="msgShow" class="received-msg-inbox">
+                    
+                  </p>
                 </div>
 
                 <!-- Message container -->
@@ -535,9 +552,7 @@ function formatDate(dateString) {
                       //   recMessage.innerHTML += `<p><b>${data.sender}:</b> ${data.message}</p>`;
                       // });
 
-                      sendBtn.addEventListener('click', () => {
-                        const message = msgInput.value;
-                        msgInput.value = ''; // Clear message input after sending
+                 // Clear message input after sending
 
                       //   socket.emit('send-message', {
                       //     recid,
@@ -566,6 +581,7 @@ function formatDate(dateString) {
 
                             if (response.ok) {
                               console.log("Message sent successfully.");
+                              msgInput.value="";
                             } else {
                               console.error("Failed to send message. Server responded with status:", response.status);
                             }
@@ -574,7 +590,8 @@ function formatDate(dateString) {
                             console.error("Error sending message:", error);
                           }
                         });
-                      }});
+                        
+                      };
                     </script>
 
 

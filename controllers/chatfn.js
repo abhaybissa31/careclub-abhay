@@ -132,6 +132,11 @@ const getRecentMessages = async(req,res,chatId)=>{
             { sender_id: req.session.user._id, receiver_id: chatId }
         ]
     },{sender_id:1,receiver_id:1,msg:1,_id:0,createdAt:1});
+    let uData = await userData.find({
+        sender_id:chatId
+    })
+
+    // console.log('ssssssssssssssssssssssssssssssssssssssssssssssssssssssss',uData)
     // console.log(allChatData)
     // cureent user saari chat 
     let temp12 = chatDetailsRec.map(item=>item.msg);
