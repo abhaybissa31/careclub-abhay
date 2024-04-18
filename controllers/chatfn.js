@@ -132,10 +132,12 @@ const getRecentMessages = async(req,res,chatId)=>{
             { sender_id: req.session.user._id, receiver_id: chatId }
         ]
     },{sender_id:1,receiver_id:1,msg:1,_id:0,createdAt:1});
-    console.log(allChatData)
+    // console.log(allChatData)
     // cureent user saari chat 
     let temp12 = chatDetailsRec.map(item=>item.msg);
     let chatDetailsSend = sendChat.map(item=>item.msg);
+    // const allMessages = [...allChatData];
+    // console.log('alllmmmsssss',allChatData)
     // console.log('---------------------------------------------------------',chatDetailsSend)
     res.status(201).json({temp12,chatDetailsSend,allChatData,loggedUser:req.session.user._id})    
 
