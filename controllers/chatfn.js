@@ -109,6 +109,7 @@ const getChat = async (req, res) => {
             createdId,
             temp12:'bhdwaaaaa',
             createdImg,
+            loggedUser:req.session.user._id,
             user: userId,
             chatDetails: messagesWithSenderReceiver
         });

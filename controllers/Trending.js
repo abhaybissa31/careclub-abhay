@@ -111,6 +111,7 @@ next();
     tag.save().then((result)=>{
             
        console.log("trends calculated successfully")
+       res.redirect('/trending')
         
     }).catch((err)=>{
         console.log(err);

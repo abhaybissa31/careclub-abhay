@@ -46,25 +46,32 @@ mongoose
 
 //-------------------------------------- Socket.io code starts   ---------------------------------------------------
 // Keep track of connected users and their corresponding socket IDs
+// io.on('connection', (socket) => {
 
-io.on('connection', (socket) => {
+//   // console.log(socket.id);
 
-  console.log(socket.id);
+//   socket.on("message", (data) => {
+//     // Assuming you've implemented user authentication and stored userId in the session
+//     const userId = data.userId; //receiverId
+//     const recid = data.id;
+//     // console.log(recid)
+//     // Assuming you've fetched recipient's socket ID from MongoDB based on data.id
+//     const recipientSocketId = recid; // Get the recipient's socket ID based on data.id
 
-  socket.on("message", (data) => {
+//     // Check if the sender is authenticated and recipient exists
+//     if (userId && recipientSocketId) {
+//       io.to(recipientSocketId).emit("io-recived-message", data.message);
+//       console.log('emiteeeeddd',recipientSocketId)
+//     } else {
+//       // Handle unauthorized or invalid recipient
+//     }
+//   });
 
-    console.log("message:", data, "by socket id: ", socket.id)
-    io.to(data.room).emit("io-recived-message", data.message); //for all user 
-  })
-
-
-  socket.on("disconnect", () => {
-    console.log("listner for disconnect server!!!");
-    console.log(`User disconnected ${socket.id}`);
-  })
-
-
-})
+//   socket.on("disconnect", () => {
+//     console.log("Listener for disconnect server!!!");
+//     console.log(`User disconnected ${socket.id}`);
+//   });
+// });
 
 
 //-------------------------------------- Socket.io code Ends  ---------------------------------------------------

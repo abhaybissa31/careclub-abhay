@@ -544,32 +544,54 @@ function formatDate(dateString) {
                       const sendBtn = document.getElementById('send-button');
                       const msgInput = document.getElementById('message');
                       const recMessage = document.getElementById('message-container');
-                    
+                      let socket = socker;
                       
                      
                       function postMessage() {
                         const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
-                      console.log('------------------------------recid', recid)
-                        let obj = {
-                        id: recid,
-                        message: msgInput.value,
-                      }
 
-                      console.log('id---------------',recid,'----------msg',msgInput.value)
+// // Assuming user is authenticated and their _id is stored in userId variable
+// const userId = `<%= // loggedUser %>`; // Get the authenticated user's _id from session or wherever it's stored
+// // console.log('herei s s s s s s s  s ss  s s',userId)
+// let obj = {
+//   id: recid,
+//   message: msgInput.value,
+//   userId: userId // Sending authenticated user's _id along with the message
+// }
+// // console.log('sssssssssssssssssssssssssssssssss',obj)
+// socket.on("connect", () => {
+//   socket.emit("message", obj);
+// });
+
+// socket.on("io-recived-message", (message) => {
+//                           // this recives the  all cuircuit information
+//                           console.log('emited rec')
+//                           console.log("io messaage:", message);
+//                         });
+
+// Rest of your code...
+
+                      // const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
+                      // console.log('------------------------------recid', recid)
+                      //   let obj = {
+                      //   id: recid,
+                      //   message: msgInput.value,
+                      // }
+
+                      // console.log('id---------------',recid,'----------msg',msgInput.value)
                       
-                      socker.on("connect", () => {
-                        socker.emit("message", obj);
-                        // socker.emit("message", "helllo");
-                        socket = socker; // Assign the socket reference when connection is established
-                        console.log(socker.id);
-                        socket.on("io-recived-message", (message) => {
-                          // this recives the  all cuircuit information
-                          console.log("io messaage:", message);
-                        });
+                      // socker.on("connect", () => {
+                      //   socker.emit("message", obj);
+                      //   // socker.emit("message", "helllo");
+                      //   socket = socker; // Assign the socket reference when connection is established
+                      //   // console.log(socker.id);
+                      //   socket.on("io-recived-message", (message) => {
+                      //     // this recives the  all cuircuit information
+                      //     console.log("io messaage:", message);
+                      //   });
 
 
-                      });
-
+                      // });
 
                         sendBtn.addEventListener("click", async (e) => {
                           e.preventDefault(); // Prevent default form submission behavior
