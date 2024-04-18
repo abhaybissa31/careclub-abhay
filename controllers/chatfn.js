@@ -183,7 +183,7 @@ const postMessages = async(req,res)=>{
 }
 
 const getChats2 = async(req,res,uname)=>{
-    console.log(uname);
+    // console.log(uname);
 }
 
 module.exports={

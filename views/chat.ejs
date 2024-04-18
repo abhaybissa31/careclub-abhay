@@ -118,7 +118,7 @@
                   <% if (element.user_Image_URL) { %>
                     <img src="<%= element.user_Image_URL %>" alt="">
                 </div>
-                <% }else{ console.log(element) %>
+                <% }else{  %>
                   <img src="/images/event/60111.jpg" alt="">
               </div>
 
@@ -148,9 +148,9 @@
             a = document.getElementById('chatName');
             b = document.getElementById('hiddenChatName');
             c = document.getElementById('rightImage');
-            console.log("image type is ", typeof (img));
-            console.log("image", img);
-            console.log(name, uid, img)
+            // console.log("image type is ", typeof (img));
+            // console.log("image", img);
+            // console.log(name, uid, img)
             a.innerHTML = name;
             b.value = uid;
             if (img.length == 0) { c.src = 'images/event/user.png' } else { c.src = img }
@@ -540,27 +540,35 @@ function formatDate(dateString) {
 
                     <script>
                       // Assuming the 'io' variable is defined elsewhere
-                      // const socket = io(); // Connect to the server using Socket.IO
+                      const socker = io(); // Connect to the server using Socket.IO
                       const sendBtn = document.getElementById('send-button');
                       const msgInput = document.getElementById('message');
                       const recMessage = document.getElementById('message-container');
-                      const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
-                      console.log('------------------------------recid', recid)
-                      // socket.on('private-message', (data) => {
-                      //   console.log('Received private message:', data);
-                      //   // Display the message on the UI with sender name
-                      //   recMessage.innerHTML += `<p><b>${data.sender}:</b> ${data.message}</p>`;
-                      // });
-
-                 // Clear message input after sending
-
-                      //   socket.emit('send-message', {
-                      //     recid,
-                      //     message,
-                      //   });
-                      // });
-
+                    
+                      
+                     
                       function postMessage() {
+                        const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
+                      console.log('------------------------------recid', recid)
+                        let obj = {
+                        id: recid,
+                        message: msgInput.value,
+                      }
+
+                      console.log('id---------------',recid,'----------msg',msgInput.value)
+                      
+                      socker.on("connect", () => {
+                        socker.emit("message", obj);
+                        // socker.emit("message", "helllo");
+                        socket = socker; // Assign the socket reference when connection is established
+                        console.log(socker.id);
+                        socket.on("io-recived-message", (message) => {
+                          // this recives the  all cuircuit information
+                          console.log("io messaage:", message);
+                        });
+
+
+                      });
 
 
                         sendBtn.addEventListener("click", async (e) => {

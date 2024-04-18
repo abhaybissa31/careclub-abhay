@@ -8,7 +8,13 @@ const MongoDbSession = require("connect-mongodb-session")(expressSession);
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server)
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true, //# forsending header and cookies
+  }
+});
 
 const passport=require('passport');
 const bodyparser = require('body-parser')
@@ -40,42 +46,25 @@ mongoose
 
 //-------------------------------------- Socket.io code starts   ---------------------------------------------------
 // Keep track of connected users and their corresponding socket IDs
-const connectedUsers = {};
 
 io.on('connection', (socket) => {
-  console.log('User connected:', socket.id);
 
-  // Handle user authentication and save user ID with socket ID
-  socket.on('authenticate', (userId) => {
-    connectedUsers[userId] = socket.id;
-    console.log('User authenticated:', userId);
-  });
+  console.log(socket.id);
 
-  socket.on('send-message', (data) => {
-    const { recid, message } = data;
-    console.log(data)
-    // Check if recipient ID is available and connected
-    if (recid && connectedUsers[recid]) {
-      const recipientSocketId = connectedUsers[recid];
-      io.to(recipientSocketId).emit('private-message', { message, sender: socket.id });
-    } else {
-      console.error('Recipient ID not provided or not connected');
-    }
-  });
+  socket.on("message", (data) => {
 
-  socket.on('disconnect', () => {
-    // Remove user from connected users when disconnected
-    for (const userId in connectedUsers) {
-      if (connectedUsers[userId] === socket.id) {
-        delete connectedUsers[userId];
-        console.log('User disconnected:', userId);
-        break;
-      }
-    }
-  });
-});
+    console.log("message:", data, "by socket id: ", socket.id)
+    io.to(data.room).emit("io-recived-message", data.message); //for all user 
+  })
 
 
+  socket.on("disconnect", () => {
+    console.log("listner for disconnect server!!!");
+    console.log(`User disconnected ${socket.id}`);
+  })
+
+
+})
 
 
 //-------------------------------------- Socket.io code Ends  ---------------------------------------------------
