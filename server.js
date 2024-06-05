@@ -40,7 +40,7 @@ mongoose
   .then(() => console.log("mongo Database connected Successfully"))
   .catch((err) => console.log(err + "error"));
   const store = new MongoDbSession({
-    uri:'mongodb+srv://theharshrooprai:Mathurharsh18@cluster0.klmhr5d.mongodb.net/',
+    uri:'mongodb+srv://modabhay31:Abhay@mongodb123@cluster0.exvzorh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
     collection: "authSession",
   });
 
