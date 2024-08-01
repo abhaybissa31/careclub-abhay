@@ -193,6 +193,7 @@
 
           <script>
             async function fnName(recid, createdId, imgTop) {
+              console.log('fnname function called')
               let chatName = document.getElementById('chatName');
               let hiddenchatName = document.getElementById('hiddenChatName');
               let c = document.getElementById('rightImage');
@@ -458,57 +459,16 @@
           <script>
             // Assuming the 'io' variable is defined elsewhere
             const socker = io(); // Connect to the server using Socket.IO
-            const sendBtn = document.getElementById('send-button');
-            const msgInput = document.getElementById('message');
-            const recMessage = document.getElementById('message-container');
             let socket = socker;
 
-
             function postMessage() {
+              const sendBtn = document.getElementById('send-button');
+            const msgInput = document.getElementById('message').value;
+            const recMessage = document.getElementById('message-container');
+            
+
               const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
-
-              // // Assuming user is authenticated and their _id is stored in userId variable
-              // const userId = `<%= // loggedUser %>`; // Get the authenticated user's _id from session or wherever it's stored
-              // // console.log('herei s s s s s s s  s ss  s s',userId)
-              // let obj = {
-              //   id: recid,
-              //   message: msgInput.value,
-              //   userId: userId // Sending authenticated user's _id along with the message
-              // }
-              // // console.log('sssssssssssssssssssssssssssssssss',obj)
-              // socket.on("connect", () => {
-              //   socket.emit("message", obj);
-              // });
-
-              // socket.on("io-recived-message", (message) => {
-              //                           // this recives the  all cuircuit information
-              //                           console.log('emited rec')
-              //                           console.log("io messaage:", message);
-              //                         });
-
-              // Rest of your code...
-
-              // const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
-              // console.log('------------------------------recid', recid)
-              //   let obj = {
-              //   id: recid,
-              //   message: msgInput.value,
-              // }
-
-              // console.log('id---------------',recid,'----------msg',msgInput.value)
-
-              // socker.on("connect", () => {
-              //   socker.emit("message", obj);
-              //   // socker.emit("message", "helllo");
-              //   socket = socker; // Assign the socket reference when connection is established
-              //   // console.log(socker.id);
-              //   socket.on("io-recived-message", (message) => {
-              //     // this recives the  all cuircuit information
-              //     console.log("io messaage:", message);
-              //   });
-
-
-              // });
+              console.log(msgInput);
 
               sendBtn.addEventListener("click", async (e) => {
                 e.preventDefault(); // Prevent default form submission behavior
@@ -547,46 +507,6 @@
 
 
           </script>
-
-
-          <!-- <script>
-                          const socket = io()
-                          const messageContainer = document.getElementById('message-container')
-                          const messageForm = document.getElementById('send-container')
-                          const messageInput = document.getElementById('message-input')
-
-                          const name = prompt('What is your name?')
-                          appendMessage('You joined')
-                          socket.emit('new-user', name)
-
-                          socket.on('chat-message', data => {
-                            appendMessage(`${data.name}: ${data.message}`)
-                          })
-
-                          socket.on('user-connected', name => {
-                            appendMessage(`${name} connected`)
-                          })
-
-                          socket.on('user-disconnected', name => {
-                            appendMessage(`${name} disconnected`)
-                          })
-
-                          messageForm.addEventListener('submit', e => {
-                            e.preventDefault()
-                            const message = messageInput.value
-                            appendMessage(`You: ${message}`)
-                            socket.emit('send-chat-message', message)
-                            messageInput.value = ''
-                          })
-
-                          function appendMessage(message) {
-                            const messageElement = document.createElement('div')
-                            messageElement.innerText = message
-                            messageContainer.append(messageElement)
-                          }
-                  </script>
--->
-
 
           <!-- +++++++++++++++++++++++++++++++++++Script for chat ends+++++++++++++++++++++++++++++++++++++++ -->
 
@@ -673,7 +593,7 @@
                 <form action="" id="send-container">
                   <div class="input-group">
 
-                    <input type="text" class="form-control" placeholder="Write message..." id="message" required= />
+                    <input type="text" class="form-control" placeholder="Write message..." id="message" required />
 
                     <button id="send-button" class="material-symbols-outlined" type="button" onclick="postMessage()">
                       send

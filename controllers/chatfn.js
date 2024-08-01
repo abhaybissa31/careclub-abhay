@@ -4,12 +4,18 @@ const bodyParser = require("body-parser");
 const userData = require("../models/userData");
 const mongoose = require("mongoose");
 const app = express();
+const blue = "\x1b[94m";
+const reset = "\x1b[0m";
 // const io = io('http://localhost:3000');
 
 app.use(bodyParser.json());
 
 const getChat = async (req, res) => {
-  console.log("get chat runiing heehehehehehehe");
+  // const orange = "\x1b[33m"; // Yellow
+  // const lightRed = "\x1b[91m"; // Light red
+
+  console.log(blue + "getchat has been triggered" + reset);
+
   // Ensure the user is logged in
   if (!req.session || !req.session.user || !req.session.user._id) {
     res.write(
@@ -32,10 +38,10 @@ const getChat = async (req, res) => {
     let chatDetails = await chatModel.find({
       $or: [{ sender_id: userId }, { receiver_id: userId }],
     });
-    console.log(
-      "---------------------chat details--------------------------------------",
-      chatDetails
-    );
+    // console.log(
+    //   "---------------------chat details contains id, senderid, receiverod, msg, createdat, updatedate----------------------------------",
+    //   chatDetails
+    // );
     const uniqueUserIds = new Set();
 
     // Aggregate unique user IDs from the chat details
@@ -111,10 +117,10 @@ const getChat = async (req, res) => {
     );
     createdId = filterChatData(createdId, userIdString);
 
-    console.log(
-      "---------------------------------------message with sender receiver-----------------------------",
-      messagesWithSenderReceiver
-    );
+    // console.log(
+    //   "--------------------message with sender receiver used to get the last sended message contains userid, username, userimage, last sent msg--------------------",
+    //   messagesWithSenderReceiver
+    // );
     // Render the chat page with all necessary data
     res.render("chat", {
       createdUser,
@@ -135,6 +141,7 @@ const getChat = async (req, res) => {
 };
 
 const getRecentMessages = async (req, res, chatId) => {
+  console.log(blue + "getRecentMessages has been triggered" + reset);
   // console.log(chatId)
   // chota hhu moto sort huwe h
 
@@ -159,8 +166,14 @@ const getRecentMessages = async (req, res, chatId) => {
     sender_id: chatId,
   });
 
-  // console.log('ssssssssssssssssssssssssssssssssssssssssssssssssssssssss',uData)
-  // console.log(allChatData)
+  console.log(
+    "ssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+    uData
+  );
+  console.log(
+    "------------------------------all chat data variable----------------------------",
+    allChatData
+  );
   // cureent user saari chat
   let temp12 = chatDetailsRec.map((item) => item.msg);
   let chatDetailsSend = sendChat.map((item) => item.msg);
@@ -176,6 +189,7 @@ const getRecentMessages = async (req, res, chatId) => {
 };
 
 const postMessages = async (req, res) => {
+  console.log(blue + "postMessages has been triggered" + reset);
   const message = req.body.message;
   const sender_id = req.session.user._id;
 
@@ -204,7 +218,6 @@ const postMessages = async (req, res) => {
 const getChats2 = async (req, res, uname) => {
   // console.log(uname);
 };
-
 module.exports = {
   getChat,
   postMessages,
