@@ -616,12 +616,19 @@ function formatDate(dateString) {
                               console.error("Failed to send message. Server responded with status:", response.status);
                             }
                             msgInput.value = "";
+                            window.location.href = "http://localhost:3000/chat";
                           } catch (error) {
                             console.error("Error sending message:", error);
                           }
                         });
                         
                       };
+
+
+
+                      // Redirecting the user to a new URL
+
+
                     </script>
 
 
