@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Chat</title>
   <!-- chat script starting ---------- -->
 
   <script src="/socket.io/socket.io.js"></script>
@@ -118,7 +118,7 @@
                   <% if (element.user_Image_URL) { %>
                     <img src="<%= element.user_Image_URL %>" alt="">
                 </div>
-                <% }else{  %>
+                <% }else{ %>
                   <img src="/images/event/60111.jpg" alt="">
               </div>
 
@@ -144,19 +144,38 @@
         </div>
         <hr>
         <script>
-          function fnRightChats(name, uid, img) {
+          async function fnRightChats(name, uid, img) {
             a = document.getElementById('chatName');
             b = document.getElementById('hiddenChatName');
             c = document.getElementById('rightImage');
+            // d = document.getElementById('rightImage').style.display='none';
+            // c.style.display='none';
             // console.log("image type is ", typeof (img));
             // console.log("image", img);
             // console.log(name, uid, img)
             a.innerHTML = name;
             b.value = uid;
-            if (img.length == 0) { c.src = 'images/event/user.png' } else { c.src = img }
+            console.log(img);
+            if (img.length == 0) { c.src = 'images/event/user.png'; c.style.display='block' } else { c.src = img; c.style.display='block' }
 
+            try {
+                const response = await fetch(`http://localhost:3000/chat`, {
+                  method: "get",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  // body: JSON.stringify({ recid }) // Send the message in the request body
+                },
+                
+              );
+              // console.log('------------------ressss---------------------',response)
+            }
+                catch (err){
+                    console.error(err);
+                }
 
-
+                chatDetail = `<%- JSON.stringify(chatDetails)%>`;
+                console.log(typeof(chatDetail));
           }
           // c.src=img;
           // img = null ?? '/images/event/user.png';
@@ -179,7 +198,7 @@
 
               console.log('------------------------------created id-------------', createdId)
               chatName.innerText = recid;
-              if (imgTop.length == 0) { c.style.display="block"; c.src = 'images/event/user.png';  } else {c.style.display="block"; c.src = imgTop }
+              if (imgTop.length == 0) { c.style.display = "block"; c.src = 'images/event/user.png'; } else { c.style.display = "block"; c.src = imgTop }
               hiddenchatName.value = createdId;
 
               try {
@@ -227,65 +246,66 @@
                 const allMessages = [...allChatData];
 
                 // Sort all messages by created time in ascending order
-             // Sort all messages by created time in ascending order
-             allMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+                // Sort all messages by created time in ascending order
+                allMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
                 // console.log(allMessages)
-// Append messages to respective containers in conversation order
-allMessages.forEach((element) => {
-    let messageText = `${element.msg}`;
-    let time = formatDate(element.createdAt);
+                // Append messages to respective containers in conversation order
+                console.log('-ccccccccccccreaaaaaaaaaaaaaaaaaa',allMessages);
+                allMessages.forEach((element) => {
+                  let messageText = `${element.msg}`;
+                  let time = formatDate(element.createdAt);
 
-    let messageContainer = createMessageContainer(messageText, time);
-    
-    if (element.sender_id === loggedUser) {
-  messageContainer.id = "messageLeft"; // Assign unique ID for left-positioned message
-  pt = document.getElementById('msgShow'); 
-  pt.append(messageContainer);
-  messageContainer.style.position = "relative";
-  messageContainer.style.left = "19em";
-  // messageContainer.style.backgroundColor="black"
-  // pt.style.backgroundColor="black"
-} else {
-  messageContainer.id = "messageRight"; // Assign unique ID for right-positioned message
-  
-  pt = document.getElementById('msgShow'); 
-  pt.append(messageContainer);
-  messageContainer.style.position = "relative";
-  messageContainer.style.right = "0em";
-  messageContainer.style.backgroundColor = "white"; // Set background color for right-positioned message
-  // pt.style.background="red"
-}
+                  let messageContainer = createMessageContainer(messageText, time);
 
+                  if (element.sender_id === loggedUser) {
+                    messageContainer.id = "messageLeft"; // Assign unique ID for left-positioned message
+                    pt = document.getElementById('msgShow');
+                    pt.append(messageContainer);
+                    messageContainer.style.position = "relative";
+                    messageContainer.style.left = "19em";
+                    // messageContainer.style.backgroundColor="black"
+                    // pt.style.backgroundColor="black"
+                  } else {
+                    messageContainer.id = "messageRight"; // Assign unique ID for right-positioned message
 
-  //  d = document.getElementById('imgP')
+                    pt = document.getElementById('msgShow');
+                    pt.append(messageContainer);
+                    messageContainer.style.position = "relative";
+                    messageContainer.style.right = "0em";
+                    messageContainer.style.backgroundColor = "white"; // Set background color for right-positioned message
+                    // pt.style.background="red"
+                  }
 
 
-});
+                  //  d = document.getElementById('imgP')
 
-// Function to create a message container with message and time
-function createMessageContainer(message, time) {
-    let container = document.createElement("div");
-    container.classList.add("message-container");
 
-    let messageElement = document.createElement("p");
-    messageElement.textContent = message;
+                });
 
-    let timeElement = document.createElement("span");
-    timeElement.classList.add("time");
-    timeElement.textContent = time;
+                // Function to create a message container with message and time
+                function createMessageContainer(message, time) {
+                  let container = document.createElement("div");
+                  container.classList.add("message-container");
 
-    container.appendChild(messageElement);
-    container.appendChild(timeElement);
+                  let messageElement = document.createElement("p");
+                  messageElement.textContent = message;
 
-    return container;
-}
+                  let timeElement = document.createElement("span");
+                  timeElement.classList.add("time");
+                  timeElement.textContent = time;
 
-// Function to format date
-function formatDate(dateString) {
-    const options = { hour: 'numeric', minute: 'numeric', month: 'long', day: 'numeric', hour12: true };
-    const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
-    return formattedDate;
-}
+                  container.appendChild(messageElement);
+                  container.appendChild(timeElement);
+
+                  return container;
+                }
+
+                // Function to format date
+                function formatDate(dateString) {
+                  const options = { hour: 'numeric', minute: 'numeric', month: 'long', day: 'numeric', hour12: true };
+                  const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+                  return formattedDate;
+                }
 
 
 
@@ -467,8 +487,9 @@ function formatDate(dateString) {
           <!-- msg-header section starts -->
           <div class="msg-header d-flex ">
             <div class="container1">
-              <img src="/images/event/user" class="msgimg" width="45px" height="45px"
-                style="border-radius:100%; position: relative;top:0.3em;padding-left:2px; display: none;" id="rightImage" style="display: none;"/>
+              <img src="/images/event/user.png" class="msgimg" width="45px" height="45px"
+                style="border-radius:100%; position: relative;top:0.3em;padding-left:2px; display: none;"
+                id="rightImage" style="display: none;" />
               <div class="active active1">
                 <h3 style="position: relative;top:0.4em;color: white;width: max-content;" id="chatName"></h3>
                 <input type="hidden" name="" id="hiddenChatName" value="">
@@ -482,11 +503,11 @@ function formatDate(dateString) {
             <div class="msg-inbox">
               <div class="chats" style="overflow-y: scroll;height:600px;">
 
-                
+
                 <div class="cen">
                   <!-- <img src="/images/event/60111.jpg" alt="" id="imgP"> -->
                   <p id="msgShow" class="received-msg-inbox">
-                    
+                      
                   </p>
                 </div>
 
@@ -507,7 +528,7 @@ function formatDate(dateString) {
                   </div>
 
 
-                  
+
                   <!-- Outgoing messages -->
                   <div class="outgoing-chats">
                     <div class="outgoing-chats-img">
@@ -545,53 +566,53 @@ function formatDate(dateString) {
                       const msgInput = document.getElementById('message');
                       const recMessage = document.getElementById('message-container');
                       let socket = socker;
-                      
-                     
+
+
                       function postMessage() {
                         const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
 
-// // Assuming user is authenticated and their _id is stored in userId variable
-// const userId = `<%= // loggedUser %>`; // Get the authenticated user's _id from session or wherever it's stored
-// // console.log('herei s s s s s s s  s ss  s s',userId)
-// let obj = {
-//   id: recid,
-//   message: msgInput.value,
-//   userId: userId // Sending authenticated user's _id along with the message
-// }
-// // console.log('sssssssssssssssssssssssssssssssss',obj)
-// socket.on("connect", () => {
-//   socket.emit("message", obj);
-// });
+                        // // Assuming user is authenticated and their _id is stored in userId variable
+                        // const userId = `<%= // loggedUser %>`; // Get the authenticated user's _id from session or wherever it's stored
+                        // // console.log('herei s s s s s s s  s ss  s s',userId)
+                        // let obj = {
+                        //   id: recid,
+                        //   message: msgInput.value,
+                        //   userId: userId // Sending authenticated user's _id along with the message
+                        // }
+                        // // console.log('sssssssssssssssssssssssssssssssss',obj)
+                        // socket.on("connect", () => {
+                        //   socket.emit("message", obj);
+                        // });
 
-// socket.on("io-recived-message", (message) => {
-//                           // this recives the  all cuircuit information
-//                           console.log('emited rec')
-//                           console.log("io messaage:", message);
-//                         });
+                        // socket.on("io-recived-message", (message) => {
+                        //                           // this recives the  all cuircuit information
+                        //                           console.log('emited rec')
+                        //                           console.log("io messaage:", message);
+                        //                         });
 
-// Rest of your code...
+                        // Rest of your code...
 
-                      // const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
-                      // console.log('------------------------------recid', recid)
-                      //   let obj = {
-                      //   id: recid,
-                      //   message: msgInput.value,
-                      // }
+                        // const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
+                        // console.log('------------------------------recid', recid)
+                        //   let obj = {
+                        //   id: recid,
+                        //   message: msgInput.value,
+                        // }
 
-                      // console.log('id---------------',recid,'----------msg',msgInput.value)
-                      
-                      // socker.on("connect", () => {
-                      //   socker.emit("message", obj);
-                      //   // socker.emit("message", "helllo");
-                      //   socket = socker; // Assign the socket reference when connection is established
-                      //   // console.log(socker.id);
-                      //   socket.on("io-recived-message", (message) => {
-                      //     // this recives the  all cuircuit information
-                      //     console.log("io messaage:", message);
-                      //   });
+                        // console.log('id---------------',recid,'----------msg',msgInput.value)
+
+                        // socker.on("connect", () => {
+                        //   socker.emit("message", obj);
+                        //   // socker.emit("message", "helllo");
+                        //   socket = socker; // Assign the socket reference when connection is established
+                        //   // console.log(socker.id);
+                        //   socket.on("io-recived-message", (message) => {
+                        //     // this recives the  all cuircuit information
+                        //     console.log("io messaage:", message);
+                        //   });
 
 
-                      // });
+                        // });
 
                         sendBtn.addEventListener("click", async (e) => {
                           e.preventDefault(); // Prevent default form submission behavior
@@ -611,7 +632,7 @@ function formatDate(dateString) {
 
                             if (response.ok) {
                               console.log("Message sent successfully.");
-                              msgInput.value="";
+                              msgInput.value = "";
                             } else {
                               console.error("Failed to send message. Server responded with status:", response.status);
                             }
@@ -621,7 +642,7 @@ function formatDate(dateString) {
                             console.error("Error sending message:", error);
                           }
                         });
-                        
+
                       };
 
 

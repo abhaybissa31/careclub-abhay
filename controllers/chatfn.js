@@ -9,6 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const getChat = async (req, res) => {
+  console.log("get chat runiing heehehehehehehe");
   // Ensure the user is logged in
   if (!req.session || !req.session.user || !req.session.user._id) {
     res.write(
@@ -31,7 +32,10 @@ const getChat = async (req, res) => {
     let chatDetails = await chatModel.find({
       $or: [{ sender_id: userId }, { receiver_id: userId }],
     });
-    // console.log(chatDetails)
+    console.log(
+      "---------------------chat details--------------------------------------",
+      chatDetails
+    );
     const uniqueUserIds = new Set();
 
     // Aggregate unique user IDs from the chat details
@@ -91,6 +95,7 @@ const getChat = async (req, res) => {
     const userIdString = userId.toString(); // Convert ObjectId to string
     let createdImg = createdUser.map((item) => item.Image_URL);
     // console.log('-----------------------------img----------------------',createdImg)
+    let messagesWithSenderReceiver2 = messagesWithSenderReceiver;
 
     function filterChatData(messagesWithSenderReceiver, userId) {
       return messagesWithSenderReceiver.filter(
@@ -106,7 +111,10 @@ const getChat = async (req, res) => {
     );
     createdId = filterChatData(createdId, userIdString);
 
-    // console.log(messagesWithSenderReceiver)
+    console.log(
+      "---------------------------------------message with sender receiver-----------------------------",
+      messagesWithSenderReceiver
+    );
     // Render the chat page with all necessary data
     res.render("chat", {
       createdUser,
@@ -117,6 +125,7 @@ const getChat = async (req, res) => {
       loggedUser: req.session.user._id,
       user: userId,
       chatDetails: messagesWithSenderReceiver,
+      allChatMessage: chatDetails,
     });
     // console.log(createdId)
   } catch (error) {
@@ -158,14 +167,12 @@ const getRecentMessages = async (req, res, chatId) => {
   // const allMessages = [...allChatData];
   // console.log('alllmmmsssss',allChatData)
   // console.log('---------------------------------------------------------',chatDetailsSend)
-  res
-    .status(201)
-    .json({
-      temp12,
-      chatDetailsSend,
-      allChatData,
-      loggedUser: req.session.user._id,
-    });
+  res.status(201).json({
+    temp12,
+    chatDetailsSend,
+    allChatData,
+    loggedUser: req.session.user._id,
+  });
 };
 
 const postMessages = async (req, res) => {
