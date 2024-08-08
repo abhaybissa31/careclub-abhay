@@ -38,10 +38,10 @@ const getChat = async (req, res) => {
     let chatDetails = await chatModel.find({
       $or: [{ sender_id: userId }, { receiver_id: userId }],
     });
-    // console.log(
-    //   "---------------------chat details contains id, senderid, receiverod, msg, createdat, updatedate----------------------------------",
-    //   chatDetails
-    // );
+    console.log(
+      "---------------------chat details contains id, senderid, receiverid, msg, createdat, updatedate----------------------------------",
+      chatDetails
+    );
     const uniqueUserIds = new Set();
 
     // Aggregate unique user IDs from the chat details

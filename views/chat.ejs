@@ -109,7 +109,7 @@
           </div>
           <br>
 
-          <% chatDetails.forEach(element=> { %>
+          <% chatDetails.forEach(element=> { console.log('------chatdetails',chatDetails)%>
             <div class="container peep-msg"
               onclick="fnRightChats(`<%= element.user_name %>`,`<%= element.user_id %>`,`<%= element.user_Image_URL %>`)"
               style="">
@@ -185,15 +185,12 @@
 
         <% }) %>
 
-        <!-- --------------------------------------All of the js code has started--------------------------------------------- -->
 
 
-
-          <!-- +++++++++++++++++++++++++++++++++++++ Script for suggestions +++++++++++++++++++++++++++++++++++++++++++++++++ -->
+          <!-- -------------------------------------script for suggestions ------------------------------------------- -->
 
           <script>
             async function fnName(recid, createdId, imgTop) {
-              console.log('fnname function called')
               let chatName = document.getElementById('chatName');
               let hiddenchatName = document.getElementById('hiddenChatName');
               let c = document.getElementById('rightImage');
@@ -213,10 +210,6 @@
                   body: JSON.stringify({ recid }) // Send the message in the request body
                 });
 
-
-
-
-
                 // console.log(json1)
                 // console.log('heloooooooooooooooooooooo')
                 let recMessage1 = document.getElementById('recmessage');
@@ -230,9 +223,6 @@
                 const { temp12, chatDetailsSend, allChatData, loggedUser } = recData;
                 // console.log('-------------------chatdetails', allChatData);
                 // Sort allChatData by created time in ascending order
-
-
-
 
 
                 // Clear old data
@@ -450,65 +440,23 @@
           </script>
 
 
-          <!-- ++++++++++++++++++++++++++++++++script for suggestions end+++++++++++++++++++++++++++++++++++ -->
-
-          <!-- ++++++++++++++++++++++++++++++++++script for chat starts ++++++++++++++++++++++++++++++++++++ -->
 
 
 
-          <script>
-            // Assuming the 'io' variable is defined elsewhere
-            const socker = io(); // Connect to the server using Socket.IO
-            let socket = socker;
-
-            function postMessage() {
-              const sendBtn = document.getElementById('send-button');
-            const msgInput = document.getElementById('message').value;
-            const recMessage = document.getElementById('message-container');
-            
-
-              const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
-              console.log(msgInput);
-
-              sendBtn.addEventListener("click", async (e) => {
-                e.preventDefault(); // Prevent default form submission behavior
-
-                let recid = document.getElementById('chatName').innerText;
-                const message = msgInput.value;
-                // socket.emit("user-message", message);
-
-                try {
-                  const response = await fetch("http://localhost:3000/chat/", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ message, recid }) // Send the message in the request body
-                  });
-
-                  if (response.ok) {
-                    console.log("Message sent successfully.");
-                    msgInput.value = "";
-                  } else {
-                    console.error("Failed to send message. Server responded with status:", response.status);
-                  }
-                  msgInput.value = "";
-                  window.location.href = "http://localhost:3000/chat";
-                } catch (error) {
-                  console.error("Error sending message:", error);
-                }
-              });
-
-            };
 
 
 
-            // Redirecting the user to a new URL
 
 
-          </script>
 
-          <!-- +++++++++++++++++++++++++++++++++++Script for chat ends+++++++++++++++++++++++++++++++++++++++ -->
+
+
+
+
+
+          <!-- ////////////////////////////////////////script for suggestions end----------------------------------------------------------- -->
+
+
 
 
 
@@ -542,8 +490,6 @@
           <div class="chat-page">
             <div class="msg-inbox">
               <div class="chats" style="overflow-y: scroll;height:600px;">
-
-
                 <div class="cen">
                   <!-- <img src="/images/event/60111.jpg" alt="" id="imgP"> -->
                   <p id="msgShow" class="received-msg-inbox">
@@ -593,12 +539,143 @@
                 <form action="" id="send-container">
                   <div class="input-group">
 
-                    <input type="text" class="form-control" placeholder="Write message..." id="message" required />
+                    <input type="text" class="form-control" placeholder="Write message..." id="message" required= />
 
                     <button id="send-button" class="material-symbols-outlined" type="button" onclick="postMessage()">
                       send
                     </button>
 
+                    <script>
+                      // Assuming the 'io' variable is defined elsewhere
+                      const socker = io(); // Connect to the server using Socket.IO
+                      const sendBtn = document.getElementById('send-button');
+                      const msgInput = document.getElementById('message');
+                      const recMessage = document.getElementById('message-container');
+                      let socket = socker;
+
+
+                      function postMessage() {
+                        const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
+
+                        // // Assuming user is authenticated and their _id is stored in userId variable
+                        // const userId = `<%= // loggedUser %>`; // Get the authenticated user's _id from session or wherever it's stored
+                        // // console.log('herei s s s s s s s  s ss  s s',userId)
+                        // let obj = {
+                        //   id: recid,
+                        //   message: msgInput.value,
+                        //   userId: userId // Sending authenticated user's _id along with the message
+                        // }
+                        // // console.log('sssssssssssssssssssssssssssssssss',obj)
+                        // socket.on("connect", () => {
+                        //   socket.emit("message", obj);
+                        // });
+
+                        // socket.on("io-recived-message", (message) => {
+                        //                           // this recives the  all cuircuit information
+                        //                           console.log('emited rec')
+                        //                           console.log("io messaage:", message);
+                        //                         });
+
+                        // Rest of your code...
+
+                        // const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
+                        // console.log('------------------------------recid', recid)
+                        //   let obj = {
+                        //   id: recid,
+                        //   message: msgInput.value,
+                        // }
+
+                        // console.log('id---------------',recid,'----------msg',msgInput.value)
+
+                        // socker.on("connect", () => {
+                        //   socker.emit("message", obj);
+                        //   // socker.emit("message", "helllo");
+                        //   socket = socker; // Assign the socket reference when connection is established
+                        //   // console.log(socker.id);
+                        //   socket.on("io-recived-message", (message) => {
+                        //     // this recives the  all cuircuit information
+                        //     console.log("io messaage:", message);
+                        //   });
+
+
+                        // });
+
+                        sendBtn.addEventListener("click", async (e) => {
+                          e.preventDefault(); // Prevent default form submission behavior
+
+                          let recid = document.getElementById('chatName').innerText;
+                          const message = msgInput.value;
+                          // socket.emit("user-message", message);
+
+                          try {
+                            const response = await fetch("http://localhost:3000/chat/", {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json"
+                              },
+                              body: JSON.stringify({ message, recid }) // Send the message in the request body
+                            });
+
+                            if (response.ok) {
+                              console.log("Message sent successfully.");
+                              msgInput.value = "";
+                            } else {
+                              console.error("Failed to send message. Server responded with status:", response.status);
+                            }
+                            msgInput.value = "";
+                            window.location.href = "http://localhost:3000/chat";
+                          } catch (error) {
+                            console.error("Error sending message:", error);
+                          }
+                        });
+
+                      };
+
+
+
+                      // Redirecting the user to a new URL
+
+
+                    </script>
+
+
+                    <!-- <script>
+                                    const socket = io()
+                                    const messageContainer = document.getElementById('message-container')
+                                    const messageForm = document.getElementById('send-container')
+                                    const messageInput = document.getElementById('message-input')
+
+                                    const name = prompt('What is your name?')
+                                    appendMessage('You joined')
+                                    socket.emit('new-user', name)
+
+                                    socket.on('chat-message', data => {
+                                      appendMessage(`${data.name}: ${data.message}`)
+                                    })
+
+                                    socket.on('user-connected', name => {
+                                      appendMessage(`${name} connected`)
+                                    })
+
+                                    socket.on('user-disconnected', name => {
+                                      appendMessage(`${name} disconnected`)
+                                    })
+
+                                    messageForm.addEventListener('submit', e => {
+                                      e.preventDefault()
+                                      const message = messageInput.value
+                                      appendMessage(`You: ${message}`)
+                                      socket.emit('send-chat-message', message)
+                                      messageInput.value = ''
+                                    })
+
+                                    function appendMessage(message) {
+                                      const messageElement = document.createElement('div')
+                                      messageElement.innerText = message
+                                      messageContainer.append(messageElement)
+                                    }
+                            </script>
+ -->
 
                 </form>
               </div>
