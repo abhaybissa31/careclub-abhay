@@ -108,10 +108,10 @@
             </form>
           </div>
           <br>
-
+<!-- recid, createdId, imgTop -->
           <% chatDetails.forEach(element=> { console.log('------chatdetails',chatDetails)%>
             <div class="container peep-msg"
-              onclick="fnRightChats(`<%= element.user_name %>`,`<%= element.user_id %>`,`<%= element.user_Image_URL %>`)"
+              onclick="fnRightChats(`<%= element.user_name %>`,`<%= element.user_id %>`,`<%= element.user_Image_URL %>`); fnName(`<%= element.user_name %>`,`<%= element.user_id %>`,`<%= element.user_Image_URL %>`);"
               style="">
               <div class="row" style="padding:2px;">
                 <div class="leftimg col-2">

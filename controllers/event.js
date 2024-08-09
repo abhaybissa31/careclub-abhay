@@ -65,7 +65,7 @@ const filterevents = async (req, res, eventData) => {
   const filter = req.params.filter;
   // const query = await eventData.find({});
   // res.send(`<h1>hello ${query} from functions hehehe</h1>`);
-  let result1 = await userData.findOne({ _id: req.session.user._id });
+  let result1 = await userData.findOne({ _id: req.user._id });
 
   // ---------------------------------------ALL OVER IFFING -----------------------------------------------
   if (filter == "allover") {
