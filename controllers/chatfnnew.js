@@ -35,10 +35,10 @@ const getInitialChats = async (req, res) => {
     let chatDetails = await chatModel.find({
       $or: [{ sender_id: userId }, { receiver_id: userId }],
     });
-    console.log(
-      "---------------------chat details contains id, senderid, receiverid, msg, createdat, updatedate----------------------------------",
-      chatDetails
-    );
+    // console.log(
+    //   "---------------------chat details contains id, senderid, receiverid, msg, createdat, updatedate----------------------------------",
+    //   chatDetails
+    // );
     const uniqueUserIds = new Set();
 
     // Aggregate unique user IDs from the chat details
@@ -114,30 +114,30 @@ const getInitialChats = async (req, res) => {
     );
     createdId = filterChatData(createdId, userIdString);
 
-    console.log(
-      "------------------------------->>>>>>>>>>>>>>>>>>>created user var \n",
-      createdUser
-    );
-    console.log(
-      "------------------------------->>>>>>>>>>>>>>>>>>>created uname var \n",
-      createdUname
-    );
-    console.log(
-      "------------------------------->>>>>>>>>>>>>>>>>>>created id var \n",
-      createdId
-    );
-    console.log(
-      "------------------------------->>>>>>>>>>>>>>>>>>>created img var \n",
-      createdImg
-    );
-    console.log(
-      "------------------------------->>>>>>>>>>>>>>>>>>>messageWithSenderRec var \n",
-      messagesWithSenderReceiver
-    );
-    console.log(
-      "------------------------------->>>>>>>>>>>>>>>>>>>chatDetails \n",
-      chatDetails
-    );
+    // console.log(
+    //   "------------------------------->>>>>>>>>>>>>>>>>>>created user var \n",
+    //   createdUser
+    // );
+    // console.log(
+    //   "------------------------------->>>>>>>>>>>>>>>>>>>created uname var \n",
+    //   createdUname
+    // );
+    // console.log(
+    //   "------------------------------->>>>>>>>>>>>>>>>>>>created id var \n",
+    //   createdId
+    // );
+    // console.log(
+    //   "------------------------------->>>>>>>>>>>>>>>>>>>created img var \n",
+    //   createdImg
+    // );
+    // console.log(
+    //   "------------------------------->>>>>>>>>>>>>>>>>>>messageWithSenderRec var \n",
+    //   messagesWithSenderReceiver
+    // );
+    // console.log(
+    //   "------------------------------->>>>>>>>>>>>>>>>>>>chatDetails \n",
+    //   chatDetails
+    // );
     res.render("chat", {
       createdUser, //contains receiver username email and imageurl and id
       createdUname, // contains rec user name
@@ -182,14 +182,14 @@ const getRecentMessages = async (req, res, chatId) => {
     sender_id: chatId,
   });
 
-  console.log(
-    "ssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
-    uData
-  );
-  console.log(
-    "------------------------------all chat data variable----------------------------",
-    allChatData
-  );
+  // console.log(
+  //   "ssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  //   uData
+  // );
+  // console.log(
+  //   "------------------------------all chat data variable----------------------------",
+  //   allChatData
+  // );
   // cureent user saari chat
   let temp12 = chatDetailsRec.map((item) => item.msg);
   let chatDetailsSend = sendChat.map((item) => item.msg);
@@ -212,7 +212,7 @@ const postMessages = async (req, res) => {
   let receiver_name = req.body.recid;
   // console.log(req.body.recid);
   let receiver_id = await userData.findOne({ u_name: receiver_name });
-  let recid = receiver_id._id;
+  let recid = await receiver_id._id;
   // console.log('and id is',recid)
   // console.log('recid------------------------------------',receiver_id)
   // console.log('heheheheheheheheheheheheheh',msg);

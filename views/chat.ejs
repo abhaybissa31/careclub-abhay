@@ -8,7 +8,7 @@
   <!-- chat script starting ---------- -->
 
   <script src="/socket.io/socket.io.js"></script>
-
+<script>var socket = io(); console.log('socket loaded')</script>
   <!-- <script defer src="../controllers/script.js"></script> -->
 
   <!-- chat script ending -->
@@ -44,7 +44,7 @@
   <link rel="stylesheet" href="/styles/chat.css">
 </head>
 
-<body style="background-color: #f4f4fa;">
+<body style="background-color: #f4f4fa;" >
 
   <!-- Navbar -->
   <nav class="navbar lpnav navbar-expand-lg mb-4">
@@ -109,77 +109,69 @@
           </div>
           <br>
 <!-- recid, createdId, imgTop -->
-          <% chatDetails.forEach(element=> { console.log('------chatdetails',chatDetails)%>
-            <div class="container peep-msg"
-              onclick="fnRightChats(`<%= element.user_name %>`,`<%= element.user_id %>`,`<%= element.user_Image_URL %>`); 
-              fnName(`<%= element.user_name %>`,`<%= element.user_id %>`,`<%= element.user_Image_URL %>`);"
-              style="">
-              <div class="row" style="padding:2px;">
-                <div class="leftimg col-2">
-                  <% if (element.user_Image_URL) { %>
-                    <img src="<%= element.user_Image_URL %>" alt="">
-                </div>
-                <% }else{ %>
-                  <img src="/images/event/60111.jpg" alt="">
-              </div>
+<% chatDetails.forEach(element => { %>
+  <div class='container peep-msg' 
+       onclick='fnRightChats(`<%= element.user_name %>`, `<%= element.user_id %>`, `<%= element.user_Image_URL %>`); 
+                fnName(`<%= element.user_name %>`, `<%= element.user_id %>`, `<%= element.user_Image_URL %>`);'>
+    
+    <div class="row" style="padding:2px;">
+      <div class="leftimg col-2">
+        <% if (element.user_Image_URL) { %>
+          <img src="<%= element.user_Image_URL %>" alt="">
+        <% } else { %>
+          <img src="/images/event/60111.jpg" alt="">
+        <% } %>
+      </div>
+      
+      <div class="leftname col-10">
+        <%= element.user_name %><br>
+        <label for="" style="display: none;" id="recHiddenId">
+          <%= element.user_id %>
+        </label>
+        <p class="msg-text text-secondary">
+          <%= element.last_message %>
+        </p>
+      </div>
+    </div>
+  </div>
+  <hr>
 
-              <%} %>
+  <script>
+    async function fnRightChats(name, uid, img) {
+      a = document.getElementById('chatName');
+      b = document.getElementById('hiddenChatName');
+      c = document.getElementById('rightImage');
+      a.innerHTML = name;
+      b.value = uid;
+      // console.log(img);
+      if (img.length == 0) { c.src = 'images/event/user.png'; c.style.display='block' } else { c.src = img; c.style.display='block' }
 
-
-                <div class="leftname col-10">
-                  <%= element.user_name %><br>
-
-                    <label for="" style="display: none;" id="recHiddenId">
-                      <%= element.user_id %>
-                    </label>
-                    <p class="msg-text text-secondary">
-                      <%= element.last_message %>
-                    </p>
-                </div>
-
-            </div>
-            <!-- <div class="wrap">
-                <img src="/images/event/60111.jpg" alt="" srcset="">&nbsp;Name
-                <hr>
-              </div> -->
-        </div>
-        <hr>
-        <script>
-          async function fnRightChats(name, uid, img) {
-            a = document.getElementById('chatName');
-            b = document.getElementById('hiddenChatName');
-            c = document.getElementById('rightImage');
-            a.innerHTML = name;
-            b.value = uid;
-            console.log(img);
-            if (img.length == 0) { c.src = 'images/event/user.png'; c.style.display='block' } else { c.src = img; c.style.display='block' }
-
-            try {
-                const response = await fetch(`http://localhost:3000/chat`, {
-                  method: "get",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  // body: JSON.stringify({ recid }) // Send the message in the request body
-                },
-                
-              );
-              // console.log('------------------ressss---------------------',response)
-            }
-                catch (err){
-                    console.error(err);
-                }
-
-                chatDetail = `<%- JSON.stringify(chatDetails)%>`;
-                console.log(typeof(chatDetail));
+      try {
+          const response = await fetch(`http://localhost:3000/chat`, {
+            method: "get",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            // body: JSON.stringify({ recid }) // Send the message in the request body
+          },
+          
+        );
+        // console.log('------------------ressss---------------------',response)
+      }
+          catch (err){
+              console.error(err);
           }
-          // c.src=img;
-          // img = null ?? '/images/event/user.png';
-          // c.src=img;
 
-        </script>
+          chatDetail = `<%- JSON.stringify(chatDetails)%>`;
+          // console.log(typeof(chatDetail));
+    }
+    // c.src=img;
+    // img = null ?? '/images/event/user.png';
+    // c.src=img;
 
-        <% }) %>
+  </script>
+<% }) %>
+
 
 
 
@@ -192,7 +184,7 @@
               let c = document.getElementById('rightImage');
 
 
-              console.log('------------------------------created id-------------', createdId)
+              // console.log('------------------------------created id-------------', createdId)
               chatName.innerText = recid;
               if (imgTop.length == 0) { c.style.display = "block"; c.src = 'images/event/user.png'; } else { c.style.display = "block"; c.src = imgTop }
               hiddenchatName.value = createdId;
@@ -234,7 +226,9 @@
                 allMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
                 // console.log(allMessages)
                 // Append messages to respective containers in conversation order
-                console.log('-ccccccccccccreaaaaaaaaaaaaaaaaaa',allMessages);
+                // console.log('-ccccccccccccreaaaaaaaaaaaaaaaaaa',);
+                '',
+                
                 allMessages.forEach((element) => {
                   let messageText = `${element.msg}`;
                   let time = formatDate(element.createdAt);
@@ -242,7 +236,7 @@
                   let messageContainer = createMessageContainer(messageText, time);
 
                   if (element.sender_id === loggedUser) {
-                    messageContainer.id = "messageLeft"; // Assign unique ID for left-positioned message
+                    messageContainer.id = "messageRight"; // Assign unique ID for left-positioned message
                     pt = document.getElementById('msgShow');
                     pt.append(messageContainer);
                     messageContainer.style.position = "relative";
@@ -250,7 +244,7 @@
                     // messageContainer.style.backgroundColor="black"
                     // pt.style.backgroundColor="black"
                   } else {
-                    messageContainer.id = "messageRight"; // Assign unique ID for right-positioned message
+                    messageContainer.id = "messageLeft"; // Assign unique ID for right-positioned message
 
                     pt = document.getElementById('msgShow');
                     pt.append(messageContainer);
@@ -537,20 +531,21 @@
 
                     <input type="text" class="form-control" placeholder="Write message..." id="message" required= />
 
-                    <button id="send-button" class="material-symbols-outlined" type="button" onclick="postMessage()">
+                    <button id="send-button" class="material-symbols-outlined" type="button" onclick="sendchat();">
                       send
                     </button>
 
                     <script>
                       // Assuming the 'io' variable is defined elsewhere
-                      const socker = io(); // Connect to the server using Socket.IO
+                      // const socker = io(); // Connect to the server using Socket.IO
                       const sendBtn = document.getElementById('send-button');
                       const msgInput = document.getElementById('message');
                       const recMessage = document.getElementById('message-container');
-                      let socket = socker;
+                      // let socket = socker;
 
 
-                      function postMessage() {
+                     async function postMessage() {
+                        console.log('posting started')
                         const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
 
                         // // Assuming user is authenticated and their _id is stored in userId variable
@@ -596,10 +591,10 @@
 
                         // });
 
-                        sendBtn.addEventListener("click", async (e) => {
-                          e.preventDefault(); // Prevent default form submission behavior
+                        // sendBtn.addEventListener("click", async (e) => {
+                          // e.preventDefault(); // Prevent default form submission behavior
 
-                          let recid = document.getElementById('chatName').innerText;
+                          // let recid = document.getElementById('chatName').innerText;
                           const message = msgInput.value;
                           // socket.emit("user-message", message);
 
@@ -618,13 +613,14 @@
                             } else {
                               console.error("Failed to send message. Server responded with status:", response.status);
                             }
-                            msgInput.value = "";
-                            window.location.href = "http://localhost:3000/chat";
+                            // msgInput.value = "";
+                            // window.location.href = "http://localhost:3000/chat";
                           } catch (error) {
                             console.error("Error sending message:", error);
                           }
-                        });
-
+                        // );
+                          console.log('posted eneeness');
+                          // msgInput.value=""; 
                       };
 
 
@@ -694,7 +690,44 @@
   <!-- -----------------------------------------------ending of the right column ----------------------------------------------- -->
   </div>
   </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+ 
+    var form = document.getElementById('send-container');
+    // const sendBtn = document.getElementById('send-button');
+    var messages = document.getElementById('messageLeft');
+    const input = document.getElementById('message');
+    async function sendchat (){
+      console.log('sendchatworking')
+    
+  // var input = document.getElementById('input');
 
+  sendBtn.addEventListener('click',  function(e) {
+    console.log('buttoneventlistnertriggered')
+    e.preventDefault();
+    if (input.value) {
+      socket.emit('chat message', input.value);
+      input.value = '';
+    }
+  });
+
+  socket.on('chat message',  function(msg) {
+    console.log('recmesgtriggered')
+    var  item = document.createElement('p');
+    if (msg=="") {
+      console.log('no msg')
+    }
+    console.log(msg)
+    item.textContent = msg;
+    item.innerHTML = msg;
+    // messages.innerHTML=item;
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+   postMessage();
+ 
+}
+  </script>
 
 </body>
 
