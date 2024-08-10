@@ -538,13 +538,13 @@
                     <script>
                       // Assuming the 'io' variable is defined elsewhere
                       // const socker = io(); // Connect to the server using Socket.IO
-                      const sendBtn = document.getElementById('send-button');
                       const msgInput = document.getElementById('message');
                       const recMessage = document.getElementById('message-container');
                       // let socket = socker;
-
-
-                     async function postMessage() {
+                      
+                      
+                      async function postMessage() {
+                       const sendBtn = document.getElementById('send-button');
                         console.log('posting started')
                         const recid = document.getElementById('hiddenChatName').value; // Recipient's ID
 
@@ -619,7 +619,7 @@
                             console.error("Error sending message:", error);
                           }
                         // );
-                          console.log('posted eneeness');
+                          console.log(recid);
                           // msgInput.value=""; 
                       };
 
@@ -692,41 +692,80 @@
   </div>
   <script src="/socket.io/socket.io.js"></script>
   <script>
- 
-    var form = document.getElementById('send-container');
-    // const sendBtn = document.getElementById('send-button');
-    var messages = document.getElementById('messageLeft');
-    const input = document.getElementById('message');
-    async function sendchat (){
-      console.log('sendchatworking')
+ var form = document.getElementById('send-container');
+const sendBtn = document.getElementById('send-button');
+const input = document.getElementById('message');
+
+sendBtn.addEventListener('click', function(e) {
+  console.log('buttoneventlistnertriggered');
+  e.preventDefault();
+
+  if (input.value) {
+    socket.emit('chat message', input.value);
+    if(input.value==""){
+      input.value = "  ";
+    }
+    var item = document.createElement('p');
+    // item.textContent = input.value;
+    //       item.innerHTML = input.value;
+    //       item.value=input.value;
+    //       console.log('-------------------------------inpout',input.value)
+    const messageRight = document.getElementById('messageRight'); // Get the div element
+  
+  // Create a paragraph element
+  const paragraph = document.createElement('p');
+  
+  // Set the paragraph content
+  paragraph.textContent = input.value; // Replace this with your desired output
+  
+  // Append the paragraph to the div
+  messageRight.prepend(paragraph);
+  
+    input.value = '';
     
-  // var input = document.getElementById('input');
+  }
+});
 
-  sendBtn.addEventListener('click',  function(e) {
-    console.log('buttoneventlistnertriggered')
-    e.preventDefault();
-    if (input.value) {
-      socket.emit('chat message', input.value);
-      input.value = '';
-    }
-  });
 
-  socket.on('chat message',  function(msg) {
-    console.log('recmesgtriggered')
-    var  item = document.createElement('p');
-    if (msg=="") {
-      console.log('no msg')
-    }
-    console.log(msg)
-    item.textContent = msg;
-    item.innerHTML = msg;
-    // messages.innerHTML=item;
-    window.scrollTo(0, document.body.scrollHeight);
-  });
+async function sendchat() {
+  
 
-   postMessage();
- 
+    console.log('sendchatworking');
+    
+    // Add event listener inside the function
+    
+    // Listen for incoming chat messages
+    socket.on('chat message', function(msg) {
+        console.log('recmesgtriggered');
+        
+        var item = document.createElement('p');
+        if (msg == "") {
+            console.log('no msg');
+        }
+        
+        console.log(msg);
+        item.textContent = msg;
+        item.innerHTML = msg;
+        item.value=msg;
+        // messages.appendChild(item);
+        var messages = document.getElementById('messageLeft');
+  if (!messages) {
+    // If it doesn't exist, create it
+    messages = document.createElement('div');
+    messages.id = 'messageLeft';
+    document.getElementById('messageRight').appendChild(item);
+     // Append it to the body or another container
+  }
+        // Add the new message to the messages container
+        
+        // // Scroll to the bottom of the messages container
+        // messages.scrollTop = messages.scrollHeight;
+    });
+
+    // Perform additional actions like sending a message
+    postMessage();
 }
+
   </script>
 
 </body>

@@ -210,10 +210,12 @@ const postMessages = async (req, res) => {
   const sender_id = req.user._id;
 
   let receiver_name = req.body.recid;
-  // console.log(req.body.recid);
-  let receiver_id = await userData.findOne({ u_name: receiver_name });
-  let recid = await receiver_id._id;
-  // console.log('and id is',recid)
+  // console.log("recivername variable", receiver_name);
+  // // console.log(req.body.recid);
+  // let receiver_id = await userData.findOne({ u_name: receiver_name });
+  // console.log("reciverID variable", receiver_id);
+  // let recid = await receiver_id._id;
+  // console.log("recid variable", recid);
   // console.log('recid------------------------------------',receiver_id)
   // console.log('heheheheheheheheheheheheheh',msg);
 
@@ -222,21 +224,17 @@ const postMessages = async (req, res) => {
       .create({
         sender_id: sender_id,
         msg: message,
-        receiver_id: recid,
+        receiver_id: receiver_name,
       })
-      .then(() => console.log("message saved success", recid));
+      .then(() => console.log("message saved success", receiver_name));
   }
   // console.log('id is--------------------------------',receiver_id)
   // Handle the message as needed
   res.sendStatus(200); // Send a response in
 };
 
-const getChats2 = async (req, res, uname) => {
-  // console.log(uname);
-};
 module.exports = {
   getInitialChats,
   postMessages,
-  getChats2,
   getRecentMessages,
 };
