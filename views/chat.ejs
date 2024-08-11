@@ -479,7 +479,7 @@
           <!-- Chat inbox  -->
           <div class="chat-page">
             <div class="msg-inbox">
-              <div class="chats" style="overflow-y: scroll;height:600px;">
+              <div class="chats" id="chatScroll" style="overflow-y: scroll;height:600px;">
                 <div class="cen">
                   <!-- <img src="/images/event/60111.jpg" alt="" id="imgP"> -->
                   <p id="msgShow" class="received-msg-inbox">
@@ -747,13 +747,18 @@ async function sendchat() {
         item.textContent = msg;
         item.innerHTML = msg;
         item.value=msg;
-        // messages.appendChild(item);
+        messages = document.createElement('div');
+    messages.id = 'messageLeft';
+    document.replaceChild('messageLeft');
+    var chatEl = document.getElementById('chatScroll');
+    chatEl.scrollTop = chatEl.scrollHeight;
+
         var messages = document.getElementById('messageLeft');
   if (!messages) {
     // If it doesn't exist, create it
     messages = document.createElement('div');
     messages.id = 'messageLeft';
-    document.getElementById('messageRight').appendChild(item);
+    document.replaceChild('messageRight',item);
      // Append it to the body or another container
   }
         // Add the new message to the messages container
